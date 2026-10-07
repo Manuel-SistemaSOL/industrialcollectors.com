@@ -1,0 +1,18 @@
+# robots.txt - La Broca Ferreterías
+
+User-agent: *
+Allow: /
+
+# Archivos internos que no forman parte del contenido público
+Disallow: /assets/php/
+Disallow: /api/
+Allow: /api/shop_products.php
+
+# Recursos públicos necesarios
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/img/
+Allow: /files/
+
+Sitemap: https://labrocaferreterias.com/sitemap.xml
+Sitemap: https://labrocaferreterias.com/sitemap-products.xml

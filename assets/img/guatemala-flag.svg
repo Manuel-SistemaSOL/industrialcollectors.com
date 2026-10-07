@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40" role="img" aria-labelledby="title">
+  <title>Bandera de Guatemala</title>
+  <rect width="60" height="40" rx="8" fill="#ffffff"/>
+  <path fill="#5ab4e6" d="M0 8a8 8 0 0 1 8-8h10v40H8a8 8 0 0 1-8-8z"/>
+  <path fill="#5ab4e6" d="M42 0h10a8 8 0 0 1 8 8v24a8 8 0 0 1-8 8H42z"/>
+  <circle cx="30" cy="20" r="5.3" fill="#e5b54d"/>
+  <path fill="#3d7d4b" d="M25.7 23.6c4.2-1.7 6.7-4.5 8-8.1 1.8 4.7-.3 8.9-5.4 10.3z"/>
+  <path fill="#3d7d4b" d="M34.3 23.6c-4.2-1.7-6.7-4.5-8-8.1-1.8 4.7.3 8.9 5.4 10.3z"/>
+  <path fill="#8a6438" d="M24.8 23.8 36 15.6l.8 1-11.2 8.2zm-.8-7.2.8-1L36 23.8l-.8 1z"/>
+  <circle cx="30" cy="20" r="2.5" fill="#f6f8fb" stroke="#24476a" stroke-width=".8"/>
+</svg>
