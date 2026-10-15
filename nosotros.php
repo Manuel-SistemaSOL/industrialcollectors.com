@@ -1,14 +1,14 @@
 <?php
 // SEO para la pagina nosotros
-$seo_title = "Nosotros - La Broca Ferreterías";
-$seo_description = "Conoce La Broca Ferreterías, ferretería fundada en 2012 con productos, herramientas y soluciones para hogares, profesionales y construcción.";
-$seo_keywords = "nosotros la broca ferreterías, ferretería, herramientas, construcción, plomería, electricidad, pintura";
+$seo_title = "Nosotros - Industrial Collectors, S.A.";
+$seo_description = "Conoce Industrial Collectors, S.A., empresa dedicada a la distribución y comercialización de materiales metálicos para construcción.";
+$seo_keywords = "nosotros Industrial Collectors, S.A., materiales metálicos, perfilería, construcción";
 
 include 'head.php';
 $current_page = basename($_SERVER['PHP_SELF']);
 
 // Cargar datos desde la API
-$apiUrl = "https://ssl.sol.sistemasolgt.com/brovic/api/api_tienda_nosotros.php";
+$apiUrl = "https://ssl.sol.sistemasolgt.com/induscollesitio/api/api_tienda_nosotros.php";
 $nosotros = null;
 
 $ch = curl_init($apiUrl);
@@ -53,7 +53,7 @@ $rutaImagenes = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
 
 <style>
     .about-layout {
-        background: #e5e5e5;
+        background: #F3F5F7;
         padding: 32px 0 60px;
     }
 
@@ -78,7 +78,7 @@ $rutaImagenes = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
         left: 0;
         width: 100%;
         height: 6px;
-        background: #151515;
+        background: #1D1D1B;
         pointer-events: none;
     }
 
@@ -110,7 +110,7 @@ $rutaImagenes = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
     .about-mini-card h3,
     .about-difference-card h3 {
         margin: 0 0 22px;
-        color: #1b2e69;
+        color: #1D71B8;
         font-size: 34px;
         font-weight: 800;
         line-height: 1.08;
@@ -200,7 +200,7 @@ $rutaImagenes = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
     }
 
     .about-difference-list li i {
-        color: #ffd000;
+        color: #1D71B8;
         margin-top: 5px;
         font-size: 14px;
     }
@@ -292,18 +292,18 @@ $rutaImagenes = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
                         <?php if ($nosotros && !empty($nosotros['historia_empresa'])): ?>
                             <div><?= nl2br(htmlspecialchars($nosotros['historia_empresa'])) ?></div>
                         <?php else: ?>
-                            <p>La Broca Ferreter&iacute;as inici&oacute; en 2012 con un objetivo claro: abrirse paso en el mercado y convertirse en un aliado de confianza para cada proyecto.</p>
-                            <p>Su crecimiento ha sido resultado del esfuerzo diario, la superaci&oacute;n constante de retos y el compromiso con sus clientes. Con el paso de los a&ntilde;os ha construido una trayectoria basada en la calidad, la resiliencia, la atenci&oacute;n personalizada y el buen servicio.</p>
-                            <p>Actualmente contin&uacute;a creciendo con la misma pasi&oacute;n de sus inicios y busca ampliar su presencia tambi&eacute;n mediante su plataforma digital.</p>
+                            <p>Industrial Collectors, S.A. trabaja para ofrecer soluciones en materiales metálicos, respaldadas por un amplio inventario, atención profesional y productos de marcas reconocidas.</p>
+                            <p>Proveemos materiales metálicos para proyectos de construcción, con amplio inventario para despachos al por mayor y menor.</p>
+                            <p>Comercializamos perfilería, láminas, tubos, vigas, costaneras e hierro de construcción.</p>
                         <?php endif; ?>
                     </div>
                 </div>
 
                 <div class="about-art-card">
                     <?php if ($nosotros && !empty($nosotros['imagen_nosotros'])): ?>
-                        <img src="<?= $rutaImagenes . htmlspecialchars($nosotros['imagen_nosotros']) ?>" alt="La Broca Ferreterías - Nosotros">
+                        <img src="<?= $rutaImagenes . htmlspecialchars($nosotros['imagen_nosotros']) ?>" alt="Industrial Collectors, S.A. - Nosotros">
                     <?php else: ?>
-                        <img src="assets/img/Sucursal/labroca_Sucursal.png" alt="Sucursal de La Broca Ferreterías">
+                        <img src="assets/img/Sucursal/Fachada de Industrial Collectors.png" alt="Sucursal de Industrial Collectors, S.A.">
                     <?php endif; ?>
                 </div>
             </div>
@@ -315,7 +315,7 @@ $rutaImagenes = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
                 <?php if ($nosotros && !empty($nosotros['mision_nosotros'])): ?>
                     <p><?= nl2br(htmlspecialchars($nosotros['mision_nosotros'])) ?></p>
                 <?php else: ?>
-                    <p>Brindar a nuestros clientes productos de ferreter&iacute;a, herramientas y soluciones de calidad, ofreciendo una experiencia de compra f&aacute;cil, r&aacute;pida y confiable tanto en nuestra tienda f&iacute;sica como online. Trabajamos para satisfacer las necesidades de hogares, profesionales y proyectos de construcci&oacute;n, mediante atenci&oacute;n personalizada, precios competitivos y un servicio comprometido.</p>
+                    <p>Proveemos perfilería de metal, láminas, tubos, vigas, costanera y hierro de construcción, con amplio inventario para despachos al por mayor y menor, con la garantía de las principales marcas del mercado.</p>
                 <?php endif; ?>
             </div>
 
@@ -324,7 +324,7 @@ $rutaImagenes = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
                 <?php if ($nosotros && !empty($nosotros['vision_nosotros'])): ?>
                     <p><?= nl2br(htmlspecialchars($nosotros['vision_nosotros'])) ?></p>
                 <?php else: ?>
-                    <p>Ser una ferreter&iacute;a reconocida y de confianza, destac&aacute;ndonos por nuestra amplia variedad de productos, precios competitivos, atenci&oacute;n de calidad y rapidez en el servicio. Buscamos crecer constantemente y convertirnos en una de las opciones preferidas para quienes necesitan herramientas, materiales y soluciones para sus proyectos.</p>
+                    <p>Ser la red de distribución de materiales metálicos más eficiente y confiable de la región, destacada por nuestra variedad, innovación y servicio al cliente.</p>
                 <?php endif; ?>
             </div>
         </div>
@@ -346,9 +346,9 @@ $rutaImagenes = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
                     endforeach;
                     ?>
                 <?php else: ?>
-                    <li><i class="flaticon-check"></i><span>Productos de ferreter&iacute;a y herramientas para hogares, profesionales y construcci&oacute;n.</span></li>
+                    <li><i class="flaticon-check"></i><span>Materiales metálicos para proyectos de construcción.</span></li>
                     <li><i class="flaticon-check"></i><span>Atenci&oacute;n personalizada y servicio comprometido.</span></li>
-                    <li><i class="flaticon-check"></i><span>Precios competitivos y experiencia de compra confiable.</span></li>
+                    <li><i class="flaticon-check"></i><span>Amplio inventario para despachos al por mayor y menor.</span></li>
                 <?php endif; ?>
             </ul>
         </div>

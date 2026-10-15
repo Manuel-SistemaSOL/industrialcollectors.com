@@ -1,4 +1,4 @@
-window.BM_PRODUCT_IMAGE_FALLBACK = window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalLABROCA.png';
+window.BM_PRODUCT_IMAGE_FALLBACK = window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
 
 jQuery(function ($) {
     'use strict';
@@ -808,7 +808,7 @@ document.addEventListener('click', function(event) {
 
         producto = normalizarPreciosProducto(producto);
 
-        const imagenFallback = window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalLABROCA.png';
+        const imagenFallback = window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
         mpImagenes = Array.isArray(producto.imagenes) && producto.imagenes.length
             ? producto.imagenes
             : [producto.imagen].filter(function (img) {
@@ -928,7 +928,7 @@ document.addEventListener('click', function(event) {
 
         const nombre = mpProductoActual.nombre || 'Producto';
         const precio = formatearPrecioProducto(obtenerPrecioFinalProducto(mpProductoActual));
-        return `Mira este producto en La Broca Ferreterías\n\n${nombre}\nPrecio: Q${precio}\n\n${obtenerUrlProducto()}`;
+        return `Mira este producto en Industrial Collectors, S.A.\n\n${nombre}\nPrecio: Q${precio}\n\n${obtenerUrlProducto()}`;
     }
 
     function compartirWhatsApp(event) {

@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     window.bmLoadSpecialProducts({
-        apiUrl: "https://ssl.sol.sistemasolgt.com/brovic/api/api_tienda_ofertas.php",
+        apiUrl: "https://ssl.sol.sistemasolgt.com/induscollesitio/api/api_tienda_ofertas.php",
         tagText: "Oferta",
         errorLabel: "promociones"
     });

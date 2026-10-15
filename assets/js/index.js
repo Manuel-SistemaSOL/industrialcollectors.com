@@ -109,7 +109,7 @@ function resolverImagenProductoInicio(producto) {
     const invalidas = ["", "0", "404", "404.png", "null", "undefined", "nofoto", "nofoto.jpg", "nofoto.png", "no-foto", "no-foto.jpg", "no-foto.png", "sin imagen", "sin-imagen", "sin-imagen.jpg", "sin-imagen.png", "n/a"];
 
     if (invalidas.includes(imagen.toLowerCase()) || imagen.includes("..")) {
-        return window.BM_PRODUCT_IMAGE_FALLBACK || "assets/img/ImagenTemporalLABROCA.png";
+        return window.BM_PRODUCT_IMAGE_FALLBACK || "assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png";
     }
 
     if (/^https?:\/\//i.test(imagen)) {
@@ -327,7 +327,7 @@ function cargarCategoriaDestacadaInicio(tab, usarBusqueda) {
 
 function obtenerHtmlProductoInicio(producto, etiqueta) {
     const imagen = resolverImagenProductoInicio(producto);
-    const fallback = window.BM_PRODUCT_IMAGE_FALLBACK || "assets/img/ImagenTemporalLABROCA.png";
+    const fallback = window.BM_PRODUCT_IMAGE_FALLBACK || "assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png";
     const claseImagenFallback = typeof window.BM_isProductImageFallbackUrl === "function" && window.BM_isProductImageFallbackUrl(imagen)
         ? " class=\"bm-product-image-fallback\""
         : "";

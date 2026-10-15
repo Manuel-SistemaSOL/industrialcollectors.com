@@ -7,7 +7,7 @@ const CYBERSOURCE_CHECKOUT_URL = (window.CYBERSOURCE_CHECKOUT_URL || 'api/cybers
 const ORDER_CREATE_QUOTE_URL = (window.ORDER_CREATE_QUOTE_URL || 'api/orders/create_quote.php').trim();
 const CYBERSOURCE_CSRF_TOKEN = (window.CYBERSOURCE_CSRF_TOKEN || '').trim();
 const NEONET_PAYMENT_EVENT_KEY = 'beautymarket_neonet_payment_approved';
-const BEAUTY_MARKET_LOGO_URL = 'assets/img/LogoLaBroca.png';
+const BEAUTY_MARKET_LOGO_URL = 'assets/img/logotipo IC/version horizontal/Logo-Industrial-Collectors-horizontal.png';
 
 const ETIQUETAS_FORMA_PAGO = {
     contra_entrega: 'Pago Contra Entrega',
@@ -266,7 +266,7 @@ function cargarCarrito() {
     carrito.forEach((producto) => {
         const imagen = typeof window.BM_resolveProductImage === 'function'
             ? window.BM_resolveProductImage(producto.imagen)
-            : (producto.imagen || (window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalLABROCA.png'));
+            : (producto.imagen || (window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png'));
         const precio = parseFloat(producto.precio_normal || producto.precio) || 0;
         const cantidad = Carrito.normalizarCantidad(producto.cantidad || 1);
         const total = precio * cantidad;
@@ -285,7 +285,7 @@ function cargarCarrito() {
                     <i class='bx bx-x'></i>
                 </a>
                 <a href="#">
-                    <img src="${imagenProducto}" alt="${nombreProducto}"${claseImagenFallback} onerror="window.BM_applyProductImageFallback ? window.BM_applyProductImageFallback(this) : (this.onerror=null,this.src='${window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalLABROCA.png'}')">
+                    <img src="${imagenProducto}" alt="${nombreProducto}"${claseImagenFallback} onerror="window.BM_applyProductImageFallback ? window.BM_applyProductImageFallback(this) : (this.onerror=null,this.src='${window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png'}')">
                 </a>
             </td>
             <td class="product-name">
@@ -559,15 +559,15 @@ function abrirVentanaPagoPendiente() {
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>La Broca Ferreterías</title>
+            <title>Industrial Collectors, S.A.</title>
             <style>
                 *{box-sizing:border-box}
                 body{margin:0;display:grid;min-height:100vh;place-items:center;background:#fff}
-                .logo{display:block;width:min(300px,70vw);height:auto;opacity:.72}
+                .logo{display:block;width:min(300px,70vw);height:auto}
             </style>
         </head>
         <body>
-            <img class="logo" src="${BEAUTY_MARKET_LOGO_URL}" alt="La Broca Ferreterías">
+            <img class="logo" src="${BEAUTY_MARKET_LOGO_URL}" alt="Industrial Collectors, S.A.">
         </body>
         </html>
     `);

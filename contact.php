@@ -1,10 +1,10 @@
 <?php
 // SEO para la página de contacto
-$seo_title = "Contacto | La Broca Ferreterías";
+$seo_title = "Contacto | Industrial Collectors, S.A.";
 
-$seo_description = "Contacta con La Broca Ferreterías para consultas, pedidos, herramientas, materiales de construcción, plomería, electricidad y pintura.";
+$seo_description = "Comunícate con Industrial Collectors, S.A. para obtener información sobre materiales metálicos, disponibilidad y atención comercial.";
 
-$seo_canonical_url = "https://labrocaferreterias.com/contact.php";
+$seo_canonical_url = "https://industrialcollectors.com/contact.php";
 
 $seo_robots = "index, follow, max-image-preview:large";
 
@@ -12,11 +12,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 include 'head.php';
 
-$contactMapsRedirectUrl = 'https://maps.app.goo.gl/e9zCfSJCzeR73RYs6?g_st=aw';
+$contactMapsRedirectUrl = 'https://www.google.com/maps/place/Industrial+Collectors,+Sociedad+Anonima/@14.4997744,-90.5727928,17z/data=!3m1!4b1!4m6!3m5!1s0x8589a7d8fa371829:0x595712d23c4afc73!8m2!3d14.4997692!4d-90.5702179!16s%2Fg%2F11s4x7wnjq';
 $contactGoogleMapsUrl = $contactMapsRedirectUrl;
 $contactWazeUrl = $contactMapsRedirectUrl;
-$contactWhatsappUrl = 'https://wa.me/50243143784';
-$contactHeroImage = file_exists(__DIR__ . '/assets/img/paginaImagenes/contactanos.png') ? 'assets/img/paginaImagenes/contactanos.png' : (file_exists(__DIR__ . '/assets/img/ImagenTemporalLABROCA.png') ? 'assets/img/ImagenTemporalLABROCA.png' : 'assets/img/404.png');
+$contactBranch2MapsUrl = 'https://maps.app.goo.gl/3STSkC7LyjqwT6Ai9?g_st=aw';
+$contactWhatsappUrl = 'https://wa.me/50230888818';
+$contactHeroImage = file_exists(__DIR__ . '/assets/img/paginaImagenes/contactanos.png') ? 'assets/img/paginaImagenes/contactanos.png' : (file_exists(__DIR__ . '/assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png') ? 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png' : 'assets/img/404.png');
 $contactHeroImageVersion = file_exists(__DIR__ . '/' . $contactHeroImage) ? filemtime(__DIR__ . '/' . $contactHeroImage) : '1';
 $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
 ?>
@@ -27,7 +28,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
     <div class="container">
         <article class="category-intro-card">
             <div class="category-intro-image">
-                <img src="<?php echo htmlspecialchars($contactHeroImageSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="Contacto con La Broca Ferreterías" loading="eager" decoding="async">
+                <img src="<?php echo htmlspecialchars($contactHeroImageSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="Contacto con Industrial Collectors, S.A." loading="eager" decoding="async">
             </div>
         </article>
     </div>
@@ -88,35 +89,71 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
 
                 <div class="contact-branch-panel">
                     <div class="contact-section-title">
-                        <h2>Nuestra tienda</h2>
+                        <h2>Nuestras sucursales</h2>
                     </div>
 
                     <article class="contact-branch-card">
                         <div class="contact-branch-main">
                             <div class="contact-branch-photo">
-                                <img src="assets/img/Sucursal/labroca_Sucursal.png" alt="Fachada de La Broca Ferreterías">
+                                <img src="assets/img/Sucursal/Fachada de Industrial Collectors.png" alt="Fachada de Industrial Collectors, S.A.">
                             </div>
 
                             <div class="contact-branch-info">
-                                <h3>La Broca Ferreter&iacute;as</h3>
-                                <p class="contact-branch-address">32 avenida A, 28-31, zona 5, Santa Ana. A unos pasos del Mercado Santa Ana.</p>
+                                <h3>Industrial Collectors, S.A. — Sucursal 1</h3>
+                                <p class="contact-branch-address">6 calle 13-10, zona 10, Finca El Carmen, San Miguel Petapa, Guatemala</p>
 
                                 <ul class="contact-branch-list">
                                     <li><span class="branch-status-dot"></span>Atenci&oacute;n en tienda</li>
-                                    <li><i class='bx bx-phone-call'></i><a href="tel:+50243143784">+502 4314 3784</a><span>/</span><a href="https://wa.me/50243143784" target="_blank" rel="noopener">WhatsApp</a></li>
-                                    <li><i class='bx bx-envelope'></i><a href="mailto:labrocaferreterias01@gmail.com">labrocaferreterias01@gmail.com</a></li>
-                                    <li><i class='bx bx-time-five'></i>Abierto todos los d&iacute;as de 7:00 a. m. a 6:00 p. m.</li>
-                                    <li><i class='bx bx-map'></i>A unos pasos del Mercado Santa Ana.</li>
+                                    <li><i class='bx bx-phone-call'></i><a href="tel:+50232001888">+502 3200 1888</a><span>/</span><a href="https://wa.me/50230888818" target="_blank" rel="noopener">WhatsApp: 3088-8818</a></li>
+                                    <li><i class='bx bx-envelope'></i><a href="mailto:industrialcollectorsventas@gmail.com">industrialcollectorsventas@gmail.com</a></li>
+                                    <li><i class='bx bx-time-five'></i>Lunes a viernes: 7:00 a. m. a 6:00 p. m. Sábado: 7:00 a. m. a 4:00 p. m.</li>
+                                    <li><i class='bx bx-map'></i>Finca El Carmen, San Miguel Petapa.</li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="contact-branch-actions">
-                            <a class="contact-location-action contact-location-action-maps" href="<?php echo htmlspecialchars($contactGoogleMapsUrl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener" aria-label="Abrir ubicación en Google Maps">
+                            <a class="contact-location-action contact-location-action-maps" href="<?php echo htmlspecialchars($contactGoogleMapsUrl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener" aria-label="Abrir ubicación de sucursal 1 en Google Maps">
                                 Ir con Maps
                                 <img src="assets/img/Sucursal/GoogleMaps.png" alt="" aria-hidden="true">
                             </a>
-                            <a class="contact-location-action contact-location-action-waze" href="<?php echo htmlspecialchars($contactWazeUrl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener" aria-label="Abrir ubicación en Waze">
+                            <a class="contact-location-action contact-location-action-waze" href="<?php echo htmlspecialchars($contactWazeUrl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener" aria-label="Abrir ubicación de sucursal 1 en Waze">
+                                Ir con Waze
+                                <img src="assets/img/Sucursal/Waze.png" alt="" aria-hidden="true">
+                            </a>
+                            <a class="contact-location-action contact-location-action-whatsapp" href="<?php echo htmlspecialchars($contactWhatsappUrl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener" aria-label="Chatear por WhatsApp">
+                                WhatsApp
+                                <i class='bx bxl-whatsapp'></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="contact-branch-card">
+                        <div class="contact-branch-main">
+                            <div class="contact-branch-photo">
+                                <img src="assets/img/Sucursal/Fachada de Industrial Collectors.png" alt="Fachada de Industrial Collectors, S.A.">
+                            </div>
+
+                            <div class="contact-branch-info">
+                                <h3>Industrial Collectors, S.A. — Sucursal 2</h3>
+                                <p class="contact-branch-address">Calle Real a San Miguel Petapa, 21-20 zona 10, La Enriqueta, Guatemala</p>
+
+                                <ul class="contact-branch-list">
+                                    <li><span class="branch-status-dot"></span>Atenci&oacute;n en tienda</li>
+                                    <li><i class='bx bx-phone-call'></i><a href="tel:+50232001888">+502 3200 1888</a><span>/</span><a href="https://wa.me/50230888818" target="_blank" rel="noopener">WhatsApp: 3088-8818</a></li>
+                                    <li><i class='bx bx-envelope'></i><a href="mailto:industrialcollectorsventas@gmail.com">industrialcollectorsventas@gmail.com</a></li>
+                                    <li><i class='bx bx-time-five'></i>Lunes a viernes: 7:00 a. m. a 6:00 p. m. Sábado: 7:00 a. m. a 4:00 p. m.</li>
+                                    <li><i class='bx bx-map'></i>La Enriqueta, Guatemala.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="contact-branch-actions">
+                            <a class="contact-location-action contact-location-action-maps" href="<?php echo htmlspecialchars($contactBranch2MapsUrl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener" aria-label="Abrir ubicación de sucursal 2 en Google Maps">
+                                Ir con Maps
+                                <img src="assets/img/Sucursal/GoogleMaps.png" alt="" aria-hidden="true">
+                            </a>
+                            <a class="contact-location-action contact-location-action-waze" href="<?php echo htmlspecialchars($contactBranch2MapsUrl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener" aria-label="Abrir ubicación de sucursal 2 en Waze">
                                 Ir con Waze
                                 <img src="assets/img/Sucursal/Waze.png" alt="" aria-hidden="true">
                             </a>
@@ -158,7 +195,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
     }
 
     .contact-section-title::after {
-        background: #24376d;
+        background: #1D71B8;
         bottom: -1px;
         content: "";
         height: 2px;
@@ -168,7 +205,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
     }
 
     .contact-section-title h2 {
-        color: #151515;
+        color: #1D1D1B;
         font-size: 26px;
         font-weight: 700;
         line-height: 1.25;
@@ -198,7 +235,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
     }
 
     .contact-clean-form label {
-        color: #151515;
+        color: #1D1D1B;
         display: block;
         font-size: 14px;
         font-weight: 400;
@@ -211,7 +248,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
         border: 1px solid #d6deec;
         border-radius: 5px;
         box-shadow: none !important;
-        color: #151515;
+        color: #1D1D1B;
         font-size: 15px;
         height: 58px;
         padding: 12px 14px;
@@ -219,8 +256,8 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
     }
 
     .contact-clean-form .form-control:focus {
-        border-color: #ffd000;
-        box-shadow: 0 0 0 3px rgba(255, 208, 0, 0.18) !important;
+        border-color: #1D71B8;
+        box-shadow: 0 0 0 3px rgba(29, 113, 184, 0.18) !important;
     }
 
     .contact-clean-form textarea.form-control {
@@ -238,7 +275,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
 
     .contact-submit-btn {
         align-items: center;
-        background: #24376d;
+        background: #1D71B8;
         border: 0;
         border-radius: 4px;
         color: #ffffff;
@@ -253,7 +290,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
     }
 
     .contact-submit-btn:hover {
-        background: #ffd000;
+        background: #1D71B8;
         box-shadow: 0 10px 22px rgba(21, 21, 21, 0.16);
         color: #ffffff;
         transform: translateY(-1px);
@@ -274,7 +311,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
 
     .contact-branch-card {
         background: #ffffff;
-        border: 1.5px solid #24376d;
+        border: 1.5px solid #1D71B8;
         border-radius: 18px;
         box-shadow: 0 18px 45px rgba(36, 55, 109, 0.08);
         margin: 34px auto 0;
@@ -305,7 +342,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
     }
 
     .contact-branch-info h3 {
-        color: #ffd000;
+        color: #1D71B8;
         font-size: 22px;
         font-weight: 700;
         line-height: 1.2;
@@ -314,7 +351,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
 
     .contact-branch-address {
         border-bottom: 1px solid #d7deeb;
-        color: #151515;
+        color: #1D1D1B;
         font-size: 12px;
         line-height: 1.4;
         margin: 0;
@@ -329,7 +366,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
 
     .contact-branch-list li {
         align-items: center;
-        color: #151515;
+        color: #1D1D1B;
         display: flex;
         flex-wrap: wrap;
         font-size: 12px;
@@ -339,17 +376,17 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
     }
 
     .contact-branch-list i {
-        color: #24376d;
+        color: #1D71B8;
         font-size: 15px;
         line-height: 1;
     }
 
     .contact-branch-list a {
-        color: #151515;
+        color: #1D1D1B;
     }
 
     .contact-branch-list a:hover {
-        color: #ffd000;
+        color: #1D71B8;
     }
 
     .branch-status-dot {
@@ -388,10 +425,10 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
     }
 
     .contact-branch-actions a:hover {
-        background: #fffaf0;
-        border-color: #ffd000;
-        box-shadow: 0 12px 24px rgba(255, 208, 0, 0.14);
-        color: #151515;
+        background: #F3F5F7;
+        border-color: #1D71B8;
+        box-shadow: 0 12px 24px rgba(29, 113, 184, 0.14);
+        color: #1D1D1B;
         transform: translateY(-1px);
     }
 

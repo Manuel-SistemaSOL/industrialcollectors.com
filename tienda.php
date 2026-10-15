@@ -1,10 +1,10 @@
 <?php 
 // SEO para la página de tienda
-$seo_title = "Tienda | La Broca Ferreterías";
+$seo_title = "Tienda | Industrial Collectors, S.A.";
 
-$seo_description = "Explora herramientas, materiales de construcción, plomería, electricidad, pintura y productos de ferretería disponibles en La Broca Ferreterías.";
+$seo_description = "Explora perfilería, láminas, tubos, vigas, costaneras y hierro de construcción disponibles en Industrial Collectors, S.A.";
 
-$seo_canonical_url = "https://labrocaferreterias.com/tienda.php";
+$seo_canonical_url = "https://industrialcollectors.com/tienda.php";
 
 $tiene_filtros_seo =
     !empty($_GET['categoria']) ||
@@ -64,7 +64,7 @@ if ($ofertasActivas) {
 $vistaGeneralActiva = ($categoriaActiva === '' && $busquedaActiva === '' && !$ofertasActivas);
 $tiendaSinFiltrosActivos = ($categoriaActiva === '' && $busquedaActiva === '' && !$ofertasActivas);
 $mostrarSidebarTienda = true;
-$bmProductsHeroImage = bm_asset_path_if_exists('assets/img/paginaImagenes/productos.png') ?: bm_asset_path_if_exists('assets/img/ImagenTemporalLABROCA.png') ?: bm_asset_path_if_exists('assets/img/404.png');
+$bmProductsHeroImage = bm_asset_path_if_exists('assets/img/paginaImagenes/productos.png') ?: bm_asset_path_if_exists('assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png') ?: bm_asset_path_if_exists('assets/img/404.png');
 $bmProductsHeroImageVersion = $bmProductsHeroImage !== '' && file_exists(__DIR__ . '/' . $bmProductsHeroImage) ? filemtime(__DIR__ . '/' . $bmProductsHeroImage) : '1';
 $bmProductsHeroImageSrc = $bmProductsHeroImage . '?v=' . $bmProductsHeroImageVersion;
 
@@ -189,9 +189,9 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
         line-height: normal !important;
         font-size: 12px !important;
         font-weight: 500 !important;
-        background: #ffd000 !important;
-        color: #151515 !important;
-        box-shadow: 0 4px 12px rgba(255, 208, 0, 0.32);
+        background: #1D71B8 !important;
+        color: #1D1D1B !important;
+        box-shadow: 0 4px 12px rgba(29, 113, 184, 0.32);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -199,7 +199,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
     }
 
     .single-shop-products:hover .shop-products-image .tag {
-        background: #b88900 !important;
+        background: #1D71B8 !important;
     }
 
     .single-shop-products .shop-products-content {
@@ -212,7 +212,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
 
     .single-shop-products .shop-products-content h3 a,
     .single-shop-products:hover .shop-products-content h3 a {
-        color: #151515 !important;
+        color: #1D1D1B !important;
     }
 
     /* Estilos para el botón de limpiar búsqueda */
@@ -398,7 +398,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
     #products-collections-filter .alert {
         background: #f6f6f3;
         border: 1px solid rgba(21, 21, 21, 0.18);
-        border-left: 4px solid #151515;
+        border-left: 4px solid #1D1D1B;
         border-radius: 8px;
         color: #3a3a3a;
         font-size: 15px;
@@ -427,17 +427,17 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
 
     /* Hover */
     .widget.widget_categories .categories li a.nav-link:hover {
-        background: #fff7cc;
-        border-color: #ffe66b;
+        background: #F3F5F7;
+        border-color: #009FE3;
         color: #000;
     }
 
     /* Activo */
     .widget.widget_categories .categories li a.nav-link.active {
-        background: #fff7cc;
-        border-color: #ffe66b;
+        background: #F3F5F7;
+        border-color: #009FE3;
         color: #000;
-        box-shadow: inset 3px 0 0 #ffd000;
+        box-shadow: inset 3px 0 0 #1D71B8;
     }
 
     .widget.widget_categories .categories li a.nav-link:hover i,
@@ -488,7 +488,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
     }
 
     .shop-area .widget-title {
-        color: #151515;
+        color: #1D1D1B;
         font-size: 26px;
         font-weight: 600;
         line-height: 1.2;
@@ -498,7 +498,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
     }
 
     .shop-area .widget-title::before {
-        background: #151515;
+        background: #1D1D1B;
         bottom: 0;
         content: "";
         height: 2px;
@@ -515,14 +515,14 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
     }
 
     .bm-shop-toolbar strong {
-        color: #151515;
+        color: #1D1D1B;
         font-size: 18px;
         font-weight: 600;
         letter-spacing: 0;
     }
 
     .bm-shop-count {
-        color: #151515;
+        color: #1D1D1B;
         font-size: 12px;
         font-weight: 500;
     }
@@ -753,11 +753,11 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
         </div>
         <!-- End Page Banner -->
 
-        <section class="category-intro-area bm-special-intro bm-products-intro" aria-label="Productos La Broca Ferreterías">
+        <section class="category-intro-area bm-special-intro bm-products-intro" aria-label="Productos Industrial Collectors, S.A.">
             <div class="container">
                 <article class="category-intro-card">
                     <div class="category-intro-image">
-                        <img src="<?php echo htmlspecialchars($bmProductsHeroImageSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="Productos de ferretería La Broca" loading="eager" decoding="async">
+                        <img src="<?php echo htmlspecialchars($bmProductsHeroImageSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="Materiales metálicos de Industrial Collectors, S.A." loading="eager" decoding="async">
                     </div>
                 </article>
             </div>

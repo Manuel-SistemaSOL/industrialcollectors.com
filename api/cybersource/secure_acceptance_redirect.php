@@ -50,16 +50,16 @@ try {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>La Broca Ferreterías</title>
+    <title>Industrial Collectors, S.A.</title>
     <style>
         *{box-sizing:border-box}
         body{margin:0;display:grid;min-height:100vh;place-items:center;background:#fff}
-        .logo{display:block;width:min(380px,78vw);height:auto;opacity:.82}
+        .logo{display:block;width:min(380px,78vw);height:auto}
         #secureAcceptanceForm{display:none}
     </style>
 </head>
 <body>
-    <img class="logo" src="../../assets/img/LogoLaBroca.png" alt="La Broca Ferreterías">
+    <img class="logo" src="../../assets/img/logotipo%20IC/version%20horizontal/Logo-Industrial-Collectors-horizontal.png" alt="Industrial Collectors, S.A.">
 
     <form id="secureAcceptanceForm" method="post" action="<?php echo bm_escape($secureAcceptance->endpoint()); ?>">
         <?php foreach ($fields as $name => $value): ?>

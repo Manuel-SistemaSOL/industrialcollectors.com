@@ -1,10 +1,10 @@
 <?php
 // SEO para la página de promociones
-$seo_title = "Promociones | La Broca Ferreterías";
+$seo_title = "Promociones | Industrial Collectors, S.A.";
 
-$seo_description = "Descubre promociones y productos seleccionados de La Broca Ferreterías para construcción, herramientas, plomería, electricidad y pintura.";
+$seo_description = "Descubre promociones y productos seleccionados de Industrial Collectors, S.A. para materiales metálicos y construcción.";
 
-$seo_canonical_url = "https://labrocaferreterias.com/ofertas.php";
+$seo_canonical_url = "https://industrialcollectors.com/ofertas.php";
 
 $seo_robots = "index, follow, max-image-preview:large";
 
@@ -12,7 +12,7 @@ include 'head.php';
 $current_page = basename($_SERVER['PHP_SELF']);
 require_once __DIR__ . '/assets/php/category_visuals.php';
 
-$bmOffersHeroImage = bm_asset_path_if_exists('assets/img/paginaImagenes/ofertas.png') ?: bm_asset_path_if_exists('assets/img/ImagenTemporalLABROCA.png') ?: bm_asset_path_if_exists('assets/img/404.png');
+$bmOffersHeroImage = bm_asset_path_if_exists('assets/img/paginaImagenes/ofertas.png') ?: bm_asset_path_if_exists('assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png') ?: bm_asset_path_if_exists('assets/img/404.png');
 $bmOffersHeroImageVersion = $bmOffersHeroImage !== '' && file_exists(__DIR__ . '/' . $bmOffersHeroImage) ? filemtime(__DIR__ . '/' . $bmOffersHeroImage) : time();
 $bmOffersHeroImageSrc = $bmOffersHeroImage . '?v=' . $bmOffersHeroImageVersion;
 $bmOffersMoreUrl = 'tienda.php?idsucursal=4&ofertas=1';
@@ -27,7 +27,7 @@ $bmOffersMoreUrl = 'tienda.php?idsucursal=4&ofertas=1';
     <div class="container">
         <article class="category-intro-card">
             <div class="category-intro-image">
-                <img src="<?php echo htmlspecialchars($bmOffersHeroImageSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="Promociones La Broca Ferreterías" loading="eager" decoding="async">
+                <img src="<?php echo htmlspecialchars($bmOffersHeroImageSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="Promociones Industrial Collectors, S.A." loading="eager" decoding="async">
             </div>
         </article>
     </div>

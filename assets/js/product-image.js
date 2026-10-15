@@ -1,7 +1,7 @@
 (function (window) {
     "use strict";
 
-    const FALLBACK_IMAGE = "assets/img/ImagenTemporalLABROCA.png";
+    const FALLBACK_IMAGE = "assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png";
     const DEFAULT_IMAGE_BASE = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
     const INVALID_IMAGE_VALUES = new Set([
         "404",

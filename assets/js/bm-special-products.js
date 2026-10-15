@@ -23,7 +23,7 @@
     }
 
     function fallbackImage() {
-        return window.BM_PRODUCT_IMAGE_FALLBACK || "assets/img/ImagenTemporalLABROCA.png";
+        return window.BM_PRODUCT_IMAGE_FALLBACK || "assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png";
     }
 
     function productImage(product, imageBaseUrl) {

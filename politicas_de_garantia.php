@@ -1,7 +1,7 @@
 <?php
-$seo_title = "Políticas de Garantía - La Broca Ferreterías";
-$seo_description = "Políticas de garantía para compras de herramientas, materiales y productos de ferretería en La Broca Ferreterías.";
-$seo_keywords = "garantía la broca ferreterías, cambios herramientas, política garantía ferretería";
+$seo_title = "Políticas de Garantía - Industrial Collectors, S.A.";
+$seo_description = "Políticas de garantía para compras de materiales metálicos en Industrial Collectors, S.A.";
+$seo_keywords = "garantía Industrial Collectors, S.A., cambios construcción, política garantía materiales metálicos";
 $current_page = basename($_SERVER['PHP_SELF']);
 
 include 'head.php';
@@ -35,7 +35,7 @@ include 'head.php';
         left: 0;
         width: 100%;
         height: 5px;
-        background: #151515;
+        background: #1D1D1B;
         pointer-events: none;
     }
 
@@ -62,11 +62,11 @@ include 'head.php';
             <div class="col-lg-12 col-md-12">
                 <div class="story-content">
 
-                    <h3>POL&Iacute;TICAS DE GARANT&Iacute;A - LA BROCA FERRETER&Iacute;AS</h3>
+                    <h3>POL&Iacute;TICAS DE GARANT&Iacute;A - Industrial Collectors, S.A.</h3>
                     <p><strong>&Uacute;ltima actualizaci&oacute;n:</strong> 25 de agosto de 2026</p>
 
                     <p>
-                        En <strong>La Broca Ferreter&iacute;as</strong> nuestro compromiso es ofrecer herramientas, materiales y productos de ferreter&iacute;a de calidad,
+                        En <strong>Industrial Collectors, S.A.</strong> nuestro compromiso es ofrecer materiales metálicos de calidad,
                         junto a una experiencia de compra clara, segura y confiable.
                         Por ello, establecemos las siguientes Pol&iacute;ticas de Garant&iacute;a aplicables a los productos comercializados en nuestro sitio web.
                     </p>
@@ -81,7 +81,7 @@ include 'head.php';
 
                     <h4>2. Naturaleza de los Productos</h4>
                     <p>
-                        Los productos ofrecidos pueden ser herramientas, materiales de construcci&oacute;n, plomer&iacute;a, electricidad, pintura y ferreter&iacute;a en general.
+                        Los productos ofrecidos pueden ser perfilería, láminas, tubos, vigas, costaneras y hierro de construcción.
                         La garant&iacute;a se limita al estado f&iacute;sico, funcionamiento b&aacute;sico, exactitud del producto entregado y correspondencia con lo solicitado.
                     </p>
 
@@ -121,7 +121,7 @@ include 'head.php';
 
                     <h4>7. Limitación de Responsabilidad</h4>
                     <p>
-                        La Broca Ferreter&iacute;as no se hace responsable por:
+                        Industrial Collectors, S.A. no se hace responsable por:
                         <br>&bull; Instalaciones inadecuadas o uso distinto al recomendado
                         <br>&bull; Da&ntilde;os ocasionados por manipulaci&oacute;n posterior del producto
                         <br>&bull; Errores en medidas, cantidades o especificaciones proporcionadas por el cliente
@@ -129,13 +129,13 @@ include 'head.php';
 
                     <h4>8. Modificaciones</h4>
                     <p>
-                        La Broca Ferreter&iacute;as se reserva el derecho de modificar estas Pol&iacute;ticas de Garant&iacute;a en cualquier momento.
+                        Industrial Collectors, S.A. se reserva el derecho de modificar estas Pol&iacute;ticas de Garant&iacute;a en cualquier momento.
                         Las modificaciones entrarán en vigor a partir de su publicación en el sitio web.
                     </p>
 
                     <h4>9. Aceptación</h4>
                     <p>
-                        Al realizar una compra en La Broca Ferreter&iacute;as, el cliente declara haber le&iacute;do,
+                        Al realizar una compra en Industrial Collectors, S.A., el cliente declara haber le&iacute;do,
                         comprendido y aceptado estas Pol&iacute;ticas de Garant&iacute;a en su totalidad.
                     </p>
 

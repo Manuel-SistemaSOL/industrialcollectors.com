@@ -361,7 +361,7 @@ const Carrito = {
                 precio_normal: precio,
                 imagen: typeof window.BM_resolveProductImage === 'function'
                     ? window.BM_resolveProductImage(producto.imagen)
-                    : (producto.imagen || (window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalLABROCA.png')),
+                    : (producto.imagen || (window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png')),
                 cantidad: cantidad,
                 descripcion: producto.descripcion || ''
             };

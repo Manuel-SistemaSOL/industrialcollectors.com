@@ -30,14 +30,14 @@ $config = [
         'session_ttl_minutes' => 90,
     ],
     'orders' => [
-        'external_api_url' => 'https://ssl.sol.sistemasolgt.com/brovic/api/api_cotizacion_insertar.php',
+        'external_api_url' => 'https://ssl.sol.sistemasolgt.com/induscollesitio/api/api_cotizacion_insertar.php',
         'destination' => 'VENTA',
         'timezone' => 'America/Guatemala',
     ],
     'mail' => [
         'enabled' => filter_var(getenv('ORDER_MAIL_ENABLED') ?: 'true', FILTER_VALIDATE_BOOLEAN),
         'from_email' => getenv('ORDER_MAIL_FROM') ?: 'labrocaferreterias01@gmail.com',
-        'from_name' => getenv('ORDER_MAIL_FROM_NAME') ?: 'La Broca Ferreterías',
+        'from_name' => getenv('ORDER_MAIL_FROM_NAME') ?: 'Industrial Collectors, S.A.',
         'reply_to' => getenv('ORDER_MAIL_REPLY_TO') ?: 'labrocaferreterias01@gmail.com',
         'envelope_sender' => getenv('ORDER_MAIL_ENVELOPE_SENDER') ?: 'labrocaferreterias01@gmail.com',
     ],

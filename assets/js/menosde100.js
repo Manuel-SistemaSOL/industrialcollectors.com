@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     window.bmLoadSpecialProducts({
-        apiUrl: "https://ssl.sol.sistemasolgt.com/brovic/api/api_tienda_menosde100.php",
+        apiUrl: "https://ssl.sol.sistemasolgt.com/induscollesitio/api/api_tienda_menosde100.php",
         tagText: "Menos de Q100",
         errorLabel: "productos por menos de Q100",
         emptyMessage: "No hay productos con precio menor o igual a Q100 para mostrar.",

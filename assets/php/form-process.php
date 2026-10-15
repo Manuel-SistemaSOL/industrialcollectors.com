@@ -154,8 +154,8 @@ if ($errors) {
     ], implode(' ', $errors));
 }
 
-$mailTo = configuredEmail('CONTACT_MAIL_TO', 'labrocaferreterias01@gmail.com');
-$fromEmail = configuredEmail('CONTACT_MAIL_FROM', 'labrocaferreterias01@gmail.com');
+$mailTo = configuredEmail('CONTACT_MAIL_TO', 'industrialcollectorsventas@gmail.com');
+$fromEmail = configuredEmail('CONTACT_MAIL_FROM', 'industrialcollectorsventas@gmail.com');
 $replyTo = filter_var($email, FILTER_VALIDATE_EMAIL) ? $email : configuredEmail('CONTACT_MAIL_REPLY_TO', $fromEmail);
 $subject = 'Nuevo mensaje de contacto - ' . $msgSubject;
 $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
@@ -167,12 +167,12 @@ $body .= "Email: " . $email . "\n";
 $body .= "Telefono: " . $phoneNumber . "\n";
 $body .= "Asunto: " . $msgSubject . "\n\n";
 $body .= "Mensaje:\n" . $message . "\n\n";
-$body .= "Este mensaje fue enviado desde labrocaferreterias.com.";
+$body .= "Este mensaje fue enviado desde industrialcollectors.com.";
 
 $headers = [];
 $headers[] = 'MIME-Version: 1.0';
 $headers[] = 'Content-Type: text/plain; charset=UTF-8';
-$headers[] = 'From: ' . contactMailbox('La Broca Ferreterías', $fromEmail);
+$headers[] = 'From: ' . contactMailbox('Industrial Collectors, S.A.', $fromEmail);
 $headers[] = 'Reply-To: ' . $replyTo;
 $headers[] = 'X-Mailer: PHP/' . phpversion();
 

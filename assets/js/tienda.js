@@ -6,7 +6,7 @@
 
     window.BM_TIENDA_CONTROLLER_V2 = true;
 
-    const API_BASE = 'https://ssl.sol.sistemasolgt.com/brovic/';
+    const API_BASE = 'https://ssl.sol.sistemasolgt.com/induscollesitio/';
     const API = {
         catalog: 'api/shop_products.php',
         nuevos: API_BASE + 'api/api_tienda_articulos_listarProductosnuevos.php',
@@ -14,7 +14,7 @@
         busqueda: API_BASE + 'api/api_tienda_articulos_listarProductosxSearch.php',
         ofertas: API_BASE + 'api/api_tienda_ofertas.php'
     };
-    const IMAGE_BASE = API_BASE + 'files/articulos/';
+    const IMAGE_BASE = 'https://ssl.sol.sistemasolgt.com/brovic/files/articulos/';
     const SHOP_PER_PAGE = 30;
 
     const state = {
@@ -615,7 +615,7 @@
             }
 
             this.onerror = null;
-            this.src = window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalLABROCA.png';
+            this.src = window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
         };
 
         link.appendChild(img);

@@ -1,7 +1,7 @@
 <?php
-$seo_title = "Términos y Condiciones - La Broca Ferreterías";
-$seo_description = "Términos y condiciones de compra y uso del sitio de La Broca Ferreterías.";
-$seo_keywords = "términos la broca ferreterías, condiciones compra ferretería, herramientas guatemala";
+$seo_title = "Términos y Condiciones - Industrial Collectors, S.A.";
+$seo_description = "Términos y condiciones de compra y uso del sitio de Industrial Collectors, S.A.";
+$seo_keywords = "términos Industrial Collectors, S.A., condiciones compra materiales metálicos, construcción guatemala";
 $current_page = basename($_SERVER['PHP_SELF']);
 
 include 'head.php';
@@ -35,7 +35,7 @@ include 'head.php';
         left: 0;
         width: 100%;
         height: 5px;
-        background: #151515;
+        background: #1D1D1B;
         pointer-events: none;
     }
 
@@ -62,17 +62,17 @@ include 'head.php';
             <div class="col-lg-12 col-md-12">
                 <div class="story-content">
 
-                    <h3>T&Eacute;RMINOS Y CONDICIONES DE USO - LA BROCA FERRETER&Iacute;AS</h3>
+                    <h3>T&Eacute;RMINOS Y CONDICIONES DE USO - Industrial Collectors, S.A.</h3>
                     <p><strong>&Uacute;ltima actualizaci&oacute;n:</strong> 25 de agosto de 2026</p>
 
                     <p>
-                        Bienvenido(a) a <strong>La Broca Ferreter&iacute;as</strong>.
-                        Al navegar, consultar productos o realizar una compra en este sitio, usted acepta estos T&eacute;rminos y Condiciones, aplicables a la venta de productos de ferreter&iacute;a, herramientas, materiales y soluciones para proyectos del hogar, profesionales y de construcci&oacute;n.
+                        Bienvenido(a) a <strong>Industrial Collectors, S.A.</strong>.
+                        Al navegar, consultar productos o realizar una compra en este sitio, usted acepta estos T&eacute;rminos y Condiciones, aplicables a la venta de materiales metálicos y soluciones para proyectos de construcción.
                     </p>
 
                     <h4>1. Información General</h4>
                     <p>
-                        La Broca Ferreter&iacute;as es una ferreter&iacute;a fundada en 2012, dedicada a la venta de productos, herramientas y soluciones para hogares, profesionales y proyectos de construcci&oacute;n.
+                        Industrial Collectors, S.A. es una empresa dedicada a la distribución y comercialización de materiales metálicos para construcción.
                         Los contenidos publicados tienen fines informativos y comerciales.
                         Nos reservamos el derecho de modificar productos, precios, promociones y condiciones sin previo aviso.
                     </p>
@@ -85,7 +85,7 @@ include 'head.php';
 
                     <h4>3. Productos</h4>
                     <p>
-                        Los productos publicados pueden incluir art&iacute;culos de construcci&oacute;n, plomer&iacute;a, electricidad, pintura, herramientas y productos de ferreter&iacute;a en general.
+                        Los productos publicados pueden incluir perfilería, láminas, tubos, vigas, costaneras e hierro de construcción.
                         Las descripciones e im&aacute;genes son referenciales y pueden variar seg&uacute;n disponibilidad, presentaci&oacute;n o proveedor.
                     </p>
 
@@ -98,7 +98,7 @@ include 'head.php';
 
                     <h4>5. Coordinación del Pedido</h4>
                     <p>
-                        La coordinaci&oacute;n de disponibilidad, retiro en tienda o seguimiento del pedido podr&aacute; realizarse por WhatsApp al <strong>+502 4314 3784</strong>, llamada telef&oacute;nica o correo electr&oacute;nico.
+                        La coordinaci&oacute;n de disponibilidad, retiro en tienda o seguimiento del pedido podr&aacute; realizarse por WhatsApp al <strong>+502 3088 8818</strong>, llamada telef&oacute;nica o correo electr&oacute;nico.
                     </p>
 
                     <h4>6. Disponibilidad</h4>
@@ -115,12 +115,12 @@ include 'head.php';
                     <p>
                         La información personal proporcionada será utilizada únicamente para procesar pedidos,
                         brindar atención al cliente y contacto relacionado con las compras.
-                        La Broca Ferreter&iacute;as no comparte datos personales con terceros, salvo obligaci&oacute;n legal.
+                        Industrial Collectors, S.A. no comparte datos personales con terceros, salvo obligaci&oacute;n legal.
                     </p>
 
                     <h4>9. Limitación de Responsabilidad</h4>
                     <p>
-                        La Broca Ferreter&iacute;as no ser&aacute; responsable por da&ntilde;os derivados del uso incorrecto, instalaci&oacute;n inadecuada o manipulaci&oacute;n posterior de los productos adquiridos.
+                        Industrial Collectors, S.A. no ser&aacute; responsable por da&ntilde;os derivados del uso incorrecto, instalaci&oacute;n inadecuada o manipulaci&oacute;n posterior de los productos adquiridos.
                         El cliente debe utilizar cada producto de acuerdo con sus caracter&iacute;sticas, recomendaciones del fabricante y condiciones de seguridad aplicables.
                     </p>
 

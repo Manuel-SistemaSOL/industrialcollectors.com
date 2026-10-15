@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     window.bmLoadSpecialProducts({
-        apiUrl: "https://ssl.sol.sistemasolgt.com/brovic/api/api_tienda_gifcard.php",
+        apiUrl: "https://ssl.sol.sistemasolgt.com/induscollesitio/api/api_tienda_gifcard.php",
         tagText: "Gift Card",
         errorLabel: "Gift Card"
     });

@@ -74,7 +74,7 @@ class Config
             return rtrim($proto . '://' . $host . $basePath, '/');
         }
 
-        return 'https://labrocaferreterias.com';
+        return 'https://industrialcollectors.com';
     }
 
     public function callbackUrl(string $pathKey): string

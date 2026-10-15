@@ -1,10 +1,10 @@
 <?php
 // SEO para la página de productos por menos de Q100
-$seo_title = "Productos por menos de Q100 | La Broca Ferreterías";
+$seo_title = "Productos por menos de Q100 | Industrial Collectors, S.A.";
 
-$seo_description = "Encuentra productos de ferretería seleccionados por menos de Q100 en La Broca Ferreterías.";
+$seo_description = "Encuentra productos seleccionados por menos de Q100 en Industrial Collectors, S.A.";
 
-$seo_canonical_url = "https://labrocaferreterias.com/menosde100.php";
+$seo_canonical_url = "https://industrialcollectors.com/menosde100.php";
 
 $seo_robots = "index, follow, max-image-preview:large";
 
@@ -12,7 +12,7 @@ include 'head.php';
 $current_page = basename($_SERVER['PHP_SELF']);
 require_once __DIR__ . '/assets/php/category_visuals.php';
 
-$bmLessHeroImage = bm_asset_path_if_exists('assets/img/paginaImagenes/menos de 100.png') ?: bm_asset_path_if_exists('assets/img/ImagenTemporalLABROCA.png') ?: bm_asset_path_if_exists('assets/img/404.png');
+$bmLessHeroImage = bm_asset_path_if_exists('assets/img/paginaImagenes/menos de 100.png') ?: bm_asset_path_if_exists('assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png') ?: bm_asset_path_if_exists('assets/img/404.png');
 $bmLessHeroImageVersion = $bmLessHeroImage !== '' && file_exists(__DIR__ . '/' . $bmLessHeroImage) ? filemtime(__DIR__ . '/' . $bmLessHeroImage) : '1';
 $bmLessHeroImageSrc = $bmLessHeroImage . '?v=' . $bmLessHeroImageVersion;
 $bmLessMoreUrl = 'tienda.php?idsucursal=4&vista=tienda&price_max=100';
@@ -26,7 +26,7 @@ $bmLessMoreUrl = 'tienda.php?idsucursal=4&vista=tienda&price_max=100';
     <div class="container">
         <article class="category-intro-card">
             <div class="category-intro-image">
-                <img src="<?php echo htmlspecialchars($bmLessHeroImageSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="Productos por menos de Q100 en La Broca Ferreterías">
+                <img src="<?php echo htmlspecialchars($bmLessHeroImageSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="Productos por menos de Q100 en Industrial Collectors, S.A.">
             </div>
         </article>
     </div>

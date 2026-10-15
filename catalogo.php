@@ -12,9 +12,9 @@ if (!$page || $page > $pages) {
     echo '<!doctype html><html lang="es"><meta charset="utf-8"><title>Página no encontrada</title><h1>Página no encontrada</h1><a href="catalogo.php">Ver catálogo</a></html>';
     exit;
 }
-$seo_title = 'Catálogo de productos' . ($page > 1 ? ' — Página ' . $page : '') . ' | La Broca Ferreterías';
-$seo_description = 'Consulta nuestro catálogo de herramientas y productos de ferretería. Abre cada producto para conocer su precio y disponibilidad.';
-$seo_canonical_url = 'https://labrocaferreterias.com/catalogo.php' . ($page > 1 ? '?page=' . $page : '');
+$seo_title = 'Catálogo de productos' . ($page > 1 ? ' — Página ' . $page : '') . ' | Industrial Collectors, S.A.';
+$seo_description = 'Consulta nuestro catálogo de materiales metálicos. Abre cada producto para conocer su precio y disponibilidad.';
+$seo_canonical_url = 'https://industrialcollectors.com/catalogo.php' . ($page > 1 ? '?page=' . $page : '');
 include __DIR__ . '/head.php';
 ?>
 <main class="container ptb-50">

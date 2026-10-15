@@ -141,7 +141,7 @@ if (!function_exists('bm_category_visual')) {
         }
 
         if ($image === '') {
-            $image = bm_asset_path_if_exists('assets/img/ImagenTemporalLABROCA.png');
+            $image = bm_asset_path_if_exists('assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png');
         }
 
         if ($image === '') {

@@ -1,11 +1,11 @@
 <?php
 // SEO para la página de inicio
-$seo_title = "Regalos - La Broca Ferreterías";
-$seo_description = "Opciones de regalo y productos seleccionados de La Broca Ferreterías para hogares, profesionales y proyectos.";
-$seo_keywords = "regalos la broca ferreterías, ferretería guatemala, herramientas, productos para regalar";
+$seo_title = "Regalos - Industrial Collectors, S.A.";
+$seo_description = "Opciones de regalo y productos seleccionados de Industrial Collectors, S.A. para hogares, profesionales y proyectos.";
+$seo_keywords = "regalos Industrial Collectors, S.A., materiales metálicos guatemala, construcción, productos para regalar";
 
 $seo_canonical_url =
-    "https://labrocaferreterias.com/gifscard.php";
+    "https://industrialcollectors.com/gifscard.php";
 
 $seo_robots = "index, follow, max-image-preview:large";
 
@@ -13,7 +13,7 @@ include 'head.php';
 $current_page = basename($_SERVER['PHP_SELF']);
 require_once __DIR__ . '/assets/php/category_visuals.php';
 
-$bmGiftCardHeroImage = bm_asset_path_if_exists('assets/img/ImagenTemporalLABROCA.png') ?: bm_asset_path_if_exists('assets/img/404.png');
+$bmGiftCardHeroImage = bm_asset_path_if_exists('assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png') ?: bm_asset_path_if_exists('assets/img/404.png');
 $bmGiftCardMoreUrl = 'tienda.php?idsucursal=4&vista=tienda';
 
 
@@ -22,11 +22,11 @@ $bmGiftCardMoreUrl = 'tienda.php?idsucursal=4&vista=tienda';
 <?php bmRenderPageTitle('Regalos', 'Regalos'); ?>
 
 <!-- Intro y productos con el diseno de divisiones -->
-<section class="category-intro-area bm-special-intro" aria-label="Regalos de ferretería">
+<section class="category-intro-area bm-special-intro" aria-label="Regalos de Industrial Collectors, S.A.">
     <div class="container">
         <article class="category-intro-card">
             <div class="category-intro-image">
-                <img src="<?php echo htmlspecialchars($bmGiftCardHeroImage); ?>" alt="Regalos de ferretería" loading="eager" decoding="async">
+                <img src="<?php echo htmlspecialchars($bmGiftCardHeroImage); ?>" alt="Regalos de Industrial Collectors, S.A." loading="eager" decoding="async">
             </div>
             <div class="category-intro-copy">
                 <h1>Regalos</h1>

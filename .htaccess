@@ -20,13 +20,13 @@ RewriteRule ^(.*)$ http://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # ===============================
 # DOMINIO CANÓNICO EN PRODUCCIÓN
-# https://labrocaferreterias.com
+# https://industrialcollectors.com
 # ===============================
 
 RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:.*)?$ [NC]
 RewriteCond %{HTTPS} !=on [OR]
-RewriteCond %{HTTP_HOST} !^labrocaferreterias\.com$ [NC]
-RewriteRule ^ https://labrocaferreterias.com%{REQUEST_URI} [R=301,L,NE]
+RewriteCond %{HTTP_HOST} !^industrialcollectors\.com$ [NC]
+RewriteRule ^ https://industrialcollectors.com%{REQUEST_URI} [R=301,L,NE]
 
 
 # ===============================
@@ -34,9 +34,9 @@ RewriteRule ^ https://labrocaferreterias.com%{REQUEST_URI} [R=301,L,NE]
 # COMO URLs DUPLICADAS
 # ===============================
 
-RewriteCond %{HTTP_HOST} ^labrocaferreterias\.com$ [NC]
+RewriteCond %{HTTP_HOST} ^industrialcollectors\.com$ [NC]
 RewriteCond %{THE_REQUEST} \s/+index\.(php|html?)([\s?]|$) [NC]
-RewriteRule ^index\.(php|html?)$ https://labrocaferreterias.com/ [R=301,L,NE,QSD]
+RewriteRule ^index\.(php|html?)$ https://industrialcollectors.com/ [R=301,L,NE,QSD]
 
 
 # ===============================

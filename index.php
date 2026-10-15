@@ -1,10 +1,10 @@
 <?php
 // SEO para la página de inicio
-$seo_title = "La Broca Ferreterías | Herramientas, construcción y ferretería";
+$seo_title = "Industrial Collectors, S.A. | Materiales Metálicos";
 
-$seo_description = "La Broca Ferreterías ofrece herramientas, productos de ferretería y soluciones para construcción, plomería, electricidad y pintura.";
+$seo_description = "Perfilería, láminas, tubos, vigas, costaneras e hierro de construcción para ventas al por mayor y menor.";
 
-$seo_canonical_url = "https://labrocaferreterias.com/";
+$seo_canonical_url = "https://industrialcollectors.com/";
 
 $seo_robots = isset($_GET['error'])
     ? "noindex, follow"
@@ -14,10 +14,10 @@ include 'head.php';
 require_once __DIR__ . '/assets/php/category_visuals.php';
 $current_page = basename($_SERVER['PHP_SELF']);
 
-$apiUrl = "https://ssl.sol.sistemasolgt.com/brovic/api/api_tienda_inicio.php";
+$apiUrl = "https://ssl.sol.sistemasolgt.com/induscollesitio/api/api_tienda_inicio.php";
 $slider = null;
 $sliderImageBaseUrl = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
-$bmHeroFallbackImage = "assets/img/Sucursal/labroca_Sucursal.png";
+$bmHeroFallbackImage = "assets/img/Sucursal/Fachada de Industrial Collectors.png";
 
 $ch = curl_init($apiUrl);
 if ($ch !== false) {
@@ -76,7 +76,7 @@ $categoriasInicio = bm_build_category_visuals($categorias ?? []);
 <style>
     :root {
         --bm-blue: #1a1a1a;
-        --bm-navy: #151515;
+        --bm-navy: #1D1D1B;
         --bm-hero-ratio: 1971 / 798;
     }
 
@@ -210,7 +210,7 @@ $categoriasInicio = bm_build_category_visuals($categorias ?? []);
     }
 
     .bm-home-btn:hover {
-        background: #151515;
+        background: #1D1D1B;
         transform: translateY(-1px);
     }
 
@@ -332,7 +332,7 @@ $categoriasInicio = bm_build_category_visuals($categorias ?? []);
     }
 
     .bm-home-featured-tab i {
-        color: #b88900;
+        color: #1D71B8;
         font-size: 28px;
         line-height: 1;
         transition: color .22s ease;
@@ -350,18 +350,18 @@ $categoriasInicio = bm_build_category_visuals($categorias ?? []);
     .bm-home-featured-tab:hover,
     .bm-home-featured-tab:focus {
         background: var(--bm-navy);
-        color: #fff7cc;
+        color: #FFFFFF;
         outline: 0;
     }
 
     .bm-home-featured-tab.is-active i,
     .bm-home-featured-tab:hover i,
     .bm-home-featured-tab:focus i {
-        color: #ffd000;
+        color: #1D71B8;
     }
 
     .bm-home-featured-tab:focus-visible {
-        box-shadow: inset 0 0 0 3px rgba(255, 208, 0, .42);
+        box-shadow: inset 0 0 0 3px rgba(29, 113, 184, .42);
     }
 
     .bm-home-featured-stage {
@@ -455,8 +455,8 @@ $categoriasInicio = bm_build_category_visuals($categorias ?? []);
     .bm-home-featured-more:focus,
     .bm-home-featured-nav:hover,
     .bm-home-featured-nav:focus {
-        background: #ffd000;
-        border-color: #ffd000;
+        background: #1D71B8;
+        border-color: #1D71B8;
         color: var(--bm-navy);
         outline: 0;
         transform: translateY(-2px);
@@ -645,7 +645,7 @@ $categoriasInicio = bm_build_category_visuals($categorias ?? []);
 
     .bm-home-products .arrivals-products-content h3,
     .bm-home-products .arrivals-products-content h3 a {
-        color: #151515 !important;
+        color: #1D1D1B !important;
         display: -webkit-box !important;
         font-size: 17px !important;
         font-weight: 400 !important;
@@ -696,8 +696,8 @@ $categoriasInicio = bm_build_category_visuals($categorias ?? []);
         align-items: center;
         justify-content: center;
         border-radius: 0;
-        background: #ffd000 !important;
-        border-color: #ffd000 !important;
+        background: #1D71B8 !important;
+        border-color: #1D71B8 !important;
         color: #ffffff !important;
         font-size: 12px;
         font-weight: 700;
@@ -736,7 +736,7 @@ $categoriasInicio = bm_build_category_visuals($categorias ?? []);
     }
 
     .bm-home-promo h2 {
-        color: #151515;
+        color: #1D1D1B;
         font-size: 25px;
         font-weight: 700;
         line-height: 1.05;
@@ -1446,7 +1446,7 @@ if ($slider) {
                 $tituloHero = $subtituloApi !== '' ? $subtituloApi : $tituloApi;
                 $kickerHero = $tituloApi !== $tituloHero ? $tituloApi : '';
                 $imagenUrl = $bmResolveHeroImage($b['imagen'] ?? '');
-                $altHero = $tituloHero !== '' ? $tituloHero : ($kickerHero !== '' ? $kickerHero : 'La Broca Ferreterías');
+                $altHero = $tituloHero !== '' ? $tituloHero : ($kickerHero !== '' ? $kickerHero : 'Industrial Collectors, S.A.');
                 $cta = $bmHeroCtas[$i] ?? $bmHeroCtas[1];
                 $ctaTexto = $cta['label'];
                 $ctaUrl = $cta['url'];
@@ -1480,13 +1480,13 @@ if ($slider) {
         <?php else: ?>
             <article class="bm-hero-slide">
                 <div class="bm-hero-media">
-                    <img class="bm-hero-bg" src="<?php echo htmlspecialchars($bmHeroFallbackImage, ENT_QUOTES); ?>" alt="La Broca Ferreterías">
+                    <img class="bm-hero-bg" src="<?php echo htmlspecialchars($bmHeroFallbackImage, ENT_QUOTES); ?>" alt="Industrial Collectors, S.A.">
                 </div>
                 <div class="container">
                     <div class="bm-hero-content">
-                        <span class="bm-hero-kicker">La Broca Ferreter&iacute;as</span>
-                        <h1>Herramientas, materiales y soluciones para tus proyectos</h1>
-                        <p>Encuentra productos para construcci&oacute;n, plomer&iacute;a, electricidad, pintura y ferreter&iacute;a general.</p>
+                        <span class="bm-hero-kicker">Industrial Collectors, S.A.</span>
+                        <h1>Materiales que construyen grandes proyectos</h1>
+                        <p>Perfilería, láminas, tubos, vigas, costaneras y hierro de construcción para proyectos de toda escala.</p>
                         <a href="tienda.php" class="bm-home-btn">Comprar ahora</a>
                     </div>
                 </div>
@@ -1565,9 +1565,9 @@ if ($slider) {
         font-weight: 500 !important;
         top: 10px !important;
         right: 10px !important;
-        background: #ffd000 !important;
-        color: #151515 !important;
-        box-shadow: 0 4px 12px rgba(255, 208, 0, 0.32);
+        background: #1D71B8 !important;
+        color: #1D1D1B !important;
+        box-shadow: 0 4px 12px rgba(29, 113, 184, 0.32);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1575,7 +1575,7 @@ if ($slider) {
 
     /* Hover card mantiene el acento industrial de la marca */
     .single-arrivals-products:hover .arrivals-products-image .tag {
-        background: #b88900 !important;
+        background: #1D71B8 !important;
     }
 
     /* Ajuste imagen para que no se salga del borde redondeado */
@@ -1595,14 +1595,14 @@ if ($slider) {
 
     .home-carousel-more {
         justify-self: end;
-        background: #151515;
-        color: #fff7cc;
+        background: #1D1D1B;
+        color: #FFFFFF;
         font-size: 12px;
         font-weight: 700;
         line-height: 1;
         min-height: 38px;
         padding: 9px 24px;
-        border: 1px solid rgba(181, 141, 59, 0.58);
+        border: 1px solid rgba(29, 113, 184, 0.58);
         border-radius: 50px;
         text-transform: uppercase;
         box-shadow: 0 10px 20px rgba(7, 17, 41, .22);
@@ -1611,15 +1611,15 @@ if ($slider) {
 
     .home-carousel-more:hover,
     .home-carousel-more:focus {
-        background: #b58d3b;
-        border-color: #b58d3b;
-        color: #151515;
+        background: #1D71B8;
+        border-color: #1D71B8;
+        color: #1D1D1B;
         transform: translateY(-2px);
-        box-shadow: 0 12px 24px rgba(181, 141, 59, .26);
+        box-shadow: 0 12px 24px rgba(29, 113, 184, .26);
     }
 
     .home-carousel-more:focus-visible {
-        outline: 3px solid rgba(181, 141, 59, .35);
+        outline: 3px solid rgba(29, 113, 184, .35);
         outline-offset: 3px;
     }
 
@@ -1993,10 +1993,10 @@ unset($bmHomeFeaturedCategory);
 
 $bmFleteImage = is_file(__DIR__ . '/assets/img/paginaImagenes/ServicioFlete.png')
     ? 'assets/img/paginaImagenes/ServicioFlete.png'
-    : 'assets/img/ImagenTemporalLABROCA.png';
+    : 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
 ?>
 
-<section class="bm-home-featured-categories bm-home-products" aria-label="Categorías destacadas de La Broca">
+<section class="bm-home-featured-categories bm-home-products" aria-label="Categorías destacadas de Industrial Collectors, S.A.">
     <div class="container">
         <div class="bm-home-featured-tabs-wrap">
             <div class="bm-home-featured-tabs" role="tablist" aria-label="Categorías destacadas">
@@ -2041,13 +2041,13 @@ $bmFleteImage = is_file(__DIR__ . '/assets/img/paginaImagenes/ServicioFlete.png'
     </div>
 </section>
 
-<section class="bm-home-flete" aria-label="Servicio de flete La Broca">
+<section class="bm-home-flete" aria-label="Servicio de flete">
     <div class="container">
         <div class="bm-home-flete-card">
             <img
                 class="bm-home-flete-img"
                 src="<?php echo htmlspecialchars($bmFleteImage, ENT_QUOTES); ?>"
-                alt="Servicio de flete La Broca Ferreterías"
+                alt="Servicio de flete Industrial Collectors, S.A."
                 loading="lazy"
                 decoding="async">
         </div>
@@ -2082,10 +2082,10 @@ $bmFleteImage = is_file(__DIR__ . '/assets/img/paginaImagenes/ServicioFlete.png'
 <?php
 $bmPromoImage = is_file(__DIR__ . '/assets/img/paginaImagenes/ferreteria para hogares.png')
     ? 'assets/img/paginaImagenes/ferreteria para hogares.png'
-    : 'assets/img/ImagenTemporalLABROCA.png';
+    : 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
 $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones para tus proyectos.png')
     ? 'assets/img/paginaImagenes/soluciones para tus proyectos.png'
-    : 'assets/img/ImagenTemporalLABROCA.png';
+    : 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
 ?>
 
 <section class="bm-home-promo-section" aria-label="Catálogo de ferretería destacado">
@@ -2418,7 +2418,7 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
 
     .bm-home-featured-products .arrivals-products-image img,
     .bm-home-featured-products .arrivals-products-image img.bm-product-image-fallback,
-    .bm-home-featured-products .arrivals-products-image img[src*="ImagenTemporalLABROCA.png"] {
+    .bm-home-featured-products .arrivals-products-image img[src*="ImagenTemporalINDUSTRIALCOLLECTORS.png"] {
         height: 100% !important;
         max-height: 100% !important;
         max-width: 92% !important;

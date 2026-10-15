@@ -53,9 +53,9 @@ class OrderEmailNotifier
         }
 
         $subjectNumber = $quote !== '' ? $quote : $reference;
-        $subject = 'La Broca Ferreterías - Confirmacion de pedido ' . $subjectNumber;
+        $subject = 'Industrial Collectors, S.A. - Confirmacion de pedido ' . $subjectNumber;
         $fromEmail = $this->configuredEmail('mail.from_email', 'labrocaferreterias01@gmail.com');
-        $fromName = $this->headerText((string) $this->config->get('mail.from_name', 'La Broca Ferreterías'));
+        $fromName = $this->headerText((string) $this->config->get('mail.from_name', 'Industrial Collectors, S.A.'));
         $replyTo = $this->configuredEmail('mail.reply_to', $fromEmail);
         $boundary = 'BM-' . bin2hex(random_bytes(12));
 
@@ -125,7 +125,7 @@ class OrderEmailNotifier
         $lines = [];
         $lines[] = $name !== '' ? 'Hola ' . $name . ',' : 'Hola,';
         $lines[] = '';
-        $lines[] = 'Gracias por comprar en La Broca Ferreterías. Conserva este correo como respaldo de tu pedido.';
+        $lines[] = 'Gracias por comprar en Industrial Collectors, S.A. Conserva este correo como respaldo de tu pedido.';
         $lines[] = '';
 
         if ($quote !== '') {
@@ -149,9 +149,9 @@ class OrderEmailNotifier
         }
 
         $lines[] = '';
-        $lines[] = 'Para coordinar el seguimiento de tu pedido, comunicate por WhatsApp al +502 4314 3784.';
+        $lines[] = 'Para coordinar el seguimiento de tu pedido, comunicate por WhatsApp al +502 3088 8818.';
         $lines[] = '';
-        $lines[] = 'La Broca Ferreterías';
+        $lines[] = 'Industrial Collectors, S.A.';
 
         return implode("\r\n", $lines);
     }
@@ -162,7 +162,7 @@ class OrderEmailNotifier
         $payment = $this->escape($this->displayText((string) ($order['payment_label'] ?? '')));
         $amount = $this->escape($this->formatAmount((float) ($order['amount'] ?? 0), (string) ($order['currency'] ?? 'GTQ')));
         $authorization = $this->escape($this->identifier((string) ($order['authorization_number'] ?? '')));
-        $logoUrl = $this->escape(rtrim($this->config->baseUrl(), '/') . '/assets/img/LogoLaBroca.png');
+        $logoUrl = $this->escape(rtrim($this->config->baseUrl(), '/') . '/assets/img/logotipo%20IC/version%20horizontal/Logo-Industrial-Collectors-horizontal.png');
 
         $rows = '';
         if ($quote !== '') {
@@ -193,11 +193,11 @@ class OrderEmailNotifier
             . '<tr><td align="center">'
             . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:620px;background:#ffffff;border:1px solid #e8e5dc;border-radius:10px;overflow:hidden">'
             . '<tr><td style="padding:30px 28px;text-align:center">'
-            . '<img src="' . $logoUrl . '" alt="La Broca Ferreterías" style="max-width:210px;height:auto;margin-bottom:24px">'
+            . '<img src="' . $logoUrl . '" alt="Industrial Collectors, S.A." style="max-width:210px;height:auto;margin-bottom:24px">'
             . '<h1 style="margin:0 0 10px;color:#1a1a1a;font-size:28px;line-height:1.2">Confirmacion de pedido</h1>'
-            . '<p style="margin:0 0 22px;color:#3f4654;font-size:16px;line-height:1.5">' . $greeting . '<br>Gracias por comprar en La Broca Ferreterías. Conserva este correo como respaldo.</p>'
+            . '<p style="margin:0 0 22px;color:#3f4654;font-size:16px;line-height:1.5">' . $greeting . '<br>Gracias por comprar en Industrial Collectors, S.A. Conserva este correo como respaldo.</p>'
             . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;text-align:left">' . $rows . '</table>'
-            . '<p style="margin:24px 0 0;color:#3f4654;font-size:15px;line-height:1.5">Para coordinar el seguimiento de tu pedido, comunicate por WhatsApp al <strong>+502 4314 3784</strong>.</p>'
+            . '<p style="margin:24px 0 0;color:#3f4654;font-size:15px;line-height:1.5">Para coordinar el seguimiento de tu pedido, comunicate por WhatsApp al <strong>+502 3088 8818</strong>.</p>'
             . '</td></tr></table>'
             . '</td></tr></table></body></html>';
     }
@@ -307,7 +307,7 @@ class OrderEmailNotifier
     {
         $value = $this->displayText($value);
 
-        return $value !== '' ? $value : 'La Broca Ferreterías';
+        return $value !== '' ? $value : 'Industrial Collectors, S.A.';
     }
 
     private function escape(string $value): string

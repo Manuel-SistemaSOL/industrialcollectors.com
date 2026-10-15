@@ -5,7 +5,7 @@ return [
     'currency' => 'GTQ',
     'operation' => 'sale',
     'site' => [
-        'base_url' => 'https://labrocaferreterias.com',
+        'base_url' => 'https://industrialcollectors.com',
     ],
     'secure_acceptance' => [
         'profile_id' => 'REPLACE_WITH_PROFILE_ID',

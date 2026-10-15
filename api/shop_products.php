@@ -7,7 +7,7 @@ if (!defined('BM_SHOP_LIBRARY_ONLY')) {
     header('X-Robots-Tag: noindex');
 }
 
-const BM_SHOP_API_BASE = 'https://ssl.sol.sistemasolgt.com/brovic/api/';
+const BM_SHOP_API_BASE = 'https://ssl.sol.sistemasolgt.com/induscollesitio/api/';
 const BM_SHOP_CACHE_TTL = 120;
 const BM_SHOP_STALE_CACHE_TTL = 86400;
 const BM_SHOP_MULTI_BATCH_SIZE = 8;

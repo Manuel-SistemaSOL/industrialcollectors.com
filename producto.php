@@ -8,7 +8,7 @@ $idarticulo = filter_var($_GET['id'] ?? null, FILTER_VALIDATE_INT, ['options' =>
 if (!$idarticulo) {
     bm_product_error(404);
 }
-$ch = curl_init('https://ssl.sol.sistemasolgt.com/brovic/api/api_tienda_articulos_listarid.php');
+$ch = curl_init('https://ssl.sol.sistemasolgt.com/induscollesitio/api/api_tienda_articulos_listarid.php');
 curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => json_encode(['idarticulo' => $idarticulo]), CURLOPT_RETURNTRANSFER => true, CURLOPT_SSL_VERIFYPEER => true, CURLOPT_SSL_VERIFYHOST => 2, CURLOPT_PROXY => '', CURLOPT_NOPROXY => '*', CURLOPT_CONNECTTIMEOUT => 5, CURLOPT_TIMEOUT => 20, CURLOPT_HTTPHEADER => ['Content-Type: application/json']]);
 $api_response = curl_exec($ch);
 $api_status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -31,14 +31,14 @@ if ((int) ($productoSeo['idarticulo'] ?? 0) !== $idarticulo || empty($productoSe
 $nombreProductoSeo = trim((string) ($productoSeo['nombre'] ?? 'Producto'));
 $descripcionProductoSeo = trim((string) ($productoSeo['descripcion'] ?? ''));
 
-$seo_title = $nombreProductoSeo . ' | La Broca Ferreterías';
+$seo_title = $nombreProductoSeo . ' | Industrial Collectors, S.A.';
 
 $seo_description = $descripcionProductoSeo !== ''
     ? mb_substr(strip_tags($descripcionProductoSeo), 0, 155)
-    : 'Consulta información, precio y disponibilidad de este producto en La Broca Ferreterías.';
+    : 'Consulta información, precio y disponibilidad de este producto en Industrial Collectors, S.A.';
 
 $seo_canonical_url =
-    'https://labrocaferreterias.com/producto.php?id=' .
+    'https://industrialcollectors.com/producto.php?id=' .
     rawurlencode((string) $idarticulo);
 
 $seo_robots = 'index, follow, max-image-preview:large';
@@ -223,12 +223,12 @@ include 'head.php';
 
     .slider-nav>div:hover {
         opacity: 1;
-        border-color: #151515;
+        border-color: #1D1D1B;
         transform: scale(1.05);
     }
 
     .slider-nav>div.active {
-        border-color: #151515;
+        border-color: #1D1D1B;
         opacity: 1;
         box-shadow: 0 2px 8px rgba(21, 21, 21, 0.24);
     }
@@ -305,7 +305,7 @@ include 'head.php';
 
     /* Activa */
     #slider-nav .thumb-item.active {
-        border-color: #151515;
+        border-color: #1D1D1B;
         opacity: 1;
         box-shadow: 0 2px 8px rgba(21, 21, 21, .24);
     }
@@ -328,16 +328,16 @@ include 'head.php';
     }
 
     .widget.widget_categories .categories li a.nav-link:hover {
-        background: #fff7cc;
-        border-color: #ffe66b;
+        background: #F3F5F7;
+        border-color: #009FE3;
         color: #000;
     }
 
     .widget.widget_categories .categories li a.nav-link.active {
-        background: #fff7cc;
-        border-color: #ffe66b;
+        background: #F3F5F7;
+        border-color: #009FE3;
         color: #000;
-        box-shadow: inset 3px 0 0 #ffd000;
+        box-shadow: inset 3px 0 0 #1D71B8;
     }
 
     .widget.widget_categories .categories li a.nav-link:hover i,
@@ -926,7 +926,7 @@ include 'head.php';
             return window.BM_resolveFirstProductImage(Array.prototype.slice.call(arguments));
         }
 
-        const fallback = window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalLABROCA.png';
+        const fallback = window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
         const base = 'https://ssl.sol.sistemasolgt.com/brovic/files/articulos/';
 
         for (let index = 0; index < arguments.length; index += 1) {
@@ -983,7 +983,7 @@ include 'head.php';
         if (img) {
             img.onerror = null;
             img.classList.add('bm-product-image-fallback');
-            img.src = window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalLABROCA.png';
+            img.src = window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
         }
     }
 
@@ -1215,7 +1215,7 @@ include 'head.php';
 
 
         // Cargar fotos desde la API
-        fetch("https://ssl.sol.sistemasolgt.com/brovic/api/api_tienda_mostrarfotosproducto.php", {
+        fetch("https://ssl.sol.sistemasolgt.com/induscollesitio/api/api_tienda_mostrarfotosproducto.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -1501,7 +1501,7 @@ include 'head.php';
         let cantidad = typeof normalizarInputCantidad === 'function' ?
             normalizarInputCantidad(inputCantidad) :
             Math.min(Math.max(parseInt(inputCantidad?.value, 10) || 1, 1), 99);
-        let imagen = imagenPrincipal || (window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalLABROCA.png');
+        let imagen = imagenPrincipal || (window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png');
 
         const agregado = agregarAlCarrito(
             productoActual.idarticulo,
@@ -1550,7 +1550,7 @@ include 'head.php';
             `💰 Precio: *Q${precioFinalProducto}*\n\n` +
             `📦 Disponibilidad: ${productoSinStock(productoActual) ? 'Agotado' : 'En stock'}\n\n` +
             `🔗 Ver más detalles:\n${url}\n\n` +
-            `_La Broca Ferreterías_`
+            `_Industrial Collectors, S.A._`
         );
 
         const whatsappUrl = `https://wa.me/?text=${mensaje}`;

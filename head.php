@@ -37,9 +37,9 @@ if (!isset($current_page)) {
 
 include "assets/php/rutas.php";
 
-$bm_site_logo = 'assets/img/LogoSinFondoBROCA.png';
-$bm_site_logo_fallback = 'assets/img/LogoLaBroca.png';
-$bm_loader_logo = 'assets/img/LogoLaBroca.png';
+$bm_site_logo = 'assets/img/logotipo IC/version horizontal/Logo-Industrial-Collectors-para-fondo-oscuro-horizontal.png';
+$bm_site_logo_fallback = 'assets/img/logotipo IC/version horizontal/Logo-Industrial-Collectors-horizontal.png';
+$bm_loader_logo = 'assets/img/logotipo IC/version horizontal/Logo-Industrial-Collectors-horizontal.png';
 $bm_loader_logo_fallback = $bm_site_logo;
 $bm_header_search_value = isset($_GET['buscar']) ? trim((string) $_GET['buscar']) : '';
 
@@ -142,19 +142,19 @@ HTML;
 
     <?php
     // Configuración SEO por defecto
-    $site_url = 'https://labrocaferreterias.com';
+    $site_url = 'https://industrialcollectors.com';
 
     $request_uri = $_SERVER['REQUEST_URI'] ?? '/';
     $current_url = $site_url . $request_uri;
 
     $seo_title = $seo_title ??
-        'La Broca Ferreterías | Herramientas, construcción y ferretería';
+        'Industrial Collectors, S.A. | Materiales Metálicos';
 
     $seo_description = $seo_description ??
-        'La Broca Ferreterías ofrece productos de ferretería, herramientas y soluciones para construcción, plomería, electricidad y pintura.';
+        'Perfilería, láminas, tubos, vigas, costaneras e hierro de construcción para ventas al por mayor y menor.';
 
     $seo_image = $seo_image ??
-        $site_url . '/assets/img/LogoLaBroca.png';
+        $site_url . '/assets/img/logotipo IC/version horizontal/Logo-Industrial-Collectors-horizontal.png';
 
     $seo_robots = $seo_robots ??
         'index, follow, max-image-preview:large';
@@ -170,7 +170,7 @@ HTML;
     <!-- SEO Meta Tags -->
     <title><?php echo htmlspecialchars($seo_title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($seo_description); ?>">
-    <meta name="author" content="La Broca Ferreterías">
+    <meta name="author" content="Industrial Collectors, S.A.">
     <meta name="robots" content="<?php echo htmlspecialchars($seo_robots, ENT_QUOTES, 'UTF-8'); ?>">
     <link rel="canonical" href="<?php echo htmlspecialchars($canonical_url, ENT_QUOTES, 'UTF-8'); ?>">
 
@@ -181,7 +181,7 @@ HTML;
     <meta property="og:description" content="<?php echo htmlspecialchars($seo_description); ?>">
     <meta property="og:image" content="<?php echo htmlspecialchars($seo_image); ?>">
     <meta property="og:locale" content="es_GT">
-    <meta property="og:site_name" content="La Broca Ferreterías">
+    <meta property="og:site_name" content="Industrial Collectors, S.A.">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -195,26 +195,26 @@ HTML;
                 {
                 "@context": "https://schema.org",
                 "@type": "Store",
-                "name": "La Broca Ferreterías",
-                "url": "https://labrocaferreterias.com",
-                "logo": "https://labrocaferreterias.com/assets/img/LogoLaBroca.png",
-                "description": "Ferretería con productos, herramientas y soluciones para hogares, profesionales y proyectos de construcción.",
+                "name": "Industrial Collectors, S.A.",
+                "url": "https://industrialcollectors.com",
+                "logo": "https://industrialcollectors.com/assets/img/logotipo IC/version horizontal/Logo-Industrial-Collectors-horizontal.png",
+                "description": "Distribución de materiales metálicos para proyectos de construcción, con ventas al por mayor y menor.",
                 "address": {
                     "@type": "PostalAddress",
-                    "streetAddress": "32 avenida A, 28-31, zona 5, Santa Ana. A unos pasos del Mercado Santa Ana.",
-                    "addressLocality": "Santa Ana",
+                    "streetAddress": "6 calle 13-10, zona 10, Finca El Carmen, San Miguel Petapa, Guatemala",
+                    "addressLocality": "San Miguel Petapa",
                     "addressCountry": "GT"
                 },
                 "contactPoint": {
                     "@type": "ContactPoint",
-                    "telephone": "+502-4314-3784",
+                    "telephone": "+502-3200-1888",
                     "contactType": "Atención al cliente"
                 },
-                "openingHours": "Mo-Su 07:00-18:00",
+                "openingHours": ["Mo-Fr 07:00-18:00", "Sa 07:00-16:00"],
                 "sameAs": [
-                    "https://www.facebook.com/share/198josCWCF/",
-                    "https://www.tiktok.com/@la.broca1",
-                    "https://maps.app.goo.gl/e9zCfSJCzeR73RYs6?g_st=aw"
+                    "https://www.facebook.com/profile.php?id=100089824832535",
+                    "https://www.tiktok.com/@colectoresindustriales",
+                    "https://www.google.com/maps/place/Industrial+Collectors,+Sociedad+Anonima/@14.4997744,-90.5727928,17z/data=!3m1!4b1!4m6!3m5!1s0x8589a7d8fa371829:0x595712d23c4afc73!8m2!3d14.4997692!4d-90.5702179!16s%2Fg%2F11s4x7wnjq"
                 ]
                 }
                 </script>
@@ -224,7 +224,7 @@ HTML;
                     {
                     "@context": "https://schema.org",
                     "@type": "WebSite",
-                    "name": "La Broca Ferreterías",
+                    "name": "Industrial Collectors, S.A.",
                     "url": "<?php echo $site_url; ?>",
                     "potentialAction": {
                         "@type": "SearchAction",
@@ -235,7 +235,7 @@ HTML;
                 </script>
 
 
-    <link rel="icon" type="image/png" href="assets/img/LogoLaBroca.png">
+    <link rel="icon" type="image/png" href="assets/img/logotipo IC/version horizontal/Logo-Industrial-Collectors-horizontal.png">
     <?php
     if (!empty($extra_head_content)) {
         echo $extra_head_content;
@@ -297,7 +297,7 @@ HTML;
         }
 
         .cart-icon:hover {
-            color: #b88900;
+            color: #1D71B8;
         }
 
         .cart-icon .flaticon-shopping-cart {
@@ -308,8 +308,8 @@ HTML;
             position: absolute;
             top: -8px;
             right: -8px;
-            background-color: #ffd000;
-            color: #151515;
+            background-color: #1D71B8;
+            color: #1D1D1B;
             border-radius: 50%;
             width: 20px;
             height: 20px;
@@ -361,7 +361,7 @@ HTML;
             align-items: center;
             flex: 0 0 auto;
             background: #ffffff;
-            border: 1px solid rgba(255, 208, 0, 0.72);
+            border: 1px solid rgba(29, 113, 184, 0.72);
             border-radius: 6px;
             box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
         }
@@ -372,7 +372,7 @@ HTML;
             justify-content: center;
             padding: 5px 8px;
             background: #ffffff;
-            border: 1px solid rgba(255, 208, 0, 0.72);
+            border: 1px solid rgba(29, 113, 184, 0.72);
             border-radius: 6px;
             box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
             text-decoration: none;
@@ -454,7 +454,7 @@ HTML;
         }
 
         .shipping-promo-bar {
-            background: #151515;
+            background: #1D1D1B;
             box-sizing: border-box;
             color: #ffffff;
             min-height: 58px;
@@ -507,7 +507,7 @@ HTML;
 
         .shipping-promo-delivery {
             align-items: center;
-            color: #151515;
+            color: #1D1D1B;
             display: inline-flex;
             font-size: clamp(12px, 0.95vw, 15px);
             font-weight: 800;
@@ -579,7 +579,7 @@ HTML;
             height: 42px;
             border: 0;
             background: transparent;
-            color: #151515;
+            color: #1D1D1B;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -629,7 +629,7 @@ HTML;
         .bm-desktop-nav .nav-link:hover,
         .bm-desktop-nav .nav-link:focus,
         .bm-desktop-nav .nav-link.is-active {
-            color: #151515 !important;
+            color: #1D1D1B !important;
             outline: none;
         }
 
@@ -657,7 +657,7 @@ HTML;
             border: 0;
             border-radius: 50%;
             background: transparent;
-            color: #151515;
+            color: #1D1D1B;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -677,8 +677,8 @@ HTML;
         .header-action-btn:focus,
         .header-action-link:hover,
         .header-action-link:focus {
-            background: #fff7cc;
-            color: #151515;
+            background: #F3F5F7;
+            color: #1D1D1B;
             transform: translateY(-1px);
             outline: none;
         }
@@ -697,7 +697,7 @@ HTML;
         .cart-count-navbar {
             top: 1px;
             right: 0;
-            background-color: #151515;
+            background-color: #1D1D1B;
             font-weight: 600;
             box-shadow: 0 4px 10px rgba(21, 21, 21, 0.24);
         }
@@ -755,7 +755,7 @@ HTML;
         .header-search-box .form-control {
             height: 44px;
             border-radius: 999px;
-            border: 2px solid rgba(255, 208, 0, 0.82);
+            border: 2px solid rgba(29, 113, 184, 0.82);
             background: #ffffff;
             color: #292929;
             font-size: 14px;
@@ -774,8 +774,8 @@ HTML;
         }
 
         .header-search-box .form-control:focus {
-            border-color: #ffd000;
-            box-shadow: 0 0 0 3px rgba(255, 208, 0, 0.22), 0 6px 16px rgba(21, 21, 21, 0.16);
+            border-color: #1D71B8;
+            box-shadow: 0 0 0 3px rgba(29, 113, 184, 0.22), 0 6px 16px rgba(21, 21, 21, 0.16);
         }
 
         .header-search-box button {
@@ -783,7 +783,7 @@ HTML;
             height: 38px;
             border: 0;
             border-radius: 50%;
-            background: #151515;
+            background: #1D1D1B;
             color: #ffffff;
             display: inline-flex;
             align-items: center;
@@ -798,8 +798,8 @@ HTML;
 
         .header-search-box button:hover,
         .header-search-box button:focus {
-            background: #ffd000;
-            color: #151515;
+            background: #1D71B8;
+            color: #1D1D1B;
         }
 
         .header-search-box button i {
@@ -843,7 +843,7 @@ HTML;
             }
 
             .shipping-promo-mobile-delivery {
-                color: #151515;
+                color: #1D1D1B;
                 display: block;
                 font-size: clamp(12px, 1.8vw, 15px);
                 font-weight: 800;
@@ -1382,7 +1382,7 @@ HTML;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            color: #151515;
+            color: #1D1D1B;
             font-size: 16px;
             font-weight: 500;
             margin-bottom: 12px;
@@ -1392,7 +1392,7 @@ HTML;
         .bm-mobile-menu-close {
             border: 0;
             background: transparent;
-            color: #151515;
+            color: #1D1D1B;
             width: 38px;
             height: 38px;
             display: inline-flex;
@@ -1415,7 +1415,7 @@ HTML;
             left: 0;
             top: 50%;
             transform: translateY(-50%);
-            color: #151515;
+            color: #1D1D1B;
             font-size: 20px;
         }
 
@@ -1425,7 +1425,7 @@ HTML;
             border: 0;
             border-bottom: 1px solid #777b88;
             padding: 0 0 0 34px;
-            color: #151515;
+            color: #1D1D1B;
             font-size: 15px;
             outline: none;
         }
@@ -1458,7 +1458,7 @@ HTML;
         .bm-mobile-row:hover,
         .bm-mobile-row:focus,
         .bm-mobile-row.is-active {
-            color: #151515;
+            color: #1D1D1B;
             outline: none;
         }
 
@@ -1469,7 +1469,7 @@ HTML;
         }
 
         .bm-mobile-row i {
-            color: #151515;
+            color: #1D1D1B;
             font-size: 20px;
             flex: 0 0 auto;
             line-height: 1;
@@ -1491,7 +1491,7 @@ HTML;
             gap: 12px;
             margin-top: 18px;
             padding: 14px 14px;
-            background: #151515;
+            background: #1D1D1B;
             color: #ffffff;
             box-shadow: 0 10px 22px rgba(21, 21, 21, 0.14);
         }
@@ -1540,7 +1540,7 @@ HTML;
 
         .bm-mobile-account {
             margin: 20px 0 18px;
-            color: #151515;
+            color: #1D1D1B;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -1556,7 +1556,7 @@ HTML;
         }
 
         .bm-mobile-pickup {
-            color: #151515;
+            color: #1D1D1B;
             font-size: 15px;
         }
 
@@ -1592,16 +1592,16 @@ HTML;
     <div class="navbar-area">
         <div class="shipping-promo-bar" role="note">
             <span class="shipping-promo-message">
-                <a class="shipping-promo-logo-link" href="index.php" aria-label="La Broca Ferreter&iacute;as">
-                    <img class="shipping-promo-logo" src="<?php echo htmlspecialchars($bm_site_logo, ENT_QUOTES); ?>" alt="La Broca Ferreter&iacute;as" loading="eager" decoding="async"
+                <a class="shipping-promo-logo-link" href="index.php" aria-label="Industrial Collectors, S.A.">
+                    <img class="shipping-promo-logo" src="<?php echo htmlspecialchars($bm_site_logo, ENT_QUOTES); ?>" alt="Industrial Collectors, S.A." loading="eager" decoding="async"
                         onerror="this.src='<?php echo htmlspecialchars($bm_site_logo_fallback, ENT_QUOTES); ?>'; this.onerror=null;">
                 </a>
             </span>
-            <span class="shipping-promo-mobile-delivery">Env&iacute;o a todo el pa&iacute;s</span>
+            <span class="shipping-promo-mobile-delivery">Materiales met&aacute;licos</span>
             <div class="header-search-panel shipping-search-panel shipping-search-panel-desktop" id="header-search-panel">
                 <form class="header-search-form" onsubmit="event.preventDefault(); buscarProductos(this);" role="search" aria-label="Buscar productos">
                     <div class="header-search-box">
-                        <input type="text" id="search" name="search" class="form-control bm-search-input" placeholder="Buscar herramientas, pintura o materiales..." value="<?php echo htmlspecialchars($bm_header_search_value, ENT_QUOTES, 'UTF-8'); ?>" autocomplete="off">
+                        <input type="text" id="search" name="search" class="form-control bm-search-input" placeholder="Buscar materiales metálicos..." value="<?php echo htmlspecialchars($bm_header_search_value, ENT_QUOTES, 'UTF-8'); ?>" autocomplete="off">
                         <button type="button" onclick="buscarProductos(this)" aria-label="Buscar">
                             <i class='bx bx-search'></i>
                         </button>
@@ -1609,7 +1609,7 @@ HTML;
                 </form>
             </div>
             <span class="shipping-promo-delivery">
-                <span>Env&iacute;o a todo el pa&iacute;s</span>
+                <span>Materiales met&aacute;licos</span>
                 <span class="shipping-promo-delivery-icon" aria-hidden="true">🚚</span>
             </span>
         </div>
@@ -1623,7 +1623,7 @@ HTML;
                     <div class="mobile-header-search-panel">
                         <form class="header-search-form" onsubmit="event.preventDefault(); buscarProductos(this);" role="search" aria-label="Buscar productos">
                             <div class="header-search-box">
-                                <input type="text" id="search-mobile" name="search_mobile" class="form-control bm-search-input" placeholder="Buscar herramientas, pintura o materiales..." value="<?php echo htmlspecialchars($bm_header_search_value, ENT_QUOTES, 'UTF-8'); ?>" autocomplete="off">
+                                <input type="text" id="search-mobile" name="search_mobile" class="form-control bm-search-input" placeholder="Buscar materiales metálicos..." value="<?php echo htmlspecialchars($bm_header_search_value, ENT_QUOTES, 'UTF-8'); ?>" autocomplete="off">
                                 <button type="button" onclick="buscarProductos(this)" aria-label="Buscar">
                                     <i class='bx bx-search'></i>
                                 </button>
@@ -1712,7 +1712,7 @@ HTML;
 
                 <div class="bm-mobile-pickup-card">
                         <div class="bm-mobile-pickup-icon">
-                            <img src="assets/img/CompraLABROCA.png" alt="Compra fácil en La Broca Ferreterías">
+                            <img src="assets/img/CompraLABROCA.png" alt="Compra fácil en Industrial Collectors, S.A.">
                         </div>
 
                         <div class="bm-mobile-pickup-content">

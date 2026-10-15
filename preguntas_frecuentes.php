@@ -1,7 +1,7 @@
 <?php
-$seo_title = "Preguntas Frecuentes - La Broca Ferreterías";
-$seo_description = "Preguntas frecuentes sobre compras, pagos, horarios y contacto de La Broca Ferreterías.";
-$seo_keywords = "preguntas frecuentes la broca ferreterías, ferretería, herramientas, contacto";
+$seo_title = "Preguntas Frecuentes - Industrial Collectors, S.A.";
+$seo_description = "Preguntas frecuentes sobre compras, pagos, horarios y contacto de Industrial Collectors, S.A.";
+$seo_keywords = "preguntas frecuentes Industrial Collectors, S.A., materiales metálicos, construcción, contacto";
 $current_page = basename($_SERVER['PHP_SELF']);
 
 include 'head.php';
@@ -35,7 +35,7 @@ include 'head.php';
         left: 0;
         width: 100%;
         height: 5px;
-        background: #151515;
+        background: #1D1D1B;
         pointer-events: none;
     }
 
@@ -62,33 +62,33 @@ include 'head.php';
             <div class="col-lg-12 col-md-12">
                 <div class="story-content">
 
-                    <h3>PREGUNTAS FRECUENTES - LA BROCA FERRETER&Iacute;AS</h3>
+                    <h3>PREGUNTAS FRECUENTES - Industrial Collectors, S.A.</h3>
                     <p><strong>&Uacute;ltima actualizaci&oacute;n:</strong> 25 de agosto de 2026</p>
 
                     <p>
-                        <b>&iquest;Qu&eacute; es La Broca Ferreter&iacute;as?</b><br>
-                        Somos una ferreter&iacute;a fundada en 2012, dedicada a la venta de productos, herramientas y soluciones para hogares, profesionales y proyectos de construcci&oacute;n.
+                        <b>&iquest;Qu&eacute; es Industrial Collectors, S.A.?</b><br>
+                        Somos una empresa dedicada a la distribución y comercialización de materiales metálicos para construcción.
                     </p>
 
                     <p>
                         <b>&iquest;Qu&eacute; tipo de productos ofrecen?</b><br>
                         Ofrecemos:
-                        <br>&bull; Construcci&oacute;n
-                        <br>&bull; Plomer&iacute;a
-                        <br>&bull; Electricidad
-                        <br>&bull; Pintura
-                        <br>&bull; Herramientas
-                        <br>&bull; Productos de ferreter&iacute;a en general
+                        <br>&bull; Perfilería
+                        <br>&bull; Láminas
+                        <br>&bull; Tubos
+                        <br>&bull; Vigas
+                        <br>&bull; Costaneras
+                        <br>&bull; Hierro de construcción
                     </p>
 
                     <p>
                         <b>&iquest;Puedo consultar disponibilidad antes de comprar?</b><br>
-                        S&iacute;. Puedes escribirnos por WhatsApp al <strong>+502 4314 3784</strong> para confirmar existencia, precio y detalles del producto.
+                        S&iacute;. Puedes escribirnos por WhatsApp al <strong>3088-8818</strong> para confirmar existencia, precio y detalles del producto.
                     </p>
 
                     <p>
                         <b>&iquest;Cu&aacute;l es el horario de atenci&oacute;n?</b><br>
-                        Estamos abiertos todos los d&iacute;as de 7:00 a. m. a 6:00 p. m.
+                        Lunes a viernes: 7:00 a. m. a 6:00 p. m. Sábado: 7:00 a. m. a 4:00 p. m.
                     </p>
 
                     <p>
@@ -99,7 +99,7 @@ include 'head.php';
 
                     <p>
                         <b>&iquest;Cu&aacute;les son los m&eacute;todos de pago disponibles?</b><br>
-                        Aceptamos efectivo, transferencia bancaria y tarjetas de cr&eacute;dito, seg&uacute;n disponibilidad y confirmaci&oacute;n del pedido.
+                        Los métodos de pago son efectivo, tarjeta de crédito con recargo del 5%, transferencia a cuenta y link de pago.
                     </p>
 
                     <p>

@@ -1,6 +1,6 @@
 <?php
-$seo_title = 'Derechos de autor | La Broca Ferreterías';
-$seo_description = 'Información sobre los derechos de autor del contenido de La Broca Ferreterías.';
+$seo_title = 'Derechos de autor | Industrial Collectors, S.A.';
+$seo_description = 'Información sobre los derechos de autor del contenido de Industrial Collectors, S.A.';
 $current_page = basename($_SERVER['PHP_SELF']);
 include 'head.php';
 ?>
@@ -33,7 +33,7 @@ include 'head.php';
                             <h3>Derechos reservados</h3>
                             <p>Ultima actualizacion: 26 de diciembre de 2025</p>
 
-                            <p><strong>&copy; <?php echo date('Y'); ?> La Broca Ferreterías.</strong> Todos los derechos reservados. El contenido de este sitio web, incluyendo textos, imagenes, logotipos y disenos, es propiedad de COMPUSISGT y esta protegido por las leyes de derechos de autor.</p>
+                            <p><strong>&copy; <?php echo date('Y'); ?> Industrial Collectors, S.A.</strong> Todos los derechos reservados. El contenido de este sitio web, incluyendo textos, imagenes, logotipos y disenos, es propiedad de COMPUSISGT y esta protegido por las leyes de derechos de autor.</p>
 
                             <p>Queda prohibida la reproduccion, distribucion, modificacion o uso total o parcial de este contenido sin autorizacion previa por escrito.</p>
                         </div>

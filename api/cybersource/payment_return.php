@@ -22,15 +22,15 @@ function bm_payment_page(string $title, string $message, string $reference, stri
     echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
     echo '<title>' . bm_escape($title) . '</title>';
     echo '<style>';
-    echo ':root{--brand:#151515;--brand-dark:#242424;--soft:#f6f6f3;--line:#e8e5dc}';
-    echo '*{box-sizing:border-box}body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#ffffff 0%,#fff7cc 100%);color:#1f2430;margin:0;display:grid;min-height:100vh;place-items:center;padding:24px}';
+    echo ':root{--brand:#1D71B8;--brand-dark:#312783;--soft:#F3F5F7;--line:#AEB6BF}';
+    echo '*{box-sizing:border-box}body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#ffffff 0%,#F3F5F7 100%);color:#1f2430;margin:0;display:grid;min-height:100vh;place-items:center;padding:24px}';
     echo '.box{width:min(92vw,720px);background:#fff;border:1px solid var(--line);border-radius:10px;padding:36px 32px;box-shadow:0 24px 60px rgba(38,55,199,.16);text-align:center}';
     echo '.logo{display:block;width:min(320px,78vw);height:auto;margin:0 auto 30px}';
     echo 'h1{color:' . $color . ';margin:0 0 12px;font-size:34px;line-height:1.15}p{line-height:1.55;margin:0 auto;color:#3f4654;font-size:17px;max-width:560px}';
-    echo '.ref{display:inline-flex;align-items:center;gap:8px;background:#fff7cc;color:#151515;border-radius:8px;padding:12px 16px;margin:24px 0 6px;font-weight:700}.actions{margin-top:24px}.btn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;padding:13px 26px;border-radius:7px;font-weight:700;border:0;cursor:pointer;font-size:16px}.btn:hover{background:var(--brand-dark)}';
+    echo '.ref{display:inline-flex;align-items:center;gap:8px;background:#F3F5F7;color:#151515;border-radius:8px;padding:12px 16px;margin:24px 0 6px;font-weight:700}.actions{margin-top:24px}.btn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;padding:13px 26px;border-radius:7px;font-weight:700;border:0;cursor:pointer;font-size:16px}.btn:hover{background:var(--brand-dark)}';
     echo '@media(max-width:520px){.box{padding:30px 20px}h1{font-size:28px}.ref{width:100%;justify-content:center;word-break:break-word}}';
     echo '</style></head><body><main class="box">';
-    echo '<img class="logo" src="../../assets/img/LogoLaBroca.png" alt="La Broca Ferreterías">';
+    echo '<img class="logo" src="../../assets/img/logotipo%20IC/version%20horizontal/Logo-Industrial-Collectors-horizontal.png" alt="Industrial Collectors, S.A.">';
     echo '<h1>' . bm_escape($title) . '</h1><p>' . bm_escape($message) . '</p>';
     if ($reference !== '') {
         echo '<div class="ref">Referencia: <span>' . $safeReference . '</span></div>';
@@ -168,7 +168,7 @@ try {
             'authorization_number' => $authorizationNumber,
             'transaction_id' => $paymentSummary['transaction_id'],
         ]);
-        bm_payment_page('Pago aprobado', 'Tu pago fue aprobado. Para coordinar el seguimiento de tu pedido, comunicate por WhatsApp al +502 4314 3784.', $reference, 'ok', 'approved');
+        bm_payment_page('Pago aprobado', 'Tu pago fue aprobado. Para coordinar el seguimiento de tu pedido, comunicate por WhatsApp al +502 3088 8818.', $reference, 'ok', 'approved');
     }
 
     $status = $secureAcceptance->sessionStatusForPaymentStatus($paymentStatus);

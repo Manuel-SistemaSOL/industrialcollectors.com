@@ -3,15 +3,15 @@
         <div class="bm-footer-grid">
             <div class="bm-footer-column">
                 <h2>Cont&aacute;ctanos</h2>
-                <p><strong>Ubicaci&oacute;n:</strong> 32 avenida A, 28-31, zona 5, Santa Ana. A unos pasos del Mercado Santa Ana.</p>
-                <p><strong>Horario:</strong> Abierto todos los d&iacute;as de 7:00 a. m. a 6:00 p. m.</p>
-                <p><strong>Tel&eacute;fono / WhatsApp:</strong> <a href="tel:+50243143784">+502 4314 3784</a> | <a href="https://wa.me/50243143784" target="_blank" rel="noopener">WhatsApp</a></p>
-                <p><strong>Email:</strong> <a href="mailto:labrocaferreterias01@gmail.com">labrocaferreterias01@gmail.com</a></p>
+                <p><strong>Ubicaci&oacute;n:</strong> Sucursal 1: 6 calle 13-10, zona 10, Finca El Carmen, San Miguel Petapa, Guatemala. Sucursal 2: Calle Real a San Miguel Petapa, 21-20 zona 10, La Enriqueta, Guatemala.</p>
+                <p><strong>Horario:</strong> Lunes a viernes: 7:00 a. m. a 6:00 p. m. Sábado: 7:00 a. m. a 4:00 p. m.</p>
+                <p><strong>Llamadas / WhatsApp:</strong> <a href="tel:+50232001888">+502 3200 1888</a> | <a href="https://wa.me/50230888818" target="_blank" rel="noopener">3088-8818</a></p>
+                <p><strong>Email:</strong> <a href="mailto:industrialcollectorsventas@gmail.com">industrialcollectorsventas@gmail.com</a></p>
 
                 <div class="bm-footer-social" aria-label="Redes sociales">
-                    <a href="https://www.facebook.com/share/198josCWCF/" target="_blank" rel="noopener noreferrer" aria-label="Facebook de La Broca Ferreterías"><i class='bx bxl-facebook'></i></a>
-                    <a href="https://www.tiktok.com/@la.broca1" target="_blank" rel="noopener noreferrer" aria-label="TikTok de La Broca Ferreterías"><i class='bx bxl-tiktok'></i></a>
-                    <a href="https://www.tiktok.com/@la.broca1" target="_blank" rel="noopener noreferrer" aria-label="TikTok de La Broca Ferreterías"><i class='bx bxl-tiktok'></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=100089824832535" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Industrial Collectors, S.A."><i class='bx bxl-facebook'></i></a>
+                    <a href="https://www.instagram.com/industrialcollectors" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Industrial Collectors, S.A."><i class='bx bxl-instagram'></i></a>
+                    <a href="https://www.tiktok.com/@colectoresindustriales" target="_blank" rel="noopener noreferrer" aria-label="TikTok de Industrial Collectors, S.A."><i class='bx bxl-tiktok'></i></a>
                 </div>
             </div>
 
@@ -29,15 +29,15 @@
 
             <div class="bm-footer-column bm-footer-support">
                 <h2>Soporte y atenci&oacute;n</h2>
-                <p>&iquest;Necesitas ayuda con herramientas, materiales, pintura, plomer&iacute;a o electricidad? Escr&iacute;benos por WhatsApp.</p>
-                <a class="bm-footer-whatsapp" href="https://wa.me/50243143784" target="_blank" rel="noopener">
+                <p>Comunícate con nuestro equipo para obtener información sobre productos, disponibilidad y atención comercial.</p>
+                <a class="bm-footer-whatsapp" href="https://wa.me/50230888818" target="_blank" rel="noopener">
                     <i class='bx bxl-whatsapp'></i> Chatear ahora
                 </a>
             </div>
         </div>
 
         <div class="bm-footer-copyright">
-            <p>Copyright &copy; La Broca Ferreter&iacute;as. Todos los derechos reservados.</p>
+            <p>Copyright &copy; Industrial Collectors, S.A. Todos los derechos reservados.</p>
         </div>
     </div>
 </section>
@@ -50,7 +50,7 @@
 <!-- End Go Top Area -->
 
 <!-- Start WhatsApp Float Button -->
-<a href="https://wa.me/50243143784" target="_blank" class="whatsapp-float" title="Chatear por WhatsApp">
+<a href="https://wa.me/50230888818" target="_blank" class="whatsapp-float" title="Chatear por WhatsApp">
     <i class='bx bxl-whatsapp'></i>
 </a>
 <!-- End WhatsApp Float Button -->

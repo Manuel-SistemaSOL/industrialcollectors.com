@@ -33,7 +33,7 @@ try {
     ksort($ids, SORT_NUMERIC);
     $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
     foreach ($ids as $id => $_) {
-        $xml .= '  <url><loc>https://labrocaferreterias.com/producto.php?id=' . $id . '</loc></url>' . "\n";
+        $xml .= '  <url><loc>https://industrialcollectors.com/producto.php?id=' . $id . '</loc></url>' . "\n";
     }
     $xml .= "</urlset>\n";
     $catalog = dirname(__DIR__) . '/storage/seo-catalog.json';

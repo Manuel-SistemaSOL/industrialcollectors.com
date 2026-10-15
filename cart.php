@@ -10,11 +10,11 @@ if (empty($_SESSION[$csrfKey])) {
 
 $current_page = basename($_SERVER['PHP_SELF']);
 
-$seo_title = "Carrito de compras | La Broca Ferreterías";
+$seo_title = "Carrito de compras | Industrial Collectors, S.A.";
 
-$seo_description = "Revisa los productos agregados a tu carrito y continúa con tu pedido en La Broca Ferreterías.";
+$seo_description = "Revisa los productos agregados a tu carrito y continúa con tu pedido en Industrial Collectors, S.A.";
 
-$seo_canonical_url = "https://labrocaferreterias.com/cart.php";
+$seo_canonical_url = "https://industrialcollectors.com/cart.php";
 
 $seo_robots = "noindex, follow";
 
@@ -275,7 +275,7 @@ include 'head.php';
 
             .mp-form-content h2 {
                 margin-bottom: 5px;
-                color: #151515;
+                color: #1D1D1B;
                 font-size: 28px;
                 line-height: 1.1;
                 font-weight: 800;
@@ -356,7 +356,7 @@ include 'head.php';
             .mp-form-group input:not([type="checkbox"]):focus,
             .mp-form-group select:focus {
                 outline: none;
-                border-color: #151515;
+                border-color: #1D1D1B;
                 box-shadow: 0 0 0 2px rgba(21, 21, 21, 0.10);
             }
 
@@ -451,8 +451,8 @@ include 'head.php';
 
             .mp-btn-cancelar {
                 background: #f5f7ff;
-                color: #151515;
-                border-color: #151515;
+                color: #1D1D1B;
+                border-color: #1D1D1B;
             }
 
             .mp-btn-cancelar:hover {
@@ -460,7 +460,7 @@ include 'head.php';
             }
 
             .mp-btn-enviar {
-                background: #151515;
+                background: #1D1D1B;
                 color: #fff;
             }
 
@@ -549,7 +549,7 @@ include 'head.php';
             }
 
             .cart-totals ul li.cart-total-normal strong {
-                color: #151515;
+                color: #1D1D1B;
             }
 
             .mp-btn-enviar:disabled {
