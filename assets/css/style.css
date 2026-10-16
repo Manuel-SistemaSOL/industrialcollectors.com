@@ -8406,7 +8406,7 @@ Buy Now Btn
     background: #ffffff !important;
 }
 
-.bm-special-products-page #products-collections-filter > div {
+.bm-special-products-page #products-collections-filter > div:not(.col-12) {
     flex: 0 0 25% !important;
     max-width: 25% !important;
     padding-left: 15px;
@@ -8475,7 +8475,7 @@ Buy Now Btn
         margin-right: -8px;
     }
 
-    .bm-special-products-page #products-collections-filter > div {
+    .bm-special-products-page #products-collections-filter > div:not(.col-12) {
         flex: 0 0 33.333333% !important;
         max-width: 33.333333% !important;
         padding-left: 8px;
@@ -8507,7 +8507,7 @@ Buy Now Btn
         line-height: 1.6;
     }
 
-    .bm-special-products-page #products-collections-filter > div {
+    .bm-special-products-page #products-collections-filter > div:not(.col-12) {
         flex: 0 0 50% !important;
         max-width: 50% !important;
     }

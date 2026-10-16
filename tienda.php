@@ -319,7 +319,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
             margin-right: -8px;
         }
 
-        #products-collections-filter > div {
+        #products-collections-filter > div:not(.col-12) {
             width: 33.333333% !important;
             flex: 0 0 33.333333% !important;
             max-width: 33.333333% !important;
@@ -355,7 +355,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
     }
 
     @media (max-width: 767px) {
-        #products-collections-filter > div {
+        #products-collections-filter > div:not(.col-12) {
             width: 50% !important;
             flex: 0 0 50% !important;
             max-width: 50% !important;
@@ -387,7 +387,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
         display: none !important;
     }
 
-    #products-collections-filter > div {
+    #products-collections-filter > div:not(.col-12) {
         margin-bottom: 20px;
     }
 
@@ -535,7 +535,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
         min-height: 220px;
     }
 
-    #products-collections-filter > div {
+    #products-collections-filter > div:not(.col-12) {
         flex: 0 0 25% !important;
         max-width: 25% !important;
         width: 25% !important;
@@ -544,14 +544,14 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
         margin-bottom: 34px;
     }
 
-    .bm-shop-clean #products-collections-filter > div {
+    .bm-shop-clean #products-collections-filter > div:not(.col-12) {
         flex: 0 0 25% !important;
         max-width: 25% !important;
         width: 25% !important;
     }
 
     @media (max-width: 991px) {
-        .bm-shop-clean #products-collections-filter > div {
+        .bm-shop-clean #products-collections-filter > div:not(.col-12) {
             flex: 0 0 33.333333% !important;
             max-width: 33.333333% !important;
             width: 33.333333% !important;
@@ -559,7 +559,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
     }
 
     @media (max-width: 767px) {
-        .bm-shop-clean #products-collections-filter > div {
+        .bm-shop-clean #products-collections-filter > div:not(.col-12) {
             flex: 0 0 50% !important;
             max-width: 50% !important;
             width: 50% !important;
@@ -643,7 +643,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
             margin-right: -8px;
         }
 
-        #products-collections-filter > div {
+        #products-collections-filter > div:not(.col-12) {
             flex-basis: 33.333333% !important;
             max-width: 33.333333% !important;
             padding-left: 8px;
@@ -658,7 +658,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
             margin-right: -8px;
         }
 
-        #products-collections-filter > div {
+        #products-collections-filter > div:not(.col-12) {
             flex-basis: 50% !important;
             max-width: 50% !important;
             padding-left: 8px;
@@ -711,7 +711,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
             margin-right: -4px;
         }
 
-        #products-collections-filter > div {
+        #products-collections-filter > div:not(.col-12) {
             padding-left: 4px;
             padding-right: 4px;
             margin-bottom: 10px;

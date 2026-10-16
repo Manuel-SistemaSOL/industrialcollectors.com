@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$csrfKey = 'cybersource_csrf_token';
+$csrfKey = 'quote_csrf_token';
 if (empty($_SESSION[$csrfKey])) {
     $_SESSION[$csrfKey] = bin2hex(random_bytes(32));
 }
@@ -12,7 +12,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 $seo_title = "Carrito de compras | Industrial Collectors, S.A.";
 
-$seo_description = "Revisa los productos agregados a tu carrito y continúa con tu pedido en Industrial Collectors, S.A.";
+$seo_description = "Revisa tu carrito y solicita una cotización a Industrial Collectors, S.A. para recoger en tienda.";
 
 $seo_canonical_url = "https://industrialcollectors.com/cart.php";
 
@@ -70,15 +70,20 @@ include 'head.php';
     
                             <ul>
                                 <li class="cart-total-normal">
-                                    <span>Total del pedido</span>
+                                    <span>Total estimado</span>
                                     <strong>Q0.00</strong>
                                 </li>
                             </ul>
     
                             <a href="javascript:void(0)" class="default-btn" id="btn-continuar-pedido" onclick="abrirModalPedido()">
-                                Continuar con el pedido
+                                Solicitar cotización
                                 <span></span>
                             </a>
+                            <div id="cotizacion-confirmacion" class="alert alert-info mt-3" role="status" hidden>
+                                <p>Cotización <strong id="cotizacion-referencia"></strong> registrada en el sistema.</p>
+                                <p>Envía el detalle a Industrial por WhatsApp para coordinar la recogida en tienda.</p>
+                                <a id="cotizacion-whatsapp" class="default-btn" target="_blank" rel="noopener noreferrer">Enviar por WhatsApp</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,15 +92,15 @@ include 'head.php';
         <!-- End Cart Area -->
 
         <!-- ===========================
-            MODAL FORMULARIO DE PEDIDO
+            MODAL FORMULARIO DE COTIZACIÓN
         =========================== -->
         <div id="modalPedido" class="mp-overlay">
             <div class="mp-modal mp-modal-form">
                 <button class="mp-close" onclick="cerrarModalPedido()">&times;</button>
                 
                 <div class="mp-form-content">
-                    <h2>Datos del Pedido</h2>
-                    <p class="mp-form-subtitle">Por favor complete la siguiente informaci&oacute;n para continuar</p>
+                    <h2>Solicitar cotización</h2>
+                    <p class="mp-form-subtitle">Registra tu solicitud y coordina la recogida en tienda. La cotización no realiza ningún cobro.</p>
                     
                     <form id="formPedido" onsubmit="procesarPedido(event)">
                         <div class="mp-form-group">
@@ -167,36 +172,33 @@ include 'head.php';
                         </div>
 
                         <div class="mp-form-group mp-payment-group">
-                            <label for="formaPago">M&eacute;todo de Pago <span class="required">*</span></label>
+                            <label for="formaPago">Forma de pago prevista <span class="required">*</span></label>
                             <select id="formaPago" name="formaPago" class="form-control" onchange="actualizarResumenPedido()" required>
                                 <option value="">Seleccione m&eacute;todo de pago</option>
-                                <option value="contra_entrega">Pago Contra Entrega</option>
-                                <option value="tarjeta">Tarjeta de Cr&eacute;dito/D&eacute;bito</option>
                                 <option value="transferencia">Transferencia Bancaria</option>
+                                <option value="efectivo">Efectivo al recoger en tienda</option>
+                                <option value="tarjeta">Tarjeta al recoger en tienda</option>
                             </select>
                             <small class="input-error" id="errorFormaPago"></small>
                         </div>
 
                         <div class="mp-form-group mp-delivery-group">
-                            <label for="modalidadEntrega">Modalidad y lugar de entrega <span class="required">*</span></label>
-                            <select id="modalidadEntrega" name="modalidadEntrega" class="form-control mp-delivery-select" onchange="actualizarResumenPedido()" required disabled>
-                                <option value="">Seleccione primero el m&eacute;todo de pago</option>
-                            </select>
-                            <small class="mp-delivery-note" id="modalidadEntregaNota">El costo de env&iacute;o se calcular&aacute; seg&uacute;n la modalidad seleccionada.</small>
-                            <small class="input-error" id="errorModalidadEntrega"></small>
+                            <strong>Recogida en tienda</strong>
+                            <input type="hidden" id="modalidadEntrega" name="modalidadEntrega" value="recoge_tienda">
+                            <small class="mp-delivery-note" id="modalidadEntregaNota">Todas las cotizaciones son para recoger en tienda. Coordina la sucursal y disponibilidad con nuestro equipo.</small>
                         </div>
 
                         <div class="mp-total-box" id="resumenPagoPedido">
                             <div class="mp-total-copy">
-                                <strong>Total a pagar</strong>
-                                <small id="resumenPagoDetalle">Seleccione m&eacute;todo de pago y entrega para confirmar el total.</small>
+                                <strong>Total estimado de la cotización</strong>
+                                <small id="resumenPagoDetalle">Selecciona la forma de pago prevista. Recogida en tienda.</small>
                             </div>
                             <span class="mp-total-selected" id="pedidoTotalModal">Q0.00</span>
                         </div>
 
                         <div class="mp-form-buttons">
                             <button type="button" class="mp-btn-cancelar" onclick="cerrarModalPedido()">Cancelar</button>
-                            <button type="submit" class="mp-btn-enviar">Enviar Pedido</button>
+                            <button type="submit" class="mp-btn-enviar">Enviar cotización</button>
                         </div>
                     </form>
                 </div>
@@ -347,7 +349,7 @@ include 'head.php';
                 padding: 8px 14px;
                 border: 1px solid #ddd;
                 border-radius: 8px;
-                font-size: 15px;
+                font-size: 16px;
                 color: #222;
                 transition: border-color 0.3s;
             }
@@ -399,25 +401,12 @@ include 'head.php';
                 width: 100%;
             }
 
-            #formPedido .nice-select.mp-delivery-select .option.disabled {
-                background: #f6f8fb;
-                color: #8a92a1;
-                cursor: default;
-                font-size: 14px;
-                font-weight: 800;
-            }
-
             .mp-delivery-note {
                 display: block;
                 margin-top: 7px;
                 color: #5f6d80;
                 font-size: 12px;
                 line-height: 1.35;
-            }
-
-            .mp-delivery-note.is-warning {
-                color: #986f1f;
-                font-weight: 700;
             }
 
             .mp-form-buttons {
@@ -625,7 +614,7 @@ include 'head.php';
                         height: 42px;
                         padding-top: 6px;
                         padding-bottom: 6px;
-                        font-size: 14px;
+                        font-size: 16px;
                     }
 
                     .mp-modal{
@@ -856,9 +845,8 @@ $cartJsVersion = file_exists($cartJsPath) ? filemtime($cartJsPath) : time();
 
 $extra_footer_scripts = <<<HTML
 <script>
-    window.CYBERSOURCE_CHECKOUT_URL = "api/cybersource/create_checkout.php";
     window.ORDER_CREATE_QUOTE_URL = "api/orders/create_quote.php";
-    window.CYBERSOURCE_CSRF_TOKEN = "{$csrfToken}";
+    window.QUOTE_CSRF_TOKEN = "{$csrfToken}";
 </script>
 <script type="text/javascript" src="assets/js/cart.js?v={$cartJsVersion}"></script>
 HTML;

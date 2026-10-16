@@ -662,21 +662,6 @@ const Carrito = {
 
 window.Carrito = Carrito;
 
-window.addEventListener('storage', function(event) {
-    if (event.key !== 'beautymarket_neonet_payment_approved' || !event.newValue) {
-        return;
-    }
-
-    try {
-        const payload = JSON.parse(event.newValue);
-        if (payload && payload.status === 'approved') {
-            Carrito.limpiarCarrito();
-        }
-    } catch (error) {
-        console.warn('No fue posible limpiar el carrito despues de NeoNet.', error);
-    }
-});
-
 // ============================================================
 // FUNCIÓN GLOBAL PARA AGREGAR AL CARRITO
 // ============================================================

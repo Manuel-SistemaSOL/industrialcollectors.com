@@ -63,18 +63,18 @@ include 'head.php';
                 <div class="story-content">
 
                     <h3>POL&Iacute;TICAS DE GARANT&Iacute;A - Industrial Collectors, S.A.</h3>
-                    <p><strong>&Uacute;ltima actualizaci&oacute;n:</strong> 25 de agosto de 2026</p>
+                    <p><strong>&Uacute;ltima actualizaci&oacute;n:</strong> 16 de octubre de 2026</p>
 
                     <p>
                         En <strong>Industrial Collectors, S.A.</strong> nuestro compromiso es ofrecer materiales metálicos de calidad,
                         junto a una experiencia de compra clara, segura y confiable.
-                        Por ello, establecemos las siguientes Pol&iacute;ticas de Garant&iacute;a aplicables a los productos comercializados en nuestro sitio web.
+                        Por ello, establecemos las siguientes Políticas de Garantía aplicables a los productos comercializados por Industrial Collectors, S.A.
                     </p>
 
                     <h4>1. Alcance de la Garantía</h4>
                     <p>
                         La garantía aplica únicamente sobre:
-                        <br>• La entrega del producto en buen estado
+                        <br>• El producto en buen estado al recogerlo en tienda
                         <br>• Que el producto corresponda a lo solicitado
                         <br>• Productos con defectos de fábrica
                     </p>
@@ -88,7 +88,7 @@ include 'head.php';
                     <h4>3. Productos Cubiertos por Garantía</h4>
                     <p>
                         La garantía cubre:
-                        <br>&bull; Producto da&ntilde;ado o defectuoso al momento de recibirlo
+                        <br>&bull; Producto dañado o defectuoso al momento de recogerlo en tienda
                         <br>&bull; Error en el producto, medida, cantidad o presentaci&oacute;n entregada
                         <br>&bull; Producto con defecto de fabricaci&oacute;n
                     </p>
@@ -104,7 +104,7 @@ include 'head.php';
 
                     <h4>5. Cambios y Reposición</h4>
                     <p>
-                        Los cambios únicamente se realizarán cuando el producto presente daños visibles al momento de la entrega
+                        Los cambios únicamente se realizarán cuando el producto presente daños visibles al momento del retiro en tienda
                         o exista un error en el pedido.
                         <br><br>
                         No se aceptan devoluciones por cambio de opinión.

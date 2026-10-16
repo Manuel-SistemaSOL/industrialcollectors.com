@@ -1,7 +1,7 @@
 <?php
 $seo_title = "Métodos de Pago - Industrial Collectors, S.A.";
-$seo_description = "Métodos de pago disponibles para compras en Industrial Collectors, S.A.";
-$seo_keywords = "métodos de pago Industrial Collectors, S.A., efectivo, transferencia bancaria, tarjetas de crédito";
+$seo_description = "Opciones de pago para compras coordinadas con Industrial Collectors, S.A.: transferencia bancaria, efectivo o tarjeta al recoger en tienda.";
+$seo_keywords = "métodos de pago Industrial Collectors, S.A., transferencia bancaria, efectivo en tienda, tarjeta en tienda";
 $current_page = basename($_SERVER['PHP_SELF']);
 
 include 'head.php';
@@ -63,49 +63,47 @@ include 'head.php';
                 <div class="story-content">
 
                     <h3>M&Eacute;TODOS DE PAGO - Industrial Collectors, S.A.</h3>
-                    <p><strong>&Uacute;ltima actualizaci&oacute;n:</strong> 25 de agosto de 2026</p>
+                    <p><strong>&Uacute;ltima actualizaci&oacute;n:</strong> 16 de octubre de 2026</p>
 
                     <p>
-                        En <strong>Industrial Collectors, S.A.</strong> ofrecemos m&eacute;todos de pago seguros, claros y confiables
-                        para facilitar tu experiencia de compra en materiales metálicos para construcción.
-                        Todos los pagos se realizan bajo confirmación del pedido.
+                        En <strong>Industrial Collectors, S.A.</strong> puedes solicitar una cotización de materiales metálicos para construcción.
+                        Nuestro equipo confirma la disponibilidad y las condiciones de compra antes de coordinar el pago y el retiro en tienda.
+                        Todas las cotizaciones del sitio son exclusivamente para recoger en una sucursal, también cuando eliges transferencia bancaria.
                     </p>
 
-                    <h4>1. Proceso de Compra</h4>
+                    <h4>1. Solicitud de Cotización</h4>
                     <p>
-                        Al realizar un pedido a través de nuestro sitio web:
-                        <br>• No se realiza ningún cobro automático sin confirmación
-                        <br>• El pedido queda en proceso de validación
-                        <br>• Nuestro equipo podrá comunicarse para confirmar detalles del pedido
+                        Selecciona los productos, completa tus datos y envía la solicitud desde el carrito.
+                        <br>• Enviar una cotización no realiza ningún cobro
+                        <br>• Nuestro equipo confirma los productos, importes y disponibilidad
+                        <br>• El pago y el retiro se coordinan con nuestro equipo
                     </p>
 
-                    <h4>2. Efectivo</h4>
+                    <h4>2. Efectivo al Recoger en Tienda</h4>
                     <p>
-                        Disponible para compras coordinadas con nuestra tienda.
-                        <br>• El pago se realiza seg&uacute;n la confirmaci&oacute;n del pedido
-                        <br>• Aplica para pedidos confirmados
-                        <br>• El cliente debe confirmar el monto total antes de finalizar la compra
+                        El pago en efectivo se realiza presencialmente al recoger los productos en tienda,
+                        una vez confirmados los detalles de la compra.
                     </p>
 
-                    <h4>3. Transferencia a cuenta</h4>
+                    <h4>3. Transferencia Bancaria</h4>
                     <p>
                         Disponible previa coordinación.
                         <br>• Los datos bancarios serán proporcionados únicamente por nuestros canales oficiales
-                        <br>• El pedido será procesado una vez confirmado el pago
+                        <br>• Coordina la transferencia y la confirmación del pago con nuestro equipo
+                        <br>• Esta opción también es para recoger en sucursal; confirma los detalles del retiro antes de presentarte
                     </p>
 
-                    <h4>4. Pago con Tarjeta</h4>
+                    <h4>4. Tarjeta al Recoger en Tienda</h4>
                     <p>
-                        Aceptamos pagos con tarjeta de crédito con recargo del 5%.
-                        <br>• También contamos con link de pago
-                        <br>• Las condiciones serán informadas antes de finalizar la compra
+                        El pago con tarjeta se realiza presencialmente al recoger los productos en tienda.
+                        El sitio web no solicita datos de tarjeta ni procesa pagos en línea.
                     </p>
 
                     <h4>5. Condiciones Generales</h4>
                     <p>
-                        &bull; Industrial Collectors, S.A. no solicita pagos sin confirmaci&oacute;n previa
+                        &bull; La solicitud de cotización está sujeta a confirmación de disponibilidad e importe
                         <br>• Los precios publicados pueden estar sujetos a cambios sin previo aviso
-                        <br>• Nos reservamos el derecho de cancelar pedidos con información incompleta o incorrecta
+                        <br>• Nos reservamos el derecho de cancelar solicitudes con información incompleta o incorrecta
                         <br>&bull; Los pagos realizados no son reembolsables, salvo error comprobado por parte de Industrial Collectors, S.A.
                     </p>
 

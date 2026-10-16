@@ -106,7 +106,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
                                     <li><span class="branch-status-dot"></span>Atenci&oacute;n en tienda</li>
                                     <li><i class='bx bx-phone-call'></i><a href="tel:+50232001888">+502 3200 1888</a><span>/</span><a href="https://wa.me/50230888818" target="_blank" rel="noopener">WhatsApp: 3088-8818</a></li>
                                     <li><i class='bx bx-envelope'></i><a href="mailto:industrialcollectorsventas@gmail.com">industrialcollectorsventas@gmail.com</a></li>
-                                    <li><i class='bx bx-time-five'></i>Lunes a viernes: 7:00 a. m. a 6:00 p. m. Sábado: 7:00 a. m. a 4:00 p. m.</li>
+                                    <li><i class='bx bx-time-five'></i>Lun–Vie: 7:00–18:00 · Sáb: 7:00–16:00</li>
                                     <li><i class='bx bx-map'></i>Finca El Carmen, San Miguel Petapa.</li>
                                 </ul>
                             </div>
@@ -142,7 +142,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
                                     <li><span class="branch-status-dot"></span>Atenci&oacute;n en tienda</li>
                                     <li><i class='bx bx-phone-call'></i><a href="tel:+50232001888">+502 3200 1888</a><span>/</span><a href="https://wa.me/50230888818" target="_blank" rel="noopener">WhatsApp: 3088-8818</a></li>
                                     <li><i class='bx bx-envelope'></i><a href="mailto:industrialcollectorsventas@gmail.com">industrialcollectorsventas@gmail.com</a></li>
-                                    <li><i class='bx bx-time-five'></i>Lunes a viernes: 7:00 a. m. a 6:00 p. m. Sábado: 7:00 a. m. a 4:00 p. m.</li>
+                                    <li><i class='bx bx-time-five'></i>Lun–Vie: 7:00–18:00 · Sáb: 7:00–16:00</li>
                                     <li><i class='bx bx-map'></i>La Enriqueta, Guatemala.</li>
                                 </ul>
                             </div>
@@ -249,7 +249,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
         border-radius: 5px;
         box-shadow: none !important;
         color: #1D1D1B;
-        font-size: 15px;
+        font-size: 16px;
         height: 58px;
         padding: 12px 14px;
         transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -306,7 +306,15 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
     }
 
     .contact-branch-panel {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: minmax(0, 1fr);
         margin-top: 44px;
+    }
+
+    .contact-branch-panel > .contact-section-title {
+        grid-column: 1 / -1;
+        margin-bottom: 0;
     }
 
     .contact-branch-card {
@@ -314,39 +322,46 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
         border: 1.5px solid #1D71B8;
         border-radius: 18px;
         box-shadow: 0 18px 45px rgba(36, 55, 109, 0.08);
-        margin: 34px auto 0;
-        max-width: 720px;
-        padding: 30px 34px 28px;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        max-width: none;
+        min-width: 0;
+        padding: 20px;
+        width: 100%;
     }
 
     .contact-branch-main {
-        align-items: center;
+        align-items: start;
         display: grid;
-        gap: 24px;
-        grid-template-columns: 285px minmax(0, 1fr);
+        gap: 14px;
+        grid-template-columns: minmax(80px, 0.72fr) minmax(0, 1.6fr);
+        min-width: 0;
     }
 
     .contact-branch-photo {
         align-self: center;
         border-radius: 14px;
-        height: 180px;
         overflow: hidden;
     }
 
     .contact-branch-photo img {
         display: block;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
+        height: auto;
         width: 100%;
+    }
+
+    .contact-branch-info {
+        min-width: 0;
     }
 
     .contact-branch-info h3 {
         color: #1D71B8;
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 700;
-        line-height: 1.2;
+        line-height: 1.25;
         margin: 0 0 11px;
+        text-wrap: balance;
     }
 
     .contact-branch-address {
@@ -365,24 +380,36 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
     }
 
     .contact-branch-list li {
-        align-items: center;
         color: #1D1D1B;
-        display: flex;
-        flex-wrap: wrap;
-        font-size: 12px;
-        gap: 7px;
-        line-height: 1.3;
+        font-size: 13px;
+        line-height: 1.4;
         margin-bottom: 7px;
+        padding-left: 22px;
+        position: relative;
     }
 
     .contact-branch-list i {
         color: #1D71B8;
         font-size: 15px;
+        left: 0;
         line-height: 1;
+        position: absolute;
+        top: 0.15em;
     }
 
     .contact-branch-list a {
         color: #1D1D1B;
+        overflow-wrap: anywhere;
+    }
+
+    .contact-branch-list a[href^="tel:"],
+    .contact-branch-list a[href^="https://wa.me/"] {
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+    .contact-branch-list li > span:not(.branch-status-dot) {
+        margin: 0 5px;
     }
 
     .contact-branch-list a:hover {
@@ -394,15 +421,18 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
         border-radius: 50%;
         display: inline-block;
         height: 8px;
-        margin-right: 5px;
+        left: 0;
+        position: absolute;
+        top: 0.4em;
         width: 8px;
     }
 
     .contact-branch-actions {
         display: grid;
-        gap: 12px;
+        gap: 8px;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        margin-top: 24px;
+        margin-top: auto;
+        padding-top: 18px;
     }
 
     .contact-branch-actions a {
@@ -413,13 +443,14 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
         box-shadow: 0 8px 18px rgba(21, 21, 21, 0.04);
         color: #253044;
         display: inline-flex;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
-        gap: 10px;
+        gap: 6px;
         min-height: 54px;
+        min-width: 0;
         justify-content: center;
         line-height: 1;
-        padding: 0 18px;
+        padding: 10px;
         text-decoration: none;
         transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, transform 0.2s ease;
     }
@@ -433,35 +464,36 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
     }
 
     .contact-branch-actions img {
-        height: 24px;
+        height: 20px;
         object-fit: contain;
-        width: 24px;
+        width: 20px;
     }
 
     .contact-branch-actions i {
         color: #1f8f5a;
-        font-size: 23px;
+        font-size: 20px;
+    }
+
+    @media (min-width: 768px) {
+        .contact-branch-panel {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .contact-branch-actions a {
+            flex-direction: column-reverse;
+            padding: 10px 6px;
+        }
     }
 
     @media (max-width: 991px) {
         .contact-redesign-area {
             padding: 42px 0 56px;
         }
-
-        .contact-branch-card {
-            max-width: 100%;
-        }
-
-        .contact-branch-main {
-            grid-template-columns: 1fr;
-        }
-
-        .contact-branch-photo {
-            height: 230px;
-        }
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: 767.98px) {
         .contact-redesign-area {
             padding: 34px 0 44px;
         }
@@ -480,12 +512,7 @@ $contactHeroImageSrc = $contactHeroImage . '?v=' . $contactHeroImageVersion;
 
         .contact-branch-card {
             border-radius: 16px;
-            margin-top: 24px;
-            padding: 22px;
-        }
-
-        .contact-branch-photo {
-            height: 190px;
+            padding: 18px;
         }
 
         .contact-branch-actions {

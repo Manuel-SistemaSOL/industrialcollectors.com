@@ -1,6 +1,6 @@
 <?php
 $seo_title = "Preguntas Frecuentes - Industrial Collectors, S.A.";
-$seo_description = "Preguntas frecuentes sobre compras, pagos, horarios y contacto de Industrial Collectors, S.A.";
+$seo_description = "Preguntas frecuentes sobre cotizaciones, pago y retiro en tienda, horarios y contacto de Industrial Collectors, S.A.";
 $seo_keywords = "preguntas frecuentes Industrial Collectors, S.A., materiales metálicos, construcción, contacto";
 $current_page = basename($_SERVER['PHP_SELF']);
 
@@ -63,7 +63,7 @@ include 'head.php';
                 <div class="story-content">
 
                     <h3>PREGUNTAS FRECUENTES - Industrial Collectors, S.A.</h3>
-                    <p><strong>&Uacute;ltima actualizaci&oacute;n:</strong> 25 de agosto de 2026</p>
+                    <p><strong>&Uacute;ltima actualizaci&oacute;n:</strong> 16 de octubre de 2026</p>
 
                     <p>
                         <b>&iquest;Qu&eacute; es Industrial Collectors, S.A.?</b><br>
@@ -92,19 +92,22 @@ include 'head.php';
                     </p>
 
                     <p>
-                        <b>&iquest;C&oacute;mo puedo realizar una compra?</b><br>
-                        Puedes realizar tu compra directamente desde nuestro sitio web seleccionando los productos
-                        y siguiendo el proceso de compra indicado.
+                        <b>&iquest;C&oacute;mo puedo solicitar una cotización?</b><br>
+                        Selecciona los productos, completa tus datos y envía la solicitud desde el carrito.
+                        Nuestro equipo confirma la disponibilidad y los detalles de la compra. Enviar la solicitud no realiza ningún cobro.
                     </p>
 
                     <p>
                         <b>&iquest;Cu&aacute;les son los m&eacute;todos de pago disponibles?</b><br>
-                        Los métodos de pago son efectivo, tarjeta de crédito con recargo del 5%, transferencia a cuenta y link de pago.
+                        Puedes elegir transferencia bancaria, efectivo al recoger en tienda o tarjeta al recoger en tienda.
+                        El pago en efectivo y con tarjeta es presencial; el sitio no solicita datos de tarjeta ni procesa pagos en línea.
+                        Todas las opciones son exclusivamente para recoger en sucursal.
                     </p>
 
                     <p>
-                        <b>&iquest;C&oacute;mo coordinan mi pedido?</b><br>
-                        Nuestro equipo confirma los detalles del pedido por WhatsApp, llamada o correo electr&oacute;nico.
+                        <b>&iquest;C&oacute;mo coordinan mi cotización y el retiro?</b><br>
+                        Nuestro equipo confirma los detalles de tu solicitud y el retiro en sucursal. Las cotizaciones del sitio no incluyen envíos.
+                        Puedes dar seguimiento por <a href="https://wa.me/50230888818" target="_blank" rel="noopener">WhatsApp al 3088-8818</a>, llamada o correo electrónico.
                     </p>
 
                     <p>

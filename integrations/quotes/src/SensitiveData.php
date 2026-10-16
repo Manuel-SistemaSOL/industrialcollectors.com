@@ -1,6 +1,6 @@
 <?php
 
-namespace BeautyMarket\CyberSource;
+namespace IndustrialCollectors\Quotes;
 
 class SensitiveData
 {

@@ -1,6 +1,6 @@
 <?php
 $seo_title = "Términos y Condiciones - Industrial Collectors, S.A.";
-$seo_description = "Términos y condiciones de compra y uso del sitio de Industrial Collectors, S.A.";
+$seo_description = "Términos de uso, solicitud de cotizaciones y compras coordinadas con Industrial Collectors, S.A.";
 $seo_keywords = "términos Industrial Collectors, S.A., condiciones compra materiales metálicos, construcción guatemala";
 $current_page = basename($_SERVER['PHP_SELF']);
 
@@ -63,11 +63,12 @@ include 'head.php';
                 <div class="story-content">
 
                     <h3>T&Eacute;RMINOS Y CONDICIONES DE USO - Industrial Collectors, S.A.</h3>
-                    <p><strong>&Uacute;ltima actualizaci&oacute;n:</strong> 25 de agosto de 2026</p>
+                    <p><strong>&Uacute;ltima actualizaci&oacute;n:</strong> 16 de octubre de 2026</p>
 
                     <p>
                         Bienvenido(a) a <strong>Industrial Collectors, S.A.</strong>.
-                        Al navegar, consultar productos o realizar una compra en este sitio, usted acepta estos T&eacute;rminos y Condiciones, aplicables a la venta de materiales metálicos y soluciones para proyectos de construcción.
+                        Al navegar, consultar productos o solicitar una cotización en este sitio, usted acepta estos Términos y Condiciones,
+                        aplicables a la consulta y compra coordinada de materiales metálicos y soluciones para proyectos de construcción.
                     </p>
 
                     <h4>1. Información General</h4>
@@ -89,16 +90,20 @@ include 'head.php';
                         Las descripciones e im&aacute;genes son referenciales y pueden variar seg&uacute;n disponibilidad, presentaci&oacute;n o proveedor.
                     </p>
 
-                    <h4>4. Compras y Pagos</h4>
+                    <h4>4. Cotizaciones y Formas de Pago</h4>
                     <p>
-                        Las compras están sujetas a disponibilidad de inventario.
-                        Los m&eacute;todos de pago disponibles ser&aacute;n informados durante el proceso de compra o por nuestros canales oficiales.
-                        Nos reservamos el derecho de cancelar pedidos con informaci&oacute;n incompleta, incorrecta o no verificable.
+                        Las solicitudes están sujetas a confirmación de inventario e importe por nuestro equipo.
+                        Enviar una cotización no realiza un cobro ni confirma automáticamente una compra.
+                        Las opciones de pago son transferencia bancaria, efectivo al recoger en tienda y tarjeta al recoger en tienda.
+                        Los pagos en efectivo y con tarjeta se realizan presencialmente; el sitio no solicita datos de tarjeta ni procesa pagos en línea.
+                        Todas las cotizaciones son exclusivamente para recoger en sucursal, incluida la opción de transferencia bancaria. No se ofrecen envíos desde este flujo.
+                        Nos reservamos el derecho de cancelar solicitudes con información incompleta, incorrecta o no verificable.
                     </p>
 
-                    <h4>5. Coordinación del Pedido</h4>
+                    <h4>5. Coordinación de la Cotización y Retiro</h4>
                     <p>
-                        La coordinaci&oacute;n de disponibilidad, retiro en tienda o seguimiento del pedido podr&aacute; realizarse por WhatsApp al <strong>+502 3088 8818</strong>, llamada telef&oacute;nica o correo electr&oacute;nico.
+                        La disponibilidad, el pago y el retiro en tienda se coordinan con nuestro equipo.
+                        El seguimiento de la cotización puede realizarse por <a href="https://wa.me/50230888818" target="_blank" rel="noopener">WhatsApp al +502 3088 8818</a>, llamada telefónica o correo electrónico.
                     </p>
 
                     <h4>6. Disponibilidad</h4>
@@ -113,9 +118,9 @@ include 'head.php';
 
                     <h4>8. Privacidad y Datos Personales</h4>
                     <p>
-                        La información personal proporcionada será utilizada únicamente para procesar pedidos,
-                        brindar atención al cliente y contacto relacionado con las compras.
-                        Industrial Collectors, S.A. no comparte datos personales con terceros, salvo obligaci&oacute;n legal.
+                        Los datos proporcionados se utilizan para gestionar la cotización y la atención comercial.
+                        Al enviar la solicitud, tus datos de contacto y los productos seleccionados se remiten al sistema de gestión de Industrial Collectors, S.A.
+                        Nuestro equipo utiliza los canales de contacto proporcionados para dar seguimiento a tu solicitud y coordinar la compra.
                     </p>
 
                     <h4>9. Limitación de Responsabilidad</h4>
@@ -132,7 +137,7 @@ include 'head.php';
 
                     <h4>11. Aceptación</h4>
                     <p>
-                        Al utilizar este sitio web o realizar una compra, el usuario declara haber leído,
+                        Al utilizar este sitio web, solicitar una cotización o realizar una compra, el usuario declara haber leído,
                         comprendido y aceptado estos Términos y Condiciones en su totalidad.
                     </p>
 

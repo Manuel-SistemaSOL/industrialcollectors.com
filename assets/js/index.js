@@ -127,7 +127,7 @@ function mostrarEstadoProductos(idContenedor, tipo, mensaje) {
     }
 
     contenedor.innerHTML = `
-        <div class="carousel-product-item">
+        <div class="carousel-product-item bm-products-state">
             <div class="alert alert-${tipo}">${escaparHtmlProducto(mensaje)}</div>
         </div>`;
 }

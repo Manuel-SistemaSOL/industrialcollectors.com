@@ -1,7 +1,7 @@
 <?php
 
 spl_autoload_register(function ($class) {
-    $prefix = 'BeautyMarket\\CyberSource\\';
+    $prefix = 'IndustrialCollectors\\Quotes\\';
     $baseDir = __DIR__ . '/src/';
 
     if (strncmp($prefix, $class, strlen($prefix)) !== 0) {

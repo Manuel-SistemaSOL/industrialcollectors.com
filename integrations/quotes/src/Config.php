@@ -1,6 +1,6 @@
 <?php
 
-namespace BeautyMarket\CyberSource;
+namespace IndustrialCollectors\Quotes;
 
 class Config
 {
@@ -14,12 +14,12 @@ class Config
     public static function fromFile(string $path): self
     {
         if (!is_file($path)) {
-            throw new GatewayException('No se encontro la configuracion de CyberSource.');
+            throw new QuoteException('No se encontro la configuracion de cotizaciones.');
         }
 
         $values = require $path;
         if (!is_array($values)) {
-            throw new GatewayException('La configuracion de CyberSource no es valida.');
+            throw new QuoteException('La configuracion de cotizaciones no es valida.');
         }
 
         return new self($values);
@@ -49,7 +49,7 @@ class Config
     {
         $value = trim((string) $this->get($key, ''));
         if ($value === '') {
-            throw new GatewayException("Configuracion pendiente: {$key}");
+            throw new QuoteException("Configuracion pendiente: {$key}");
         }
 
         return $value;
@@ -77,15 +77,4 @@ class Config
         return 'https://industrialcollectors.com';
     }
 
-    public function callbackUrl(string $pathKey): string
-    {
-        return $this->baseUrl() . '/' . ltrim((string) $this->get($pathKey, ''), '/');
-    }
-
-    public function secureAcceptanceEndpoint(): string
-    {
-        return $this->get('environment') === 'production'
-            ? (string) $this->get('secure_acceptance.production_endpoint')
-            : (string) $this->get('secure_acceptance.test_endpoint');
-    }
 }

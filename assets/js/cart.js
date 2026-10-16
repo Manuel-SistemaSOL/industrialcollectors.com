@@ -2,97 +2,23 @@
 // CARGAR Y MOSTRAR PRODUCTOS DEL CARRITO
 // ============================================================
 
-const METODO_TARJETA_NEONET = 'tarjeta';
-const CYBERSOURCE_CHECKOUT_URL = (window.CYBERSOURCE_CHECKOUT_URL || 'api/cybersource/create_checkout.php').trim();
 const ORDER_CREATE_QUOTE_URL = (window.ORDER_CREATE_QUOTE_URL || 'api/orders/create_quote.php').trim();
-const CYBERSOURCE_CSRF_TOKEN = (window.CYBERSOURCE_CSRF_TOKEN || '').trim();
-const NEONET_PAYMENT_EVENT_KEY = 'beautymarket_neonet_payment_approved';
-const BEAUTY_MARKET_LOGO_URL = 'assets/img/logotipo IC/version horizontal/Logo-Industrial-Collectors-horizontal.png';
+const QUOTE_CSRF_TOKEN = (window.QUOTE_CSRF_TOKEN || '').trim();
+const INDUSTRIAL_WHATSAPP = '50230888818';
+let cotizacionEnCurso = false;
 
 const ETIQUETAS_FORMA_PAGO = {
-    contra_entrega: 'Pago Contra Entrega',
-    tarjeta: 'Tarjeta de Credito/Debito',
-    transferencia: 'Transferencia Bancaria'
+    transferencia: 'Transferencia bancaria',
+    efectivo: 'Efectivo al recoger en tienda',
+    tarjeta: 'Tarjeta al recoger en tienda'
 };
 
 const OPCION_RETIRO_TIENDA = {
-    tipo: 'option',
     value: 'recoge_tienda',
-    label: 'Recoge en tienda - GRATIS',
+    label: 'Recogida en tienda',
     costo: 0,
-    detalle: 'Retiro en tienda sin costo de envío.',
-    nota: 'Puedes retirar tu pedido en tienda sin costo de envío.',
-    metodos: ['contra_entrega', 'tarjeta', 'transferencia']
+    detalle: 'Recogida en tienda coordinada con Industrial Collectors.'
 };
-
-const OPCIONES_ENTREGA_POR_METODO = {
-    contra_entrega: [
-        OPCION_RETIRO_TIENDA,
-        { tipo: 'group', label: 'Pago contra entrega' },
-        {
-            tipo: 'option',
-            value: 'contra_capital',
-            label: 'Zonas capitalinas - Q30.00',
-            costo: 30,
-            detalle: 'Pago contra entrega en zonas capitalinas.',
-            nota: 'Aplican restricciones en zonas de riesgo.',
-            metodos: ['contra_entrega']
-        },
-        {
-            tipo: 'option',
-            value: 'contra_municipios',
-            label: 'Villa Nueva, Villa Canales, Ciudad San Cristóbal o Mixco - Q35.00',
-            costo: 35,
-            detalle: 'Pago contra entrega en Villa Nueva, Villa Canales, Ciudad San Cristóbal o Mixco.',
-            nota: 'Tarifa especial para los municipios indicados.',
-            metodos: ['contra_entrega']
-        },
-        {
-            tipo: 'option',
-            value: 'contra_interior',
-            label: 'Interior de la República - Q45.00',
-            costo: 45,
-            detalle: 'Pago contra entrega al interior de la República.',
-            nota: 'Servicio disponible al interior de la República con pago contra entrega.',
-            metodos: ['contra_entrega']
-        }
-    ],
-    transferencia: [
-        OPCION_RETIRO_TIENDA,
-        { tipo: 'group', label: 'Pago previo por depósito o transferencia' },
-        {
-            tipo: 'option',
-            value: 'envio_previo_todo_pais',
-            label: 'Envío a todo el país - Q30.00',
-            costo: 30,
-            detalle: 'Envío a todo el país con pago previo por depósito o transferencia.',
-            nota: 'Costo fijo para todo el país al pagar previamente por depósito o transferencia.',
-            metodos: ['transferencia', 'tarjeta']
-        }
-    ],
-    tarjeta: [
-        OPCION_RETIRO_TIENDA,
-        { tipo: 'group', label: 'Pago previo' },
-        {
-            tipo: 'option',
-            value: 'envio_previo_todo_pais',
-            label: 'Envío a todo el país - Q30.00',
-            costo: 30,
-            detalle: 'Envío a todo el país con pago previo.',
-            nota: 'Costo fijo para todo el país con pago previo.',
-            metodos: ['transferencia', 'tarjeta']
-        }
-    ]
-};
-
-function obtenerOpcionesEntrega(metodo) {
-    return OPCIONES_ENTREGA_POR_METODO[metodo] || [];
-}
-
-function obtenerDetalleEntrega(value, metodo) {
-    const opciones = obtenerOpcionesEntrega(metodo);
-    return opciones.find((opcion) => opcion.tipo === 'option' && opcion.value === value) || null;
-}
 
 function actualizarNiceSelect(select) {
     if (window.jQuery && typeof window.jQuery.fn.niceSelect === 'function' && select) {
@@ -100,74 +26,21 @@ function actualizarNiceSelect(select) {
     }
 }
 
-function actualizarOpcionesEntrega() {
-    const formaPago = document.getElementById("formaPago");
-    const modalidadEntrega = document.getElementById("modalidadEntrega");
-
-    if (!modalidadEntrega) {
-        return;
-    }
-
-    const metodo = formaPago ? formaPago.value : '';
-    const valorPrevio = modalidadEntrega.value;
-    modalidadEntrega.innerHTML = '';
-
-    const placeholder = document.createElement('option');
-    placeholder.value = '';
-    placeholder.textContent = metodo ? 'Seleccione modalidad y lugar de entrega' : 'Seleccione primero el método de pago';
-    modalidadEntrega.appendChild(placeholder);
-
-    const opciones = obtenerOpcionesEntrega(metodo);
-    opciones.forEach((opcion) => {
-        const optionElement = document.createElement('option');
-
-        if (opcion.tipo === 'group') {
-            optionElement.value = '';
-            optionElement.disabled = true;
-            optionElement.textContent = opcion.label;
-        } else {
-            optionElement.value = opcion.value;
-            optionElement.textContent = opcion.label;
-            optionElement.dataset.costo = String(opcion.costo);
-        }
-
-        modalidadEntrega.appendChild(optionElement);
-    });
-
-    modalidadEntrega.disabled = !metodo;
-    if (metodo && obtenerDetalleEntrega(valorPrevio, metodo)) {
-        modalidadEntrega.value = valorPrevio;
-    } else {
-        modalidadEntrega.value = '';
-    }
-
-    actualizarNotaEntrega();
-    actualizarNiceSelect(modalidadEntrega);
-}
-
 function obtenerEntregaSeleccionada() {
-    const formaPago = document.getElementById("formaPago");
-    const modalidadEntrega = document.getElementById("modalidadEntrega");
-
-    if (!formaPago || !modalidadEntrega || !formaPago.value || !modalidadEntrega.value) {
-        return null;
-    }
-
-    return obtenerDetalleEntrega(modalidadEntrega.value, formaPago.value);
+    const formaPago = document.getElementById('formaPago');
+    return formaPago && Object.prototype.hasOwnProperty.call(ETIQUETAS_FORMA_PAGO, formaPago.value)
+        ? OPCION_RETIRO_TIENDA
+        : null;
 }
 
 function actualizarNotaEntrega() {
-    const nota = document.getElementById("modalidadEntregaNota");
-    const entrega = obtenerEntregaSeleccionada();
-
-    if (!nota) {
-        return;
+    const nota = document.getElementById('modalidadEntregaNota');
+    const metodo = document.getElementById('formaPago')?.value;
+    if (nota) {
+        nota.textContent = metodo === 'transferencia'
+            ? 'Coordina la transferencia y la recogida con nuestro equipo. Esta cotización no confirma ningún pago.'
+            : 'Todas las cotizaciones son para recoger en tienda. El efectivo y la tarjeta se pagan presencialmente al recoger.';
     }
-
-    nota.classList.toggle('is-warning', Boolean(entrega && entrega.value === 'contra_capital'));
-    nota.textContent = entrega
-        ? entrega.nota
-        : 'El costo de envío se calculará según la modalidad seleccionada.';
 }
 
 function formatearMoneda(valor) {
@@ -251,7 +124,7 @@ function cargarCarrito() {
                 <td colspan="5" class="text-center cart-empty-cell">
                     <div class="alert alert-info cart-empty-state">
                         <h4>Tu carrito esta vacio</h4>
-                        <p>Agrega productos desde la tienda para comenzar a comprar.</p>
+                        <p>Agrega productos desde la tienda para solicitar una cotización.</p>
                         <a href="tienda.php" class="default-btn">Ir a la Tienda</a>
                     </div>
                 </td>
@@ -323,7 +196,6 @@ function cargarCarrito() {
 document.addEventListener("DOMContentLoaded", function () {
     cargarCarrito();
     inicializarEventos();
-    inicializarRetornoPagoNeonet();
 
     const nombre = document.getElementById("nombreCompleto");
     const direccion = document.getElementById("direccion");
@@ -332,7 +204,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const numeroDocumento = document.getElementById("numeroDocumento");
     const tipoDocumento = document.getElementById("tipoDocumento");
     const formaPago = document.getElementById("formaPago");
-    const modalidadEntrega = document.getElementById("modalidadEntrega");
 
     if (nombre) {
         nombre.addEventListener("input", function () {
@@ -379,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (tipoDocumento && numeroDocumento) {
         tipoDocumento.addEventListener("change", function () {
-            numeroDocumento.value = "";
+            numeroDocumento.value = this.value === 'cf' ? 'C/F' : '';
             limpiarError(tipoDocumento, "errorTipoDocumento");
             limpiarError(numeroDocumento, "errorNumeroDocumento");
         });
@@ -388,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (formaPago) {
         const refrescarResumenFormaPago = function () {
             limpiarError(formaPago, "errorFormaPago");
-            actualizarOpcionesEntrega();
+            actualizarNotaEntrega();
             window.setTimeout(actualizarResumenPedido, 0);
         };
 
@@ -407,18 +278,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    if (modalidadEntrega) {
-        const refrescarResumenEntrega = function () {
-            limpiarError(modalidadEntrega, "errorModalidadEntrega");
-            actualizarNotaEntrega();
-            window.setTimeout(actualizarResumenPedido, 0);
-        };
-
-        modalidadEntrega.addEventListener("change", refrescarResumenEntrega);
-        modalidadEntrega.addEventListener("input", refrescarResumenEntrega);
-    }
-
-    actualizarOpcionesEntrega();
+    actualizarNotaEntrega();
 
     const modalPedido = document.getElementById('modalPedido');
     if (modalPedido) {
@@ -448,64 +308,81 @@ function actualizarTotales(subtotal = null) {
 }
 
 function actualizarResumenPedido() {
-    const formaPago = document.getElementById("formaPago");
-    const totalElement = document.getElementById("pedidoTotalModal");
-    const detalleElement = document.getElementById("resumenPagoDetalle");
-    const resumenBox = document.getElementById("resumenPagoPedido");
+    const metodo = document.getElementById('formaPago')?.value || '';
+    const totalElement = document.getElementById('pedidoTotalModal');
+    const detalleElement = document.getElementById('resumenPagoDetalle');
+    const resumenBox = document.getElementById('resumenPagoPedido');
+    if (!totalElement || !detalleElement) return;
 
-    if (!totalElement || !detalleElement) {
-        return;
-    }
-
-    const metodo = formaPago ? formaPago.value : '';
-    const esTarjeta = metodo === METODO_TARJETA_NEONET;
     const entrega = obtenerEntregaSeleccionada();
-    const totales = calcularTotalesPedido();
-
-    totalElement.textContent = formatearMoneda(totales.totalSeleccionado);
+    totalElement.textContent = formatearMoneda(calcularTotalesPedido().totalSeleccionado);
     totalElement.hidden = false;
-
-    if (!metodo) {
-        detalleElement.textContent = 'Seleccione método de pago y modalidad de entrega para confirmar el total.';
-    } else if (!entrega) {
-        detalleElement.textContent = 'Seleccione modalidad y lugar de entrega para calcular el envío.';
-    } else {
-        detalleElement.textContent = `${ETIQUETAS_FORMA_PAGO[metodo] || metodo} | ${entrega.label}. Productos ${formatearMoneda(totales.subtotalNormal)} + envío ${formatearMoneda(totales.costoEnvio)}.`;
-    }
-
-    if (resumenBox) {
-        resumenBox.classList.toggle('mp-total-unselected', !metodo || !entrega);
-        resumenBox.classList.toggle('mp-total-card', esTarjeta);
-    }
+    detalleElement.textContent = entrega
+        ? `${ETIQUETAS_FORMA_PAGO[metodo]}. Recogida en tienda; pendiente de confirmación, sin cobro en línea.`
+        : 'Selecciona la forma de pago prevista. Recogida en tienda.';
+    resumenBox?.classList.toggle('mp-total-unselected', !entrega);
+    actualizarNotaEntrega();
 }
 
-function finalizarPedidoExitoso(numeroCotizacion, formData) {
-    const mensajeExito = `Cotizacion #${numeroCotizacion}`;
+function crearMensajeCotizacion(numeroCotizacion, formData, referencia) {
+    const lineas = [
+        'COTIZACIÓN - INDUSTRIAL COLLECTORS, S.A.',
+        `Cotización: #${numeroCotizacion}`
+    ];
+    if (referencia) lineas.push(`Referencia: ${referencia}`);
+    lineas.push(
+        `Cliente: ${formData.nombreCompleto}`,
+        `Teléfono: ${formData.telefono}`,
+        `Correo: ${formData.correo}`,
+        `Dirección del cliente: ${formData.direccion}`,
+        `Pago previsto: ${ETIQUETAS_FORMA_PAGO[formData.formaPago]}`,
+        'Recogida en tienda; coordinar sucursal y disponibilidad.',
+        '',
+        'PRODUCTOS'
+    );
+    formData.carrito.forEach((producto, index) => {
+        const cantidad = Number(producto.cantidad || 1);
+        const precio = Number(producto.precio_normal || producto.precio || 0);
+        lineas.push(`${index + 1}. ${producto.nombre} | ${cantidad} x ${formatearMoneda(precio)} = ${formatearMoneda(cantidad * precio)}`);
+    });
+    lineas.push('', `Total estimado: ${formatearMoneda(formData.total)}`, 'Cotización pendiente de confirmación. No se ha realizado ningún cobro.');
+    return lineas.join('\n');
+}
 
-    Carrito.limpiarCarrito();
-    cerrarModalPedido();
+function finalizarPedidoExitoso(numeroCotizacion, formData, referencia = '') {
+    const mensaje = crearMensajeCotizacion(numeroCotizacion, formData, referencia);
+    const whatsappUrl = `https://wa.me/${INDUSTRIAL_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+    const confirmacion = document.getElementById('cotizacion-confirmacion');
+    const referenciaElement = document.getElementById('cotizacion-referencia');
+    const whatsappLink = document.getElementById('cotizacion-whatsapp');
+    if (referenciaElement) referenciaElement.textContent = `#${numeroCotizacion}`;
+    if (whatsappLink) whatsappLink.href = whatsappUrl;
+    if (confirmacion) confirmacion.hidden = false;
 
+    // La cotización ya existe en SOL: un problema de interfaz no debe volver a enviarla.
+    try {
+        Carrito.limpiarCarrito();
+        cargarCarrito();
+    } catch (error) {
+        console.error('No fue posible actualizar el carrito después de registrar la cotización.');
+    }
+    cerrarModalPedido(true);
     if (typeof Swal !== 'undefined') {
         Swal.fire({
             icon: 'success',
-            title: 'Pedido enviado con exito',
-            text: mensajeExito,
-            confirmButtonText: 'Aceptar',
-            allowOutsideClick: false,
-            allowEscapeKey: false
-        }).then(() => {
-            window.location.href = 'index.php';
+            title: 'Cotización registrada',
+            html: `Cotización <strong>#${escaparHtml(numeroCotizacion)}</strong> registrada en el sistema.<br><br>Envía el detalle a Industrial para coordinar la recogida.<br><br><a href="${escaparHtml(whatsappUrl)}" target="_blank" rel="noopener noreferrer">Enviar cotización por WhatsApp</a>`,
+            confirmButtonText: 'Cerrar'
         });
     } else {
-        alert(`Pedido enviado con exito. ${mensajeExito}`);
-        window.location.href = 'index.php';
+        alert(`Cotización #${numeroCotizacion} registrada. Usa el botón Enviar por WhatsApp para coordinar la recogida.`);
     }
 }
 
 function restaurarBotonPedido(btnEnviar) {
     if (btnEnviar) {
         btnEnviar.disabled = false;
-        btnEnviar.textContent = 'Enviar Pedido';
+        btnEnviar.textContent = 'Enviar cotización';
     }
 }
 
@@ -523,178 +400,11 @@ function mostrarErrorPedido(mensaje, btnEnviar) {
     }
 }
 
-function abrirVentanaPagoPendiente() {
-    const popupWidth = 980;
-    const popupHeight = 900;
-    const parentLeft = Number.isFinite(window.screenX) ? window.screenX : (window.screenLeft || 0);
-    const parentTop = Number.isFinite(window.screenY) ? window.screenY : (window.screenTop || 0);
-    const parentWidth = window.outerWidth || window.innerWidth || screen.availWidth || popupWidth;
-    const parentHeight = window.outerHeight || window.innerHeight || screen.availHeight || popupHeight;
-    const popupLeft = Math.max(0, Math.round(parentLeft + ((parentWidth - popupWidth) / 2)));
-    const popupTop = Math.max(0, Math.round(parentTop + ((parentHeight - popupHeight) / 2)));
-    const popupFeatures = [
-        `width=${popupWidth}`,
-        `height=${popupHeight}`,
-        `left=${popupLeft}`,
-        `top=${popupTop}`,
-        'resizable=yes',
-        'scrollbars=yes'
-    ].join(',');
-    const ventana = window.open('', `beautyMarketNeoNetCheckout${Date.now()}`, popupFeatures);
-    if (!ventana) {
-        return null;
-    }
-
-    try {
-        ventana.resizeTo(popupWidth, popupHeight);
-        ventana.moveTo(popupLeft, popupTop);
-        ventana.focus();
-    } catch (error) {
-        // El navegador puede bloquear resize/move en algunas configuraciones.
-    }
-
-    ventana.document.write(`
-        <!doctype html>
-        <html lang="es">
-        <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Industrial Collectors, S.A.</title>
-            <style>
-                *{box-sizing:border-box}
-                body{margin:0;display:grid;min-height:100vh;place-items:center;background:#fff}
-                .logo{display:block;width:min(300px,70vw);height:auto}
-            </style>
-        </head>
-        <body>
-            <img class="logo" src="${BEAUTY_MARKET_LOGO_URL}" alt="Industrial Collectors, S.A.">
-        </body>
-        </html>
-    `);
-    ventana.document.close();
-
-    return ventana;
-}
-
-function mostrarErrorVentanaPago(ventana, mensaje) {
-    if (!ventana || ventana.closed) {
-        return;
-    }
-
-    ventana.document.body.innerHTML = `
-        <main style="width:min(90vw,520px);background:#fff;border:1px solid #f1c5c5;border-radius:8px;padding:28px;text-align:center;box-shadow:0 14px 35px rgba(0,0,0,.08)">
-            <h1 style="color:#a54545;margin:0 0 10px;font-size:26px">Pago no disponible</h1>
-            <p style="line-height:1.5;margin:0;color:#555">${escaparHtml(mensaje)}</p>
-        </main>
-    `;
-}
-
-function abrirCheckoutSeguro(urlPago, referencia, ventanaPago = null) {
-    let abrioPestana = false;
-
-    if (ventanaPago && !ventanaPago.closed) {
-        ventanaPago.location.href = urlPago;
-        abrioPestana = true;
-    } else {
-        const ventana = window.open(urlPago, '_blank');
-        abrioPestana = !!ventana;
-    }
-
-    if (!abrioPestana && typeof Swal !== 'undefined') {
-        Swal.fire({
-            icon: 'info',
-            title: 'Abrir pago seguro',
-            html: `Referencia ${referencia}. <br><br><a href="${urlPago}" target="_blank" rel="noopener noreferrer">Abrir portal seguro de NeoNet</a>`,
-            confirmButtonText: 'Entendido'
-        });
-    } else if (!abrioPestana) {
-        alert(`Referencia ${referencia}. Complete el pago en NeoNet: ${urlPago}`);
-    }
-
-    return abrioPestana;
-}
-
-function finalizarPagoNeonetEnTienda() {
-    if (typeof Carrito !== 'undefined' && typeof Carrito.limpiarCarrito === 'function') {
-        Carrito.limpiarCarrito();
-    }
-
-    window.location.href = 'index.php';
-}
-
-function inicializarRetornoPagoNeonet() {
-    window.addEventListener('storage', function (event) {
-        if (event.key !== NEONET_PAYMENT_EVENT_KEY || !event.newValue) {
-            return;
-        }
-
-        try {
-            const payload = JSON.parse(event.newValue);
-            if (payload && payload.status === 'approved') {
-                finalizarPagoNeonetEnTienda();
-            }
-        } catch (error) {
-            console.warn('No fue posible interpretar la confirmacion de NeoNet.', error);
-        }
-    });
-
-    window.addEventListener('message', function (event) {
-        if (event.origin !== window.location.origin || !event.data || event.data.type !== 'beautymarket:neonet-approved') {
-            return;
-        }
-
-        finalizarPagoNeonetEnTienda();
-    });
-}
-
-function iniciarPagoCybersource(formData, apiData, btnEnviar, ventanaPago = null) {
-    if (!CYBERSOURCE_CSRF_TOKEN) {
-        mostrarErrorVentanaPago(ventanaPago, 'Token de seguridad no disponible. Recargue la pagina e intente nuevamente.');
-        mostrarErrorPedido('Token de seguridad no disponible. Recargue la pagina e intente nuevamente.', btnEnviar);
-        return;
-    }
-
-    fetch(CYBERSOURCE_CHECKOUT_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            csrf_token: CYBERSOURCE_CSRF_TOKEN,
-            formData: formData,
-            apiData: apiData
-        })
-    })
-    .then(response => response.text().then(text => {
-        let data;
-        try {
-            data = JSON.parse(text);
-        } catch (error) {
-            throw new Error('La respuesta de la pasarela no es valida.');
-        }
-
-        if (!response.ok || !data.success) {
-            throw new Error(data.message || 'No fue posible iniciar el pago en NeoNet.');
-        }
-
-        return data;
-    }))
-    .then(data => {
-        cerrarModalPedido();
-        abrirCheckoutSeguro(data.checkout_url, data.reference_number, ventanaPago);
-        restaurarBotonPedido(btnEnviar);
-    })
-    .catch(error => {
-        console.error('Error NeoNet/CyberSource:', error);
-        mostrarErrorVentanaPago(ventanaPago, error.message || 'No fue posible iniciar el pago en NeoNet.');
-        mostrarErrorPedido(error.message || 'No fue posible iniciar el pago en NeoNet.', btnEnviar);
-    });
-}
-
 // ============================================================
 // ELIMINAR PRODUCTO DEL CARRITO
 // ============================================================
 function eliminarDelCarrito(idarticulo) {
+    if (cotizacionEnCurso) return;
     if (confirm('Esta seguro de que desea eliminar este producto del carrito?')) {
         Carrito.eliminarProducto(idarticulo);
         cargarCarrito();
@@ -705,6 +415,7 @@ function eliminarDelCarrito(idarticulo) {
 // CAMBIAR CANTIDAD DE PRODUCTO
 // ============================================================
 function cambiarCantidad(idarticulo, cambio) {
+    if (cotizacionEnCurso) return;
     const carrito = Carrito.obtenerCarrito();
     const producto = carrito.find(item => item.idarticulo == idarticulo);
     
@@ -728,6 +439,10 @@ function cambiarCantidad(idarticulo, cambio) {
 // ACTUALIZAR CANTIDAD DESDE INPUT
 // ============================================================
 function actualizarCantidadInput(idarticulo, valor) {
+    if (cotizacionEnCurso) {
+        cargarCarrito();
+        return;
+    }
     const cantidad = Carrito.normalizarCantidad(valor, 1);
     const input = document.getElementById(`cantidad-${idarticulo}`);
 
@@ -774,6 +489,7 @@ function inicializarEventos() {
 
 // Abrir modal de pedido
 function abrirModalPedido() {
+    if (cotizacionEnCurso) return;
     // Verificar que el carrito no este vacio
     const carrito = Carrito.obtenerCarrito();
     if (carrito.length === 0) {
@@ -792,15 +508,18 @@ function abrirModalPedido() {
 
     // Limpiar formulario
     document.getElementById('formPedido').reset();
-    document.getElementById('nit-group').style.display = 'none';
-    document.getElementById('numeroDocumento-group').style.display = 'none';
+    toggleNit();
+    document.getElementById('documentoHelp').textContent = '';
+    document.querySelectorAll('#formPedido .input-error').forEach(element => { element.textContent = ''; });
+    document.querySelectorAll('#formPedido .input-invalid').forEach(element => element.classList.remove('input-invalid'));
+    actualizarNiceSelect(document.getElementById('tipoDocumento'));
     
     document.getElementById('formaPago').value = '';
     const modalidadEntrega = document.getElementById('modalidadEntrega');
     if (modalidadEntrega) {
-        modalidadEntrega.value = '';
+        modalidadEntrega.value = 'recoge_tienda';
     }
-    actualizarOpcionesEntrega();
+    actualizarNiceSelect(document.getElementById('formaPago'));
     actualizarResumenPedido();
     
     // Mostrar modal
@@ -813,8 +532,18 @@ function abrirModalPedido() {
 }
 
 // Cerrar modal de pedido
-function cerrarModalPedido() {
+function cerrarModalPedido(forzar = false) {
+    if (cotizacionEnCurso && !forzar) return;
     document.getElementById('modalPedido').classList.remove('show');
+}
+
+function establecerEnvioCotizacion(enCurso) {
+    cotizacionEnCurso = enCurso;
+    const modal = document.getElementById('modalPedido');
+    if (modal) modal.setAttribute('aria-busy', String(enCurso));
+    document.querySelectorAll('#modalPedido .mp-close, #modalPedido .mp-btn-cancelar').forEach(button => {
+        button.disabled = enCurso;
+    });
 }
 
 // Mostrar/ocultar campo de documento segun checkbox
@@ -982,6 +711,7 @@ function validarCaracteresPermitidos(valor, regex) {
 
 function procesarPedido(event) {
     event.preventDefault();
+    if (cotizacionEnCurso) return false;
 
     const nombre = document.getElementById("nombreCompleto");
     const direccion = document.getElementById("direccion");
@@ -991,7 +721,6 @@ function procesarPedido(event) {
     const tipoDocumento = document.getElementById("tipoDocumento");
     const numeroDocumento = document.getElementById("numeroDocumento");
     const formaPago = document.getElementById("formaPago");
-    const modalidadEntrega = document.getElementById("modalidadEntrega");
 
     let valido = true;
 
@@ -1002,7 +731,6 @@ function procesarPedido(event) {
     limpiarError(tipoDocumento, "errorTipoDocumento");
     limpiarError(numeroDocumento, "errorNumeroDocumento");
     limpiarError(formaPago, "errorFormaPago");
-    limpiarError(modalidadEntrega, "errorModalidadEntrega");
 
     nombre.value = sanitizarInput(nombre.value);
     direccion.value = sanitizarInput(direccion.value);
@@ -1032,6 +760,7 @@ function procesarPedido(event) {
     const facturaActiva = necesitaFactura ? necesitaFactura.checked : false;
 
     if (facturaActiva) {
+        if (tipoDocumento.value === 'cf') numeroDocumento.value = 'C/F';
         if (!tipoDocumento.value) {
             mostrarError(tipoDocumento, "Seleccione un tipo de documento.", "errorTipoDocumento");
             valido = false;
@@ -1055,14 +784,14 @@ function procesarPedido(event) {
         }
     }
 
-    if (!formaPago.value) {
+    if (!Object.prototype.hasOwnProperty.call(ETIQUETAS_FORMA_PAGO, formaPago.value)) {
         mostrarError(formaPago, "Seleccione un metodo de pago.", "errorFormaPago");
         valido = false;
     }
 
     const entregaSeleccionada = obtenerEntregaSeleccionada();
     if (!entregaSeleccionada) {
-        mostrarError(modalidadEntrega, "Seleccione modalidad y lugar de entrega.", "errorModalidadEntrega");
+        mostrarError(formaPago, "Seleccione una forma de pago válida para recoger en tienda.", "errorFormaPago");
         valido = false;
     }
 
@@ -1097,8 +826,8 @@ function procesarPedido(event) {
     const direccionFinal = direccion.value;
     const telefonoFinal = telefono.value;
     const correoFinal = correo.value;
-    let formaPagoFinal = formaPago.value;
-    const totalesPedido = calcularTotalesPedido(formaPagoFinal);
+    const formaPagoFinal = formaPago.value;
+    const totalesPedido = calcularTotalesPedido();
 
     // Si no necesita factura, usar "C/F" como NIT
     let nitFinal = '';
@@ -1133,9 +862,8 @@ function procesarPedido(event) {
 
     const carrito = Carrito.obtenerCarrito();
     const subtotal = totalesPedido.subtotalNormal;
-    const costoEnvio = totalesPedido.costoEnvio;
     const total = totalesPedido.totalSeleccionado;
-    const resumenEntregaPedido = `${entregaSeleccionada.detalle} Envío: ${formatearMoneda(costoEnvio)}.`;
+    const resumenEntregaPedido = entregaSeleccionada.detalle;
 
     const idarticulo = [];
     const cantidad = [];
@@ -1160,7 +888,7 @@ function procesarPedido(event) {
         telefono_cliente: formData.telefono,
         direccion_cliente: formData.direccion,
         correo_cliente: formData.correo || '',
-        valor_tarjeta: formaPagoFinal === METODO_TARJETA_NEONET ? total : 0,
+        valor_tarjeta: 0,
         tipo_documento_cliente: formData.tipoDocumento,
         fecha_hora: null,
         forma_pago: ETIQUETAS_FORMA_PAGO[formData.formaPago] || formData.formaPago,
@@ -1172,7 +900,7 @@ function procesarPedido(event) {
         idvendedor: 0,
         tipo_cliente: "Cliente",
         forma_productos: "Detallado",
-        comentario_cotizacion: `Tienda en linea | Metodo de pago: ${ETIQUETAS_FORMA_PAGO[formaPagoFinal] || formaPagoFinal} | Entrega: ${entregaSeleccionada.label} | Envío: ${formatearMoneda(costoEnvio)} | Productos: ${formatearMoneda(subtotal)} | Total: ${formatearMoneda(total)}${formaPagoFinal === METODO_TARJETA_NEONET ? ' | Pago pendiente en NeoNet' : ' | Pendiente de confirmacion/cobro'}`,
+        comentario_cotizacion: `Cotización web | Pago previsto: ${ETIQUETAS_FORMA_PAGO[formaPagoFinal]} | Recogida en tienda | Productos: ${formatearMoneda(subtotal)} | Total estimado: ${formatearMoneda(total)} | Pendiente de confirmación, sin cobro`,
         destino: "VENTA",
         no_auto_tarjeta: "",
         datosArticulos: {
@@ -1187,92 +915,43 @@ function procesarPedido(event) {
     };
 
     const btnEnviar = document.querySelector('.mp-btn-enviar');
+    if (!QUOTE_CSRF_TOKEN) {
+        mostrarErrorPedido('Recarga la página antes de enviar la cotización.', btnEnviar);
+        return false;
+    }
+    establecerEnvioCotizacion(true);
     if (btnEnviar) {
         btnEnviar.disabled = true;
-        btnEnviar.textContent = 'Enviando...';
-    }
-
-    if (formaPagoFinal === METODO_TARJETA_NEONET) {
-        const ventanaPago = abrirVentanaPagoPendiente();
-        if (btnEnviar) {
-            btnEnviar.textContent = 'Preparando pago...';
-        }
-        iniciarPagoCybersource(formData, apiData, btnEnviar, ventanaPago);
-        return false;
+        btnEnviar.textContent = 'Enviando cotización...';
     }
 
     fetch(ORDER_CREATE_QUOTE_URL, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            csrf_token: CYBERSOURCE_CSRF_TOKEN,
-            formData: formData,
-            apiData: apiData
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ csrf_token: QUOTE_CSRF_TOKEN, formData, apiData })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
+    .then(async response => {
+        let data;
+        try {
+            data = await response.json();
+        } catch (error) {
+            throw new Error('La respuesta del servidor no es válida.');
         }
-
-        return response.text().then(text => {
-            try {
-                return JSON.parse(text);
-            } catch (e) {
-                console.error('Error parsing JSON:', text);
-                throw new Error('La respuesta del servidor no es valida');
-            }
-        });
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || 'No fue posible registrar la cotización.');
+        }
+        return data;
     })
     .then(data => {
-        if (data.success) {
-            const numeroCotizacion = data.idcotizacion || data.numero_cotizacion || data.reference_number || 'N/A';
-            finalizarPedidoExitoso(numeroCotizacion, formData);
-        } else {
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: data.message || 'Error al procesar el pedido. Por favor intenta nuevamente.',
-                    confirmButtonText: 'Aceptar'
-                }).then(() => {
-                    if (btnEnviar) {
-                        btnEnviar.disabled = false;
-                        btnEnviar.textContent = 'Enviar Pedido';
-                    }
-                });
-            } else {
-                alert(data.message || 'Error al procesar el pedido. Por favor intenta nuevamente.');
-                if (btnEnviar) {
-                    btnEnviar.disabled = false;
-                    btnEnviar.textContent = 'Enviar Pedido';
-                }
-            }
-        }
+        const numero = data.idcotizacion || data.numero_cotizacion || data.reference_number || 'Sin número';
+        finalizarPedidoExitoso(numero, formData, data.reference_number || '');
     })
     .catch(error => {
-        console.error('Error completo:', error);
-
-        if (typeof Swal !== 'undefined') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error de conexion',
-                text: error.message || 'No se pudo conectar con el servidor. Por favor intenta nuevamente.',
-                confirmButtonText: 'Aceptar'
-            }).then(() => {
-                if (btnEnviar) {
-                    btnEnviar.disabled = false;
-                    btnEnviar.textContent = 'Enviar Pedido';
-                }
-            });
-        } else {
-            alert(error.message || 'No se pudo conectar con el servidor. Por favor intenta nuevamente.');
-            if (btnEnviar) {
-                btnEnviar.disabled = false;
-                btnEnviar.textContent = 'Enviar Pedido';
-            }
-        }
+        mostrarErrorPedido(error.message || 'No fue posible registrar la cotización. Intenta nuevamente.', btnEnviar);
+    })
+    .finally(() => {
+        establecerEnvioCotizacion(false);
+        restaurarBotonPedido(btnEnviar);
     });
+    return false;
 }

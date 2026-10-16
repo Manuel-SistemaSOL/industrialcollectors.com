@@ -560,52 +560,6 @@ $categoriasInicio = bm_build_category_visuals($categorias ?? []);
         }
     }
 
-    .bm-home-flete {
-        background: #ffffff;
-        padding: 28px 0 16px;
-    }
-
-    .bm-home-flete-card {
-        display: flex;
-        justify-content: center;
-        overflow: visible;
-    }
-
-    .bm-home-flete-img {
-        display: block;
-        width: min(100%, 1080px);
-        height: auto;
-        object-fit: contain;
-        filter: drop-shadow(0 16px 24px rgba(21, 21, 21, .12));
-    }
-
-    @media (max-width: 991px) {
-        .bm-home-flete {
-            padding: 22px 0 12px;
-        }
-    }
-
-    @media (max-width: 575px) {
-        .bm-home-flete {
-            padding: 18px 0 8px;
-        }
-
-        .bm-home-flete .container {
-            max-width: 100%;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-
-        .bm-home-flete-card {
-            overflow: hidden;
-        }
-
-        .bm-home-flete-img {
-            width: 100%;
-            filter: drop-shadow(0 10px 16px rgba(21, 21, 21, .1));
-        }
-    }
-
     .bm-home-products .single-arrivals-products {
         border: 1px solid rgba(111, 142, 196, 0.18) !important;
         border-radius: 6px !important;
@@ -1493,6 +1447,33 @@ if ($slider) {
             </article>
         <?php endif; ?>
     </div>
+    <aside class="bm-hero-benefits" aria-label="Lo que encontrarás en Industrial Collectors">
+        <div class="container">
+            <ul class="bm-hero-benefits-list">
+                <li>
+                    <span class="bm-hero-benefit-icon" aria-hidden="true"><i class="bx bx-layer"></i></span>
+                    <div class="bm-hero-benefit-copy">
+                        <strong class="bm-hero-benefit-title">Materiales metálicos</strong>
+                        <span class="bm-hero-benefit-text">Perfiles, tubos y láminas</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="bm-hero-benefit-icon" aria-hidden="true"><i class="bx bx-store-alt"></i></span>
+                    <div class="bm-hero-benefit-copy">
+                        <strong class="bm-hero-benefit-title">Mayor y menor</strong>
+                        <span class="bm-hero-benefit-text">Para obras de toda escala</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="bm-hero-benefit-icon" aria-hidden="true"><i class="bx bx-support"></i></span>
+                    <div class="bm-hero-benefit-copy">
+                        <strong class="bm-hero-benefit-title">Asesoría</strong>
+                        <span class="bm-hero-benefit-text">Atención personalizada</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
 </section>
 <!-- End Main Slider Area -->
 
@@ -1990,10 +1971,6 @@ foreach ($bmHomeFeaturedCategories as &$bmHomeFeaturedCategory) {
         : 'tienda.php?idsucursal=4&vista=tienda&buscar=' . rawurlencode($bmHomeFeaturedCategory['search']);
 }
 unset($bmHomeFeaturedCategory);
-
-$bmFleteImage = is_file(__DIR__ . '/assets/img/paginaImagenes/ServicioFlete.png')
-    ? 'assets/img/paginaImagenes/ServicioFlete.png'
-    : 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
 ?>
 
 <section class="bm-home-featured-categories bm-home-products" aria-label="Categorías destacadas de Industrial Collectors, S.A.">
@@ -2041,15 +2018,28 @@ $bmFleteImage = is_file(__DIR__ . '/assets/img/paginaImagenes/ServicioFlete.png'
     </div>
 </section>
 
-<section class="bm-home-flete" aria-label="Servicio de flete">
+<?php
+$bmPromoImage = is_file(__DIR__ . '/assets/img/paginaImagenes/ferreteria para hogares.png')
+    ? 'assets/img/paginaImagenes/ferreteria para hogares.png'
+    : 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
+$bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones para tus proyectos.png')
+    ? 'assets/img/paginaImagenes/soluciones para tus proyectos.png'
+    : 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
+?>
+
+<section class="bm-home-promo-section" aria-label="Catálogo de ferretería destacado">
     <div class="container">
-        <div class="bm-home-flete-card">
+        <div class="bm-home-promo bm-home-image-banner bm-home-image-banner--catalog">
             <img
-                class="bm-home-flete-img"
-                src="<?php echo htmlspecialchars($bmFleteImage, ENT_QUOTES); ?>"
-                alt="Servicio de flete Industrial Collectors, S.A."
+                class="bm-home-banner-img"
+                src="<?php echo htmlspecialchars($bmPromoImage, ENT_QUOTES); ?>"
+                alt="Ferretería para hogares y profesionales"
                 loading="lazy"
                 decoding="async">
+
+            <div class="bm-home-promo-content">
+                <a href="tienda.php?idsucursal=4&vista=tienda" class="bm-home-btn">Ver cat&aacute;logo</a>
+            </div>
         </div>
     </div>
 </section>
@@ -2079,32 +2069,22 @@ $bmFleteImage = is_file(__DIR__ . '/assets/img/paginaImagenes/ServicioFlete.png'
 </section>
 <!-- End New Products Area -->
 
-<?php
-$bmPromoImage = is_file(__DIR__ . '/assets/img/paginaImagenes/ferreteria para hogares.png')
-    ? 'assets/img/paginaImagenes/ferreteria para hogares.png'
-    : 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
-$bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones para tus proyectos.png')
-    ? 'assets/img/paginaImagenes/soluciones para tus proyectos.png'
-    : 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
-?>
-
-<section class="bm-home-promo-section" aria-label="Catálogo de ferretería destacado">
+<section class="bm-home-masglo" aria-label="Construcción, plomería, electricidad y pintura">
     <div class="container">
-        <div class="bm-home-promo bm-home-image-banner bm-home-image-banner--catalog">
+        <div class="bm-home-masglo-card bm-home-image-banner--solutions">
             <img
                 class="bm-home-banner-img"
-                src="<?php echo htmlspecialchars($bmPromoImage, ENT_QUOTES); ?>"
-                alt="Ferretería para hogares y profesionales"
+                src="<?php echo htmlspecialchars($bmNaturalNailsImage, ENT_QUOTES); ?>"
+                alt="Soluciones para tus proyectos: construcción, plomería, electricidad y pintura"
                 loading="lazy"
                 decoding="async">
 
-            <div class="bm-home-promo-content">
-                <a href="tienda.php?idsucursal=4&vista=tienda" class="bm-home-btn">Ver cat&aacute;logo</a>
+            <div class="bm-home-masglo-content">
+                <a href="tienda.php?idsucursal=4&vista=tienda" class="bm-home-btn">Comprar ahora</a>
             </div>
         </div>
     </div>
 </section>
-
 <!-- Start Special Products Area -->
 <section class="special-products-area products-after-banner pb-70 bm-home-products" aria-label="Los m&aacute;s vendidos">
     <div class="container">
@@ -2130,22 +2110,6 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
 </section>
 <!-- End Special Products Area -->
 
-<section class="bm-home-masglo" aria-label="Construcción, plomería, electricidad y pintura">
-    <div class="container">
-        <div class="bm-home-masglo-card bm-home-image-banner--solutions">
-            <img
-                class="bm-home-banner-img"
-                src="<?php echo htmlspecialchars($bmNaturalNailsImage, ENT_QUOTES); ?>"
-                alt="Soluciones para tus proyectos: construcción, plomería, electricidad y pintura"
-                loading="lazy"
-                decoding="async">
-
-            <div class="bm-home-masglo-content">
-                <a href="tienda.php?idsucursal=4&vista=tienda" class="bm-home-btn">Comprar ahora</a>
-            </div>
-        </div>
-    </div>
-</section>
 <style>
 
 
@@ -2356,6 +2320,10 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
         width: 100% !important;
     }
 
+    .bm-home-featured-products .bm-products-state {
+        grid-column: span 4;
+    }
+
     .bm-home-featured-tab {
         flex: 1 1 0 !important;
         gap: 10px !important;
@@ -2461,13 +2429,13 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
     }
 
     .bm-home-featured-products .product-card-actions .product-card-action {
-        min-height: 34px !important;
-        padding: 7px 8px !important;
+        min-height: 44px !important;
+        padding: 10px 8px !important;
     }
 
     .bm-home-featured-products .product-card-actions .product-card-action-cart,
     .bm-home-featured-products .product-card-actions .product-card-action-details {
-        font-size: 10px !important;
+        font-size: 12px !important;
         letter-spacing: 0 !important;
     }
 
@@ -2519,6 +2487,10 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
             grid-auto-columns: calc((100% - 28px) / 3) !important;
         }
 
+        .bm-home-featured-products .bm-products-state {
+            grid-column: span 3;
+        }
+
         .bm-home-featured-products .single-arrivals-products {
             min-height: 330px !important;
             padding: 10px !important;
@@ -2531,19 +2503,19 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
 
         .bm-home-featured-products .arrivals-products-content h3,
         .bm-home-featured-products .arrivals-products-content h3 a {
-            font-size: 11.5px !important;
-            max-height: 41px !important;
-            min-height: 41px !important;
+            font-size: 14px !important;
+            max-height: 51px !important;
+            min-height: 51px !important;
         }
 
         .bm-home-featured-products .product-card-actions .product-card-action {
-            min-height: 31px !important;
-            padding: 6px 6px !important;
+            min-height: 44px !important;
+            padding: 10px 8px !important;
         }
 
         .bm-home-featured-products .product-card-actions .product-card-action-cart,
         .bm-home-featured-products .product-card-actions .product-card-action-details {
-            font-size: 8.8px !important;
+            font-size: 12px !important;
         }
     }
 
@@ -2572,8 +2544,8 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
         .bm-home-featured-tab {
             flex-direction: column !important;
             gap: 4px !important;
-            min-height: 62px !important;
-            padding: 7px 4px !important;
+            min-height: 76px !important;
+            padding: 10px 4px !important;
         }
 
         .bm-home-featured-tab i {
@@ -2581,8 +2553,8 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
         }
 
         .bm-home-featured-tab span {
-            font-size: 11px !important;
-            line-height: 1.05 !important;
+            font-size: 12px !important;
+            line-height: 1.2 !important;
         }
 
         .bm-home-featured-stage {
@@ -2593,6 +2565,10 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
             gap: 10px !important;
             grid-auto-columns: calc((100% - 10px) / 2) !important;
             padding-bottom: 8px !important;
+        }
+
+        .bm-home-featured-products .bm-products-state {
+            grid-column: span 2;
         }
 
         .bm-home-featured-products .single-arrivals-products {
@@ -2611,11 +2587,11 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
 
         .bm-home-featured-products .arrivals-products-content h3,
         .bm-home-featured-products .arrivals-products-content h3 a {
-            font-size: 10px !important;
-            line-height: 1.15 !important;
+            font-size: 13px !important;
+            line-height: 1.25 !important;
             margin-bottom: 6px !important;
-            max-height: 35px !important;
-            min-height: 35px !important;
+            max-height: 49px !important;
+            min-height: 49px !important;
         }
 
         .bm-home-featured-products .rating {
@@ -2628,7 +2604,7 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
         }
 
         .bm-home-featured-products .product-card-price-normal {
-            font-size: 8.8px !important;
+            font-size: 12px !important;
         }
 
         .bm-home-featured-products .product-card-actions {
@@ -2637,13 +2613,13 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
         }
 
         .bm-home-featured-products .product-card-actions .product-card-action {
-            min-height: 27px !important;
-            padding: 5px 4px !important;
+            min-height: 44px !important;
+            padding: 10px 6px !important;
         }
 
         .bm-home-featured-products .product-card-actions .product-card-action-cart,
         .bm-home-featured-products .product-card-actions .product-card-action-details {
-            font-size: 7.5px !important;
+            font-size: 11.5px !important;
         }
 
         .bm-home-featured-footer {
@@ -2653,24 +2629,24 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
 
         .bm-home-featured-more,
         .bm-home-featured-nav {
-            min-height: 38px !important;
+            min-height: 44px !important;
         }
 
         .bm-home-featured-more {
-            font-size: 10.5px !important;
+            font-size: 12px !important;
             min-width: 104px !important;
             padding: 8px 13px !important;
         }
 
         .bm-home-featured-nav {
             font-size: 21px !important;
-            width: 38px !important;
+            width: 44px !important;
         }
     }
 
     @media (max-width: 360px) {
         .bm-home-featured-tab span {
-            font-size: 10px !important;
+            font-size: 12px !important;
         }
 
         .bm-home-featured-products {
@@ -2690,14 +2666,14 @@ $bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones 
 
         .bm-home-featured-products .arrivals-products-content h3,
         .bm-home-featured-products .arrivals-products-content h3 a {
-            font-size: 9.2px !important;
-            max-height: 32px !important;
-            min-height: 32px !important;
+            font-size: 13px !important;
+            max-height: 49px !important;
+            min-height: 49px !important;
         }
 
         .bm-home-featured-products .product-card-actions .product-card-action-cart,
         .bm-home-featured-products .product-card-actions .product-card-action-details {
-            font-size: 7px !important;
+            font-size: 11.5px !important;
         }
     }
 </style>

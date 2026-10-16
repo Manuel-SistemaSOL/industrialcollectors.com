@@ -1,41 +1,21 @@
 <?php
 
-namespace BeautyMarket\CyberSource;
+namespace IndustrialCollectors\Quotes;
 
-class OrderEmailNotifier
+class QuoteEmailNotifier
 {
     private $config;
     private $logger;
+    private $mailer;
 
-    public function __construct(Config $config, SecureLogger $logger)
+    public function __construct(Config $config, SecureLogger $logger, ?callable $mailer = null)
     {
         $this->config = $config;
         $this->logger = $logger;
+        $this->mailer = $mailer;
     }
 
-    public function sendForSession(array $session, array $paymentData = [], array $orderResponse = []): array
-    {
-        $apiData = isset($session['api_payload']) && is_array($session['api_payload']) ? $session['api_payload'] : [];
-        $formData = isset($session['form_data']) && is_array($session['form_data']) ? $session['form_data'] : [];
-
-        return $this->sendOrderConfirmation([
-            'email' => $this->firstNonEmpty([$apiData, $formData], ['correo_cliente', 'correo']),
-            'customer_name' => $this->firstNonEmpty([$apiData, $formData], ['nombre_cliente', 'nombreCompleto']),
-            'reference_number' => (string) ($session['reference_number'] ?? ''),
-            'quote_number' => $this->quoteNumberFromResponse($orderResponse),
-            'payment_label' => (string) ($apiData['forma_pago'] ?? 'Tarjeta de Credito/Debito'),
-            'amount' => (float) ($session['amount'] ?? $apiData['total_venta'] ?? 0),
-            'currency' => (string) ($session['currency'] ?? $this->config->get('currency', 'GTQ')),
-            'authorization_number' => $this->firstNonEmpty([$paymentData], [
-                'authorization_number',
-                'no_auto_tarjeta',
-                'authorization_code',
-                'auth_code',
-            ]),
-        ]);
-    }
-
-    public function sendOrderConfirmation(array $order): array
+    public function sendQuoteConfirmation(array $order): array
     {
         if (!$this->config->bool('mail.enabled', true)) {
             return $this->result(false, true, 'mail_disabled', $order);
@@ -53,11 +33,11 @@ class OrderEmailNotifier
         }
 
         $subjectNumber = $quote !== '' ? $quote : $reference;
-        $subject = 'Industrial Collectors, S.A. - Confirmacion de pedido ' . $subjectNumber;
-        $fromEmail = $this->configuredEmail('mail.from_email', 'labrocaferreterias01@gmail.com');
+        $subject = 'Industrial Collectors, S.A. - Cotizacion recibida ' . $subjectNumber;
+        $fromEmail = $this->configuredEmail('mail.from_email', 'industrialcollectorsventas@gmail.com');
         $fromName = $this->headerText((string) $this->config->get('mail.from_name', 'Industrial Collectors, S.A.'));
         $replyTo = $this->configuredEmail('mail.reply_to', $fromEmail);
-        $boundary = 'BM-' . bin2hex(random_bytes(12));
+        $boundary = 'IC-' . bin2hex(random_bytes(12));
 
         $headers = [
             'MIME-Version: 1.0',
@@ -74,7 +54,9 @@ class OrderEmailNotifier
         );
 
         $parameters = $this->mailParameters($fromEmail);
-        if ($parameters !== '') {
+        if ($this->mailer !== null) {
+            $sent = call_user_func($this->mailer, $to, $subject, $body, implode("\r\n", $headers), $parameters);
+        } elseif ($parameters !== '') {
             $sent = @mail($to, $subject, $body, implode("\r\n", $headers), $parameters);
         } else {
             $sent = @mail($to, $subject, $body, implode("\r\n", $headers));
@@ -83,13 +65,13 @@ class OrderEmailNotifier
         $result = $this->result((bool) $sent, false, $sent ? 'sent' : 'mail_failed', $order);
 
         if ($sent) {
-            $this->logger->info('Customer order email sent', [
+            $this->logger->info('Customer quote email sent', [
                 'email' => $to,
                 'reference' => $reference,
                 'quote_number' => $quote,
             ]);
         } else {
-            $this->logger->warning('Customer order email failed', [
+            $this->logger->warning('Customer quote email failed', [
                 'email' => $to,
                 'reference' => $reference,
                 'quote_number' => $quote,
@@ -120,12 +102,11 @@ class OrderEmailNotifier
         $name = $this->displayText((string) ($order['customer_name'] ?? ''));
         $payment = $this->displayText((string) ($order['payment_label'] ?? ''));
         $amount = $this->formatAmount((float) ($order['amount'] ?? 0), (string) ($order['currency'] ?? 'GTQ'));
-        $authorization = $this->identifier((string) ($order['authorization_number'] ?? ''));
 
         $lines = [];
         $lines[] = $name !== '' ? 'Hola ' . $name . ',' : 'Hola,';
         $lines[] = '';
-        $lines[] = 'Gracias por comprar en Industrial Collectors, S.A. Conserva este correo como respaldo de tu pedido.';
+        $lines[] = 'Recibimos tu solicitud de cotizacion en Industrial Collectors, S.A. Conserva este correo como respaldo. No se ha realizado ningun cobro en linea.';
         $lines[] = '';
 
         if ($quote !== '') {
@@ -133,7 +114,7 @@ class OrderEmailNotifier
         }
 
         if ($reference !== '') {
-            $lines[] = 'Referencia de pago: ' . $reference;
+            $lines[] = 'Referencia de solicitud: ' . $reference;
         }
 
         if ($payment !== '') {
@@ -144,12 +125,8 @@ class OrderEmailNotifier
             $lines[] = 'Total: ' . $amount;
         }
 
-        if ($authorization !== '') {
-            $lines[] = 'Autorizacion: ' . $authorization;
-        }
-
         $lines[] = '';
-        $lines[] = 'Para coordinar el seguimiento de tu pedido, comunicate por WhatsApp al +502 3088 8818.';
+        $lines[] = 'Para confirmar disponibilidad, pago y recogida en tienda, comunicate por WhatsApp al +502 3088 8818.';
         $lines[] = '';
         $lines[] = 'Industrial Collectors, S.A.';
 
@@ -161,7 +138,6 @@ class OrderEmailNotifier
         $name = $this->escape($this->displayText((string) ($order['customer_name'] ?? '')));
         $payment = $this->escape($this->displayText((string) ($order['payment_label'] ?? '')));
         $amount = $this->escape($this->formatAmount((float) ($order['amount'] ?? 0), (string) ($order['currency'] ?? 'GTQ')));
-        $authorization = $this->escape($this->identifier((string) ($order['authorization_number'] ?? '')));
         $logoUrl = $this->escape(rtrim($this->config->baseUrl(), '/') . '/assets/img/logotipo%20IC/version%20horizontal/Logo-Industrial-Collectors-horizontal.png');
 
         $rows = '';
@@ -170,7 +146,7 @@ class OrderEmailNotifier
         }
 
         if ($reference !== '') {
-            $rows .= $this->htmlRow('Referencia de pago', $reference);
+            $rows .= $this->htmlRow('Referencia de solicitud', $reference);
         }
 
         if ($payment !== '') {
@@ -179,10 +155,6 @@ class OrderEmailNotifier
 
         if ($amount !== '') {
             $rows .= $this->htmlRow('Total', $amount);
-        }
-
-        if ($authorization !== '') {
-            $rows .= $this->htmlRow('Autorizacion', $authorization);
         }
 
         $greeting = $name !== '' ? 'Hola ' . $name . ',' : 'Hola,';
@@ -194,10 +166,10 @@ class OrderEmailNotifier
             . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:620px;background:#ffffff;border:1px solid #e8e5dc;border-radius:10px;overflow:hidden">'
             . '<tr><td style="padding:30px 28px;text-align:center">'
             . '<img src="' . $logoUrl . '" alt="Industrial Collectors, S.A." style="max-width:210px;height:auto;margin-bottom:24px">'
-            . '<h1 style="margin:0 0 10px;color:#1a1a1a;font-size:28px;line-height:1.2">Confirmacion de pedido</h1>'
-            . '<p style="margin:0 0 22px;color:#3f4654;font-size:16px;line-height:1.5">' . $greeting . '<br>Gracias por comprar en Industrial Collectors, S.A. Conserva este correo como respaldo.</p>'
+            . '<h1 style="margin:0 0 10px;color:#1a1a1a;font-size:28px;line-height:1.2">Cotizacion recibida</h1>'
+            . '<p style="margin:0 0 22px;color:#3f4654;font-size:16px;line-height:1.5">' . $greeting . '<br>Recibimos tu solicitud de cotizacion en Industrial Collectors, S.A. Conserva este correo como respaldo. No se ha realizado ningun cobro en linea.</p>'
             . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;text-align:left">' . $rows . '</table>'
-            . '<p style="margin:24px 0 0;color:#3f4654;font-size:15px;line-height:1.5">Para coordinar el seguimiento de tu pedido, comunicate por WhatsApp al <strong>+502 3088 8818</strong>.</p>'
+            . '<p style="margin:24px 0 0;color:#3f4654;font-size:15px;line-height:1.5">Para confirmar disponibilidad, pago y recogida en tienda, comunicate por <a href="https://wa.me/50230888818">WhatsApp al +502 3088 8818</a>.</p>'
             . '</td></tr></table>'
             . '</td></tr></table></body></html>';
     }
@@ -232,28 +204,6 @@ class OrderEmailNotifier
             'reference_number' => $this->identifier((string) ($order['reference_number'] ?? '')),
             'quote_number' => $this->identifier((string) ($order['quote_number'] ?? '')),
         ];
-    }
-
-    private function firstNonEmpty(array $sources, array $keys): string
-    {
-        foreach ($sources as $source) {
-            if (!is_array($source)) {
-                continue;
-            }
-
-            foreach ($keys as $key) {
-                if (!array_key_exists($key, $source)) {
-                    continue;
-                }
-
-                $value = trim((string) $source[$key]);
-                if ($value !== '') {
-                    return $value;
-                }
-            }
-        }
-
-        return '';
     }
 
     private function configuredEmail(string $key, string $fallback): string

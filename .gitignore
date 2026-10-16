@@ -1,7 +1,6 @@
-config/cybersource.private.php
+config/*.private.php
 logs/*.log
-storage/cybersource/*.json
 storage/shop-products-cache/*.json
-CyberSourceKey*.pem
+*.pem
 accessKey*.txt
 keySecret*.txt
