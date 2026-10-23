@@ -2019,11 +2019,11 @@ unset($bmHomeFeaturedCategory);
 </section>
 
 <?php
-$bmPromoImage = is_file(__DIR__ . '/assets/img/paginaImagenes/ferreteria para hogares.png')
-    ? 'assets/img/paginaImagenes/ferreteria para hogares.png'
+$bmPromoImage = is_file(__DIR__ . '/assets/img/paginaImagenes/material metalico.png')
+    ? 'assets/img/paginaImagenes/material metalico.png'
     : 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
-$bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/soluciones para tus proyectos.png')
-    ? 'assets/img/paginaImagenes/soluciones para tus proyectos.png'
+$bmNaturalNailsImage = is_file(__DIR__ . '/assets/img/paginaImagenes/Tus ideas toman forma.png')
+    ? 'assets/img/paginaImagenes/Tus ideas toman forma.png'
     : 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
 ?>
 
