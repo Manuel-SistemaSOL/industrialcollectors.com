@@ -489,7 +489,7 @@ include 'head.php';
                                     <li>
                                         <a href="tienda.php?categoria=<?= $cat['idcategoria'] ?>" class="nav-link">
                                             <i class="<?= htmlspecialchars($icono, ENT_QUOTES) ?>" aria-hidden="true"></i>
-                                            <span><?= htmlspecialchars($cat['nombre']) ?></span>
+                                            <span><?= htmlspecialchars(bm_category_display_name($cat['nombre'])) ?></span>
                                         </a>
                                     </li>
                                 <?php
@@ -1181,7 +1181,11 @@ include 'head.php';
         }
 
         if (nuevaImagen) {
-            imgPrincipal.src = nuevaImagen;
+            if (typeof window.BM_setProductImage === 'function') {
+                window.BM_setProductImage(imgPrincipal, nuevaImagen);
+            } else {
+                imgPrincipal.src = nuevaImagen;
+            }
             if (typeof window.BM_isProductImageFallbackUrl === 'function' && window.BM_isProductImageFallbackUrl(nuevaImagen)) {
                 imgPrincipal.classList.add('bm-product-image-fallback');
             } else {

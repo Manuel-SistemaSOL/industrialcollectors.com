@@ -5,6 +5,7 @@ $seo_description = "Conoce Industrial Collectors, S.A., empresa dedicada a la di
 $seo_keywords = "nosotros Industrial Collectors, S.A., materiales metálicos, perfilería, construcción";
 
 include 'head.php';
+require_once __DIR__ . '/assets/php/api_images.php';
 $current_page = basename($_SERVER['PHP_SELF']);
 
 // Cargar datos desde la API
@@ -301,9 +302,9 @@ $rutaImagenes = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
 
                 <div class="about-art-card">
                     <?php if ($nosotros && !empty($nosotros['imagen_nosotros'])): ?>
-                        <img src="<?= $rutaImagenes . htmlspecialchars($nosotros['imagen_nosotros']) ?>" alt="Industrial Collectors, S.A. - Nosotros">
+                        <img data-bm-api-image="true" src="<?= htmlspecialchars(bm_resolve_api_image($nosotros['imagen_nosotros'], $rutaImagenes), ENT_QUOTES, 'UTF-8') ?>" alt="Industrial Collectors, S.A. - Nosotros" onerror="if(window.BM_applyProductImageFallback){window.BM_applyProductImageFallback(this);}else{this.onerror=null;this.src='<?= htmlspecialchars(bm_api_image_fallback(), ENT_QUOTES, 'UTF-8') ?>';}">
                     <?php else: ?>
-                        <img src="assets/img/Sucursal/Fachada de Industrial Collectors.png" alt="Sucursal de Industrial Collectors, S.A.">
+                        <img data-bm-api-image="true" src="<?= htmlspecialchars(bm_api_image_fallback(), ENT_QUOTES, 'UTF-8') ?>" alt="Sucursal de Industrial Collectors, S.A.">
                     <?php endif; ?>
                 </div>
             </div>

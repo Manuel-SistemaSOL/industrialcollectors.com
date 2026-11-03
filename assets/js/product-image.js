@@ -73,6 +73,9 @@
     }
 
     function isInvalidProductImage(value) {
+        if (typeof value === 'boolean' || (value !== null && typeof value === 'object')) {
+            return true;
+        }
         const raw = cleanImageValue(value);
 
         if (!raw) {
@@ -92,9 +95,9 @@
     }
 
     function resolveProductImage(value, baseUrl) {
-        const raw = cleanImageValue(value);
+        const raw = cleanImageValue(value).replace(/^["']+|["']+$/g, '');
 
-        if (isInvalidProductImage(raw)) {
+        if (isInvalidProductImage(value)) {
             return window.BM_PRODUCT_IMAGE_FALLBACK;
         }
 
@@ -120,12 +123,27 @@
             return normalizedPath;
         }
 
-        if (/^files\//i.test(normalizedPath)) {
-            return encodeURI("https://ssl.sol.sistemasolgt.com/brovic/" + normalizedPath.replace(/^[/\\]+/, ""));
+        if (/^[a-z][a-z0-9+.-]*:/i.test(normalizedPath)) {
+            return window.BM_PRODUCT_IMAGE_FALLBACK;
         }
 
         const normalizedBase = baseUrl || window.BM_PRODUCT_IMAGE_BASE_URL || DEFAULT_IMAGE_BASE;
-        return encodeURI(normalizedBase + normalizedPath.replace(/^[/\\]+/, ""));
+        let imageBase = normalizedBase.replace(/\/?$/, '/');
+        const relativePath = normalizedPath.replace(/^\/+/, '');
+        if (/^[^/]+\/files\//i.test(relativePath)) {
+            imageBase = new URL(imageBase).origin + '/';
+        } else if (/^files\//i.test(relativePath)) {
+            const filesPosition = imageBase.indexOf('/files/');
+            if (filesPosition !== -1) imageBase = imageBase.slice(0, filesPosition + 1);
+        }
+        const suffixIndex = relativePath.search(/[?#]/);
+        const path = suffixIndex === -1 ? relativePath : relativePath.slice(0, suffixIndex);
+        const suffix = suffixIndex === -1 ? '' : relativePath.slice(suffixIndex);
+        const encodedPath = path.split('/').filter(Boolean).map(function (segment) {
+            try { return encodeURIComponent(decodeURIComponent(segment)); }
+            catch (error) { return encodeURIComponent(segment); }
+        }).join('/');
+        return imageBase + encodedPath + suffix;
     }
 
     function resolveFirstProductImage(values, baseUrl) {
@@ -136,7 +154,8 @@
             const value = imageValues[index];
 
             if (!isInvalidProductImage(value)) {
-                return resolveProductImage(value, imageBase);
+                const source = resolveProductImage(value, imageBase);
+                if (!isProductImageFallbackUrl(source)) return source;
             }
         }
 
@@ -148,13 +167,70 @@
             return;
         }
 
-        image.onerror = null;
+        const source = image.getAttribute('src') || '';
+        if (!isInvalidProductImage(source) && !isProductImageFallbackUrl(source)) {
+            image.setAttribute('data-bm-api-source', source);
+        }
+        if (!image.hasAttribute('data-bm-api-image')) image.setAttribute('data-bm-api-image', 'true');
         image.classList.add("bm-product-image-fallback");
-        image.src = window.BM_PRODUCT_IMAGE_FALLBACK;
+        if (!isProductImageFallbackUrl(source)) image.src = window.BM_PRODUCT_IMAGE_FALLBACK;
     }
 
     function isProductImageFallbackUrl(value) {
         return getImageFileName(value) === getImageFileName(window.BM_PRODUCT_IMAGE_FALLBACK);
+    }
+
+    function setProductImage(image, value, baseUrl) {
+        if (!image) return;
+        const source = resolveProductImage(value, baseUrl);
+        image.setAttribute('data-bm-api-image', 'true');
+        image.setAttribute('data-bm-api-source', isProductImageFallbackUrl(source) ? '' : source);
+        image.classList.toggle('bm-product-image-fallback', isProductImageFallbackUrl(source));
+        image.src = source;
+    }
+
+    function getProductImageSource(image) {
+        if (!image) return '';
+        const source = image.getAttribute('src') || '';
+        return isProductImageFallbackUrl(source)
+            ? (image.getAttribute('data-bm-api-source') || source)
+            : source;
+    }
+
+    // Only API images and product image containers use this fallback. Local
+    // logos, branch photos and other static assets keep their own references.
+    const productContainers = '.arrivals-products-image, .shop-products-image, '
+        + '.bestsellers-products-image, .special-products-image, .hot-products-image, '
+        + '.offer-products-image, .products-details-image, #slider-for, #slider-nav, '
+        + '#modalProducto .mp-left, .cart-table .product-thumbnail';
+
+    function isManagedImage(image) {
+        if (!image || image.tagName !== 'IMG') return false;
+        if (image.hasAttribute('data-bm-api-image') || image.classList.contains('bm-product-image-fallback')
+            || image.closest(productContainers)) return true;
+        try {
+            const source = new URL(image.getAttribute('src') || '', window.location.href);
+            return source.origin === new URL(window.BM_PRODUCT_IMAGE_BASE_URL).origin;
+        } catch (error) { return false; }
+    }
+
+    function inspectImage(image) {
+        if (!isManagedImage(image)) return;
+        const source = image.getAttribute('src') || '';
+        if (isInvalidProductImage(source)) {
+            applyProductImageFallback(image);
+        } else if (isProductImageFallbackUrl(source)) {
+            image.classList.add('bm-product-image-fallback');
+        } else if (image.complete) {
+            if (image.naturalWidth > 0) image.classList.remove('bm-product-image-fallback');
+            else applyProductImageFallback(image);
+        }
+    }
+
+    function inspectImagesWithin(node) {
+        if (!node || node.nodeType !== 1) return;
+        if (node.tagName === 'IMG') inspectImage(node);
+        node.querySelectorAll('img').forEach(inspectImage);
     }
 
     window.BM_isInvalidProductImage = isInvalidProductImage;
@@ -162,4 +238,28 @@
     window.BM_resolveFirstProductImage = resolveFirstProductImage;
     window.BM_applyProductImageFallback = applyProductImageFallback;
     window.BM_isProductImageFallbackUrl = isProductImageFallbackUrl;
+    window.BM_setProductImage = setProductImage;
+    window.BM_getProductImageSource = getProductImageSource;
+
+    const document = window.document;
+    if (document) {
+        document.addEventListener('error', function (event) {
+            if (isManagedImage(event.target)) applyProductImageFallback(event.target);
+        }, true);
+        document.addEventListener('load', function (event) {
+            if (isManagedImage(event.target)) inspectImage(event.target);
+        }, true);
+        if (document.documentElement) {
+            document.querySelectorAll('img').forEach(inspectImage);
+            new window.MutationObserver(function (records) {
+                records.forEach(function (record) {
+                    if (record.type === 'attributes') inspectImage(record.target);
+                    else record.addedNodes.forEach(inspectImagesWithin);
+                });
+            }).observe(document.documentElement, {
+                childList: true, subtree: true, attributes: true,
+                attributeFilter: ['src', 'data-bm-api-image']
+            });
+        }
+    }
 })(window);

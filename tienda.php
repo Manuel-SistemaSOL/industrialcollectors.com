@@ -56,7 +56,7 @@ if ($ofertasActivas) {
 } elseif ($busquedaActiva !== '') {
     $tituloPaginaTienda = bm_title_case($busquedaActiva);
 } elseif ($categoriaActivaNombre !== '') {
-    $tituloPaginaTienda = bm_title_case($categoriaActivaNombre);
+    $tituloPaginaTienda = bm_category_display_name(bm_title_case($categoriaActivaNombre));
 } elseif ($categoriaActiva !== '') {
     $tituloPaginaTienda = 'Productos';
 }
@@ -83,7 +83,7 @@ if (!function_exists('bm_tienda_category_icon_class')) {
     }
 }
 
-$categoriaToggleTexto = $categoriaActivaNombre !== '' ? bm_title_case($categoriaActivaNombre) : 'Todos los productos';
+$categoriaToggleTexto = $categoriaActivaNombre !== '' ? bm_category_display_name(bm_title_case($categoriaActivaNombre)) : 'Todos los productos';
 $categoriaToggleIcono = $categoriaActivaNombre !== '' ? bm_tienda_category_icon_class($categoriaActivaNombre) : 'bx bx-grid-alt';
 
 if ($busquedaActiva !== '' || $ofertasActivas) {
@@ -806,7 +806,7 @@ if ($busquedaActiva !== '' || $ofertasActivas) {
                                             <li>
                                                 <a href="tienda.php?categoria=<?= $cat['idcategoria'] ?>&idsucursal=4" class="nav-link <?= ($categoriaActiva == $cat['idcategoria']) ? 'active' : '' ?>">
                                                     <i class="<?= htmlspecialchars($icono, ENT_QUOTES) ?>" aria-hidden="true"></i>
-                                                    <span><?= htmlspecialchars($cat['nombre']) ?></span>
+                                                    <span><?= htmlspecialchars(bm_category_display_name($cat['nombre'])) ?></span>
                                                 </a>
                                             </li>
                                         <?php

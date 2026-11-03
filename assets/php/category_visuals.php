@@ -3,14 +3,18 @@
 if (!function_exists('bm_normalize_visual_key')) {
     function bm_normalize_visual_key($value)
     {
-        $value = strtolower(trim((string) $value));
+        $value = trim((string) $value);
+        $value = strtr($value, [
+            'á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ü' => 'u', 'ñ' => 'n',
+            'Á' => 'a', 'É' => 'e', 'Í' => 'i', 'Ó' => 'o', 'Ú' => 'u', 'Ü' => 'u', 'Ñ' => 'n',
+        ]);
         $converted = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $value);
 
         if ($converted !== false && $converted !== '') {
             $value = $converted;
         }
 
-        $value = preg_replace('/[^a-z0-9]+/', '-', $value);
+        $value = preg_replace('/[^a-z0-9]+/', '-', strtolower($value));
         return trim((string) $value, '-');
     }
 }
@@ -22,6 +26,14 @@ if (!function_exists('bm_title_case')) {
     }
 }
 
+if (!function_exists('bm_category_display_name')) {
+    function bm_category_display_name($categoryName)
+    {
+        $name = trim((string) $categoryName);
+        return bm_normalize_visual_key($name) === 'hierros-y-aceros' ? 'Materiales metálicos' : $name;
+    }
+}
+
 if (!function_exists('bm_category_icon_class')) {
     function bm_category_icon_class($categoryName)
     {
@@ -29,6 +41,11 @@ if (!function_exists('bm_category_icon_class')) {
 
         $specificMap = [
             'todos-los-productos' => 'bx bx-grid-alt',
+            'hierros-y-aceros' => 'bx bx-columns',
+            'materiales-metalicos' => 'bx bx-columns',
+            'laminas-y-techos' => 'bx bx-layer',
+            'materiales-de-construccion' => 'bx bx-building-house',
+            'perfiles' => 'bx bx-cube-alt',
             'construccion' => 'bx bx-building-house',
             'plomeria' => 'bx bx-water',
             'electricidad' => 'bx bx-bulb',

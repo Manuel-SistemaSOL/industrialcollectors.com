@@ -331,6 +331,11 @@ const Carrito = {
 
         // Buscar si el producto ya existe en el carrito
         const productoExistente = carrito.find(item => item.idarticulo == idarticulo);
+        const imagenProducto = typeof window.BM_resolveFirstProductImage === 'function'
+            ? window.BM_resolveFirstProductImage([producto.imagen, producto.foto])
+            : (typeof window.BM_resolveProductImage === 'function'
+                ? window.BM_resolveProductImage(producto.imagen)
+                : (producto.imagen || producto.foto || window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png'));
 
         if (productoExistente) {
             // Si existe, aumentar la cantidad (pero mantener el precio original)
@@ -350,6 +355,12 @@ const Carrito = {
             }
             productoExistente.cantidad = nuevaCantidad;
             productoExistente.precio_normal = this.normalizarPrecio(productoExistente.precio_normal, productoExistente.precio || precio);
+            const esImagenTemporal = typeof window.BM_isProductImageFallbackUrl === 'function'
+                ? window.BM_isProductImageFallbackUrl(imagenProducto)
+                : imagenProducto === window.BM_PRODUCT_IMAGE_FALLBACK;
+            if (imagenProducto && !esImagenTemporal) {
+                productoExistente.imagen = imagenProducto;
+            }
             // IMPORTANTE: No permitir cambiar el precio de productos existentes
             // El precio se mantiene como estaba cuando se agregó por primera vez
         } else {
@@ -359,9 +370,7 @@ const Carrito = {
                 nombre: producto.nombre || '',
                 precio: precio, // Precio validado
                 precio_normal: precio,
-                imagen: typeof window.BM_resolveProductImage === 'function'
-                    ? window.BM_resolveProductImage(producto.imagen)
-                    : (producto.imagen || (window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png')),
+                imagen: imagenProducto,
                 cantidad: cantidad,
                 descripcion: producto.descripcion || ''
             };
@@ -731,7 +740,10 @@ function agregarAlCarritoDesdeModal() {
     const titulo = document.getElementById('mp-titulo')?.innerText || '';
     const precio = document.getElementById('mp-precio')?.innerText.replace('Q', '') || '0';
     const sku = document.getElementById('mp-sku')?.innerText || '';
-    const imagen = document.getElementById('mp-imagen-principal')?.src || '';
+    const elementoImagen = document.getElementById('mp-imagen-principal');
+    const imagen = typeof window.BM_getProductImageSource === 'function'
+        ? window.BM_getProductImageSource(elementoImagen)
+        : (elementoImagen?.src || '');
     const descripcion = document.getElementById('mp-descripcion')?.innerText || '';
     const cantidad = normalizarInputCantidad('mp-cantidad');
     

@@ -809,9 +809,8 @@ document.addEventListener('click', function(event) {
         producto = normalizarPreciosProducto(producto);
 
         const imagenFallback = window.BM_PRODUCT_IMAGE_FALLBACK || 'assets/img/ImagenTemporalINDUSTRIALCOLLECTORS.png';
-        mpImagenes = Array.isArray(producto.imagenes) && producto.imagenes.length
-            ? producto.imagenes
-            : [producto.imagen].filter(function (img) {
+        mpImagenes = (Array.isArray(producto.imagenes) ? producto.imagenes : [])
+            .filter(function (img) {
                 return typeof window.BM_isInvalidProductImage === 'function'
                     ? !window.BM_isInvalidProductImage(img)
                     : Boolean(img);
@@ -824,7 +823,10 @@ document.addEventListener('click', function(event) {
         });
 
         if (!mpImagenes.length) {
-            mpImagenes = [imagenFallback];
+            const imagenIndividual = typeof window.BM_resolveFirstProductImage === 'function'
+                ? window.BM_resolveFirstProductImage([producto.imagen, producto.foto])
+                : (producto.imagen || producto.foto || imagenFallback);
+            mpImagenes = [imagenIndividual || imagenFallback];
         }
         mpIndex = 0;
         mpProductoActual = producto;
@@ -855,7 +857,11 @@ document.addEventListener('click', function(event) {
             };
         }
         if (imagenPrincipal && mpImagenes[0]) {
-            imagenPrincipal.src = mpImagenes[0];
+            if (typeof window.BM_setProductImage === 'function') {
+                window.BM_setProductImage(imagenPrincipal, mpImagenes[0]);
+            } else {
+                imagenPrincipal.src = mpImagenes[0];
+            }
             actualizarClaseImagenTemporal(imagenPrincipal, mpImagenes[0]);
         }
 
@@ -891,7 +897,11 @@ document.addEventListener('click', function(event) {
         mpIndex = Math.max(0, Math.min(parseInt(i, 10) || 0, mpImagenes.length - 1));
         const imagenPrincipal = document.getElementById('mp-imagen-principal');
         if (imagenPrincipal) {
-            imagenPrincipal.src = mpImagenes[mpIndex];
+            if (typeof window.BM_setProductImage === 'function') {
+                window.BM_setProductImage(imagenPrincipal, mpImagenes[mpIndex]);
+            } else {
+                imagenPrincipal.src = mpImagenes[mpIndex];
+            }
             actualizarClaseImagenTemporal(imagenPrincipal, mpImagenes[mpIndex]);
         }
 

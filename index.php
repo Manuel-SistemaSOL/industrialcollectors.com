@@ -12,12 +12,13 @@ $seo_robots = isset($_GET['error'])
 
 include 'head.php';
 require_once __DIR__ . '/assets/php/category_visuals.php';
+require_once __DIR__ . '/assets/php/api_images.php';
 $current_page = basename($_SERVER['PHP_SELF']);
 
 $apiUrl = "https://ssl.sol.sistemasolgt.com/induscollesitio/api/api_tienda_inicio.php";
 $slider = null;
 $sliderImageBaseUrl = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
-$bmHeroFallbackImage = "assets/img/Sucursal/Fachada de Industrial Collectors.png";
+$bmHeroFallbackImage = bm_api_image_fallback();
 
 $ch = curl_init($apiUrl);
 if ($ch !== false) {
@@ -48,25 +49,8 @@ $bmCleanHeroText = function ($value) {
     return trim(preg_replace('/\s+/', ' ', (string) $value));
 };
 
-$bmResolveHeroImage = function ($image) use ($sliderImageBaseUrl, $bmHeroFallbackImage) {
-    $image = trim((string) $image);
-
-    if ($image === '') {
-        return $bmHeroFallbackImage;
-    }
-
-    if (preg_match('#^https?://#i', $image)) {
-        return $image;
-    }
-
-    $image = ltrim(str_replace('\\', '/', $image), '/');
-    $parts = array_map('rawurlencode', array_filter(explode('/', $image), 'strlen'));
-
-    if (empty($parts)) {
-        return $bmHeroFallbackImage;
-    }
-
-    return $sliderImageBaseUrl . implode('/', $parts);
+$bmResolveHeroImage = function ($image) use ($sliderImageBaseUrl) {
+    return bm_resolve_api_image($image, $sliderImageBaseUrl);
 };
 
 $categoriasInicio = bm_build_category_visuals($categorias ?? []);
@@ -1409,11 +1393,12 @@ if ($slider) {
                     <div class="bm-hero-media">
                         <img
                             class="bm-hero-bg"
+                            data-bm-api-image="true"
                             src="<?php echo htmlspecialchars($imagenUrl, ENT_QUOTES); ?>"
                             alt="<?php echo htmlspecialchars($altHero, ENT_QUOTES); ?>"
                             loading="<?php echo $slideIndex === 0 ? 'eager' : 'lazy'; ?>"
                             decoding="async"
-                            onerror="this.onerror=null;this.src='<?php echo htmlspecialchars($bmHeroFallbackImage, ENT_QUOTES); ?>';">
+                            onerror="if(window.BM_applyProductImageFallback){window.BM_applyProductImageFallback(this);}else{this.onerror=null;this.src='<?php echo htmlspecialchars($bmHeroFallbackImage, ENT_QUOTES); ?>';}">
                     </div>
                     <div class="container">
                         <div class="bm-hero-content">
@@ -1434,7 +1419,7 @@ if ($slider) {
         <?php else: ?>
             <article class="bm-hero-slide">
                 <div class="bm-hero-media">
-                    <img class="bm-hero-bg" src="<?php echo htmlspecialchars($bmHeroFallbackImage, ENT_QUOTES); ?>" alt="Industrial Collectors, S.A.">
+                    <img class="bm-hero-bg" data-bm-api-image="true" src="<?php echo htmlspecialchars($bmHeroFallbackImage, ENT_QUOTES); ?>" alt="Industrial Collectors, S.A.">
                 </div>
                 <div class="container">
                     <div class="bm-hero-content">
@@ -1944,22 +1929,22 @@ $bmFindHomeCategoryId = function (array $categoryNames) use ($categorias) {
 
 $bmHomeFeaturedCategories = [
     [
-        'label' => 'Grifería',
-        'icon' => 'bx bx-water',
-        'search' => 'griferia',
-        'names' => ['griferia'],
+        'label' => 'Materiales metálicos',
+        'icon' => bm_category_icon_class('Materiales metálicos'),
+        'search' => 'hierros y aceros',
+        'names' => ['hierros y aceros'],
     ],
     [
-        'label' => 'Materiales de construcción',
-        'icon' => 'bx bx-building-house',
+        'label' => 'Láminas y Techos',
+        'icon' => bm_category_icon_class('Láminas y Techos'),
+        'search' => 'laminas y techos',
+        'names' => ['laminas y techos'],
+    ],
+    [
+        'label' => 'Materiales de Construcción',
+        'icon' => bm_category_icon_class('Materiales de Construcción'),
         'search' => 'construccion',
         'names' => ['construccion', 'materiales de construccion'],
-    ],
-    [
-        'label' => 'Materiales eléctricos',
-        'icon' => 'bx bx-bulb',
-        'search' => 'materiales electricos',
-        'names' => ['materiales electricos e iluminacion', 'materiales electricos', 'electricidad'],
     ],
 ];
 
