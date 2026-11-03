@@ -79,27 +79,84 @@ async function checkHero(page, width) {
         const content = active.querySelector('.bm-hero-content');
         const title = content.querySelector('h1'), paragraph = content.querySelector('p'), cta = content.querySelector('.bm-home-btn');
         const benefits = section.querySelector('.bm-hero-benefits');
-        const rect = (e) => { const r = e.getBoundingClientRect(); return { left: r.left, right: r.right, top: r.top, bottom: r.bottom, height: r.height }; };
+        const rect = (e) => { const r = e.getBoundingClientRect(); return { left: r.left, right: r.right, top: r.top, bottom: r.bottom, height: r.height, width: r.width }; };
         return {
             section: rect(section), carousel: rect(carousel), benefits: benefits ? rect(benefits) : null,
             count: benefits ? benefits.querySelectorAll('.bm-hero-benefits-list > li').length : 0,
+            benefitCards: benefits ? [...benefits.querySelectorAll('.bm-hero-benefits-list > li')].map(rect) : [],
             title: title ? { text: title.textContent.trim(), font: parseFloat(getComputedStyle(title).fontSize), ...rect(title) } : null,
             paragraph: paragraph ? { font: parseFloat(getComputedStyle(paragraph).fontSize), ...rect(paragraph) } : null,
             cta: cta ? rect(cta) : null,
-            media: rect(active.querySelector('.bm-hero-media')), content: rect(content)
+            slide: rect(active), dots: rect(carousel.querySelector('.owl-dots')),
+            copyParts: [...content.querySelectorAll('.bm-hero-kicker,h1,p,a')].map(rect),
+            media: rect(active.querySelector('.bm-hero-media')), content: rect(content),
+            banners: [...document.querySelectorAll('.bm-home-image-banner--catalog,.bm-home-image-banner--solutions')]
+                .map(e => ({ image: rect(e.querySelector('img')), cta: rect(e.querySelector('a')) }))
         };
     });
     const name = 'hero @ ' + width + 'px';
+    assert.ok(Math.abs(hero.slide.height - hero.slide.width * 798 / 1971) <= 1,
+        name + ': slide height must match the image ratio without extra space.');
+    assert.ok(Math.abs(hero.media.height - hero.slide.height) <= 1,
+        name + ': image media must fill the compact slide height.');
+    assert.ok(hero.dots.top >= hero.slide.top && hero.dots.bottom <= hero.slide.bottom + 1,
+        name + ': slider indicators must stay inside the image.');
+    for (const part of hero.copyParts) {
+        assert.ok(part.top >= hero.slide.top - 1 && part.bottom <= hero.slide.bottom + 1
+            && part.left >= hero.slide.left - 1 && part.right <= hero.slide.right + 1,
+            name + ': slider text or button extends outside the image.');
+    }
     assert.ok(hero.benefits && hero.benefits.height > 0, name + ': benefits must remain inside the hero.');
     assert.equal(hero.count, 3, name + ': all three benefits must remain present.');
     assert.ok(Math.abs(hero.benefits.top - hero.carousel.bottom) <= 2, name + ': a gap separates the carousel and benefits.');
     assert.ok(Math.abs(hero.benefits.bottom - hero.section.bottom) <= 2, name + ': benefits escape their container.');
-    if (width < 768) {
-        assert.ok(hero.title && hero.title.text && hero.title.font >= 24 && hero.title.height > 0, name + ': mobile heading is too small or hidden.');
-        if (hero.paragraph) assert.ok(hero.paragraph.font >= 14 && hero.paragraph.height > 0, name + ': mobile description is too small or hidden.');
-        assert.ok(hero.cta && hero.cta.height >= 44, name + ': mobile CTA needs a 44px target.');
-        assert.ok(hero.content.top >= hero.media.bottom - 1, name + ': mobile copy must sit below the image.');
+    for (let i = 1; i < hero.benefitCards.length; i++) {
+        assert.ok(Math.abs(hero.benefitCards[i].top - hero.benefitCards[0].top) <= 1,
+            name + ': all three benefits must share one horizontal row.');
+        assert.ok(hero.benefitCards[i].left >= hero.benefitCards[i - 1].right - 1,
+            name + ': benefit columns overlap.');
     }
+    for (const banner of hero.banners) {
+        assert.ok(banner.cta.top >= banner.image.top - 1 && banner.cta.bottom <= banner.image.bottom + 1,
+            name + ': a banner button sits below or outside its image.');
+        assert.ok(banner.cta.left >= banner.image.left - 1 && banner.cta.right <= banner.image.right + 1,
+            name + ': a banner button escapes the horizontal image.');
+        if (width < 768) assert.ok(banner.cta.height <= 24 && banner.cta.width <= banner.image.width * 0.28,
+            name + ': mobile banner button must remain small relative to its image.');
+    }
+    if (width < 768) {
+        assert.ok(hero.title && hero.title.text && hero.title.font >= 12 && hero.title.height > 0, name + ': compact mobile heading is too small or hidden.');
+        if (hero.paragraph) assert.ok(hero.paragraph.font >= 7.5 && hero.paragraph.height > 0, name + ': compact mobile description is too small or hidden.');
+        assert.ok(hero.cta && hero.cta.height >= 18, name + ': compact mobile CTA is too small.');
+        assert.ok(hero.content.top >= hero.media.top - 1 && hero.content.bottom <= hero.media.bottom + 1,
+            name + ': horizontal copy must stay within the slide height.');
+        assert.ok(hero.content.width <= width * 0.5 && hero.content.right <= width * 0.55,
+            name + ': copy must stay on the left half of the horizontal composition.');
+        assert.ok(hero.cta.bottom <= hero.dots.top + 1, name + ': mobile slider button must stay above the indicators.');
+    }
+}
+
+async function checkHeroTransition(page) {
+    await page.setViewportSize({ width: 390, height: 1000 });
+    await page.waitForTimeout(300);
+    await page.evaluate(() => window.jQuery('.bm-home-hero-carousel').trigger('to.owl.carousel', [0, 0, true]));
+    const height = await page.locator('.bm-home-hero-carousel').evaluate(e => e.getBoundingClientRect().height);
+    await page.evaluate(() => window.jQuery('.bm-home-hero-carousel').trigger('next.owl.carousel', [650]));
+    await page.waitForTimeout(100);
+    const outgoing = await page.locator('.bm-home-hero-carousel .owl-animated-out .bm-hero-content')
+        .evaluateAll(elements => elements.map(e => getComputedStyle(e).visibility));
+    assert.ok(outgoing.length > 0 && outgoing.every(visibility => visibility === 'hidden'),
+        'Outgoing slider copy must disappear during a fade so two captions never overlap.');
+    await page.waitForFunction(() => !document.querySelector('.bm-home-hero-carousel .owl-animated-out'));
+    assert.equal(await page.locator('.bm-home-hero-carousel').evaluate(e => e.getBoundingClientRect().height), height,
+        'Changing slides must not add vertical space.');
+    await page.locator('.bm-home-hero-carousel .owl-dot').nth(2).evaluate(e => e.click());
+    await page.waitForFunction(() => {
+        const carousel = window.jQuery('.bm-home-hero-carousel').data('owl.carousel');
+        return carousel.relative(carousel.current()) === 2 && !carousel.is('animating');
+    });
+    assert.equal(await page.locator('.bm-home-hero-carousel .owl-dot.active').count(), 1,
+        'Slider indicators must continue to select one slide.');
 }
 
 async function checkBranches(page, width) {
@@ -168,17 +225,35 @@ async function main() {
             assert.equal(response.status(), 200, file + ': page did not load.');
             await page.evaluate(() => Promise.race([document.fonts.ready, new Promise((resolve) => setTimeout(resolve, 2500))]));
             if (file === 'index.php') await page.evaluate(() => {
-                if (window.jQuery) window.jQuery('.bm-home-hero-carousel').trigger('stop.owl.autoplay');
+                if (window.jQuery) {
+                    const hero = window.jQuery('.bm-home-hero-carousel');
+                    const carousel = hero.data('owl.carousel');
+                    carousel.options.autoplay = false;
+                    carousel.settings.autoplay = false;
+                    hero.trigger('stop.owl.autoplay');
+                }
             });
             for (const width of widths) {
                 await page.setViewportSize({ width, height: 1000 });
                 await page.waitForTimeout(250); // Owl refreshes its item widths after a resize debounce.
                 await checkLayout(page, file, width, content);
-                if (file === 'index.php') await checkHero(page, width);
+                if (file === 'index.php') {
+                    const slides = Math.max(1, await page.locator('.bm-home-hero-carousel .owl-item:not(.cloned)').count());
+                    for (let slide = 0; slide < slides; slide++) {
+                        await page.evaluate(i => window.jQuery('.bm-home-hero-carousel').trigger('to.owl.carousel', [i, 0, true]), slide);
+                        await page.waitForTimeout(50);
+                        assert.equal(await page.evaluate(() => {
+                            const carousel = window.jQuery('.bm-home-hero-carousel').data('owl.carousel');
+                            return carousel.relative(carousel.current());
+                        }), slide, 'The intended slider must be active before checking its layout.');
+                        await checkHero(page, width);
+                    }
+                }
                 if (file === 'contact.php') await checkBranches(page, width);
                 if (width === 390) { await checkMenu(page, file); menus++; }
                 views++;
             }
+            if (file === 'index.php') await checkHeroTransition(page);
             process.stdout.write('OK: ' + file + ' at ' + widths.join('/') + 'px\n');
         }
         assert.deepEqual(forbiddenWrites, [], 'A write endpoint was attempted and blocked.');
