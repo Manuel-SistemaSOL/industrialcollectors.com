@@ -6,14 +6,7 @@
 
     window.BM_TIENDA_CONTROLLER_V2 = true;
 
-    const API_BASE = 'https://ssl.sol.sistemasolgt.com/induscollesitio/';
-    const API = {
-        catalog: 'api/shop_products.php',
-        nuevos: API_BASE + 'api/api_tienda_articulos_listarProductosnuevos.php',
-        categoria: API_BASE + 'api/api_tienda_articulos_listarProductosxCategoria.php',
-        busqueda: API_BASE + 'api/api_tienda_articulos_listarProductosxSearch.php',
-        ofertas: API_BASE + 'api/api_tienda_ofertas.php'
-    };
+    const CATALOG_ENDPOINT = 'api/shop_products.php';
     const IMAGE_BASE = 'https://ssl.sol.sistemasolgt.com/brovic/files/articulos/';
     const SHOP_PER_PAGE = 30;
 
@@ -28,16 +21,14 @@
         priceMax: null,
         products: [],
         filtered: [],
-        meta: null,
-        loading: false,
-        queuedLoad: false,
-        queuedSyncAfterLoad: false
+        meta: null
     };
 
     let shopGrid = null;
     let homeGrid = null;
     let pagination = null;
     let countLabel = null;
+    let shopRequest = null;
     let resizeTimer = null;
     let isDivisionView = false;
     let precioMinimo = 0;
@@ -57,6 +48,7 @@
         }
 
         if (shopGrid) {
+            if (countLabel) countLabel.setAttribute('aria-live', 'polite');
             readStateFromUrl();
             bindPagination();
             bindPriceFilter();
@@ -211,7 +203,7 @@
             }
 
             state.page = page;
-            loadShopProducts(true).then(scrollToShopStart);
+            loadShopProducts(true).then(loaded => { if (loaded) scrollToShopStart(); });
         });
     }
 
@@ -226,44 +218,23 @@
         });
     }
 
-    function getShopRequestSignature() {
-        return [
-            state.mode,
-            state.page,
-            state.perPage,
-            state.idcategoria,
-            state.idsucursal,
-            state.search,
-            state.priceMin,
-            state.priceMax
-        ].join('|');
-    }
-
     async function loadShopProducts(syncAfterLoad) {
         if (!shopGrid) {
             return;
         }
 
-        if (state.loading) {
-            state.queuedLoad = true;
-            state.queuedSyncAfterLoad = state.queuedSyncAfterLoad || Boolean(syncAfterLoad);
-            return;
-        }
-
-        const requestSignature = getShopRequestSignature();
-        state.loading = true;
+        if (shopRequest) shopRequest.abort();
+        const request = new AbortController();
+        shopRequest = request;
         renderShopMessage('Cargando productos...', 'info');
         setPaginationVisible(false);
         setCountLabel('');
 
         try {
-            const response = await fetchProductsForState();
+            const response = await postJson(CATALOG_ENDPOINT, buildPayload(), request.signal);
+            if (request.signal.aborted) return;
             if (!response.success || !Array.isArray(response.data)) {
                 throw new Error('Respuesta invalida de la API');
-            }
-
-            if (requestSignature !== getShopRequestSignature()) {
-                return;
             }
 
             state.products = normalizeProducts(response.data);
@@ -276,10 +247,9 @@
             if (syncAfterLoad) {
                 syncUrl();
             }
+            return true;
         } catch (error) {
-            if (requestSignature !== getShopRequestSignature() && state.queuedLoad) {
-                return;
-            }
+            if (request.signal.aborted) return;
 
             console.error('Error al cargar productos:', error);
             state.products = [];
@@ -289,40 +259,8 @@
             setPaginationVisible(false);
             setCountLabel('');
         } finally {
-            state.loading = false;
-
-            if (state.queuedLoad) {
-                const queuedSyncAfterLoad = state.queuedSyncAfterLoad;
-                state.queuedLoad = false;
-                state.queuedSyncAfterLoad = false;
-                loadShopProducts(queuedSyncAfterLoad);
-            }
+            if (shopRequest === request) shopRequest = null;
         }
-    }
-
-    function getEndpoint() {
-        if (state.mode === 'categoria') return API.categoria;
-        if (state.mode === 'busqueda') return API.busqueda;
-        if (state.mode === 'ofertas') return API.ofertas;
-        return API.nuevos;
-    }
-
-    async function fetchProductsForState() {
-        return postJson(API.catalog, buildPayload());
-    }
-
-    function getSidebarCategoryIds() {
-        return Array.from(document.querySelectorAll('.widget_categories a.nav-link[href*="categoria="]'))
-            .map(function (link) {
-                try {
-                    return new URL(link.getAttribute('href'), window.location.href).searchParams.get('categoria');
-                } catch (error) {
-                    return '';
-                }
-            })
-            .filter(function (id, index, ids) {
-                return id && ids.indexOf(id) === index;
-            });
     }
 
     function buildPayload() {
@@ -352,11 +290,12 @@
         return payload;
     }
 
-    async function postJson(url, payload) {
+    async function postJson(url, payload, signal) {
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload || {})
+            body: JSON.stringify(payload || {}),
+            signal: signal
         });
 
         if (!response.ok) {
@@ -538,9 +477,12 @@
         const meta = state.meta || normalizeMeta(null, state.products.length);
         const total = meta.total;
         if (total === 0) {
-            renderShopMessage('No hay productos disponibles para mostrar.', 'info');
+            const searching = state.mode === 'busqueda';
+            renderShopMessage(searching
+                ? 'No encontramos productos para «' + state.search + '».'
+                : 'No hay productos disponibles para mostrar.', 'info');
             setPaginationVisible(false);
-            setCountLabel('');
+            setCountLabel(searching ? '0 productos' : '');
             return;
         }
 
@@ -855,7 +797,7 @@
         state.priceMax = max >= precioMaximo ? null : max;
         state.page = 1;
 
-        loadShopProducts(true).then(scrollToShopStart);
+        loadShopProducts(true).then(loaded => { if (loaded) scrollToShopStart(); });
     }
 
     async function loadHomeProducts() {
@@ -866,7 +808,7 @@
         renderHomeMessage('Cargando productos...', 'info');
 
         try {
-            const response = await postJson(API.catalog, {
+            const response = await postJson(CATALOG_ENDPOINT, {
                 mode: 'nuevos',
                 page: 1,
                 per_page: SHOP_PER_PAGE,
@@ -912,6 +854,14 @@
         homeGrid.appendChild(column);
     }
 
+    function updateSearchContext(search) {
+        const title = search || 'Tienda';
+        document.querySelectorAll('.bm-shop-title-area h2, .bm-shop-title-area .page-title-content li:last-child')
+            .forEach(element => { element.textContent = title; });
+        const toolbar = document.querySelector('.shop-area .bm-shop-toolbar strong');
+        if (toolbar) toolbar.textContent = search ? 'Resultados para «' + search + '»' : 'Todos los productos';
+    }
+
     window.cargarProductosNuevos = function cargarProductosNuevosV2() {
         if (shopGrid) {
             state.mode = 'nuevos';
@@ -920,6 +870,7 @@
             state.search = '';
             state.priceMin = null;
             state.priceMax = null;
+            updateSearchContext('');
             return loadShopProducts(true);
         }
 
@@ -938,10 +889,18 @@
 
     window.cargarProductosPorBusqueda = function cargarProductosPorBusquedaV2(termino) {
         if (!shopGrid) return Promise.resolve();
+        const search = cleanText(termino);
+        if (!search) return window.cargarProductosNuevos();
+        if (state.mode === 'busqueda' && state.search === search && (shopRequest || state.meta)) {
+            return Promise.resolve();
+        }
         state.mode = 'busqueda';
         state.page = 1;
-        state.search = cleanText(termino);
+        state.search = search;
         state.idcategoria = '';
+        state.priceMin = null;
+        state.priceMax = null;
+        updateSearchContext(search);
         return loadShopProducts(true);
     };
 

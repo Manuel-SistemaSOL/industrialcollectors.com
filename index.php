@@ -17,7 +17,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 $apiUrl = "https://ssl.sol.sistemasolgt.com/induscollesitio/api/api_tienda_inicio.php";
 $slider = null;
-$sliderImageBaseUrl = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
+$sliderImageBaseUrl = "https://ssl.sol.sistemasolgt.com/induscollesitio/files/articulos/";
+$sliderLegacyImageBaseUrl = "https://ssl.sol.sistemasolgt.com/brovic/files/articulos/";
 $bmHeroFallbackImage = bm_api_image_fallback();
 
 $ch = curl_init($apiUrl);
@@ -47,10 +48,6 @@ if ($ch !== false) {
 
 $bmCleanHeroText = function ($value) {
     return trim(preg_replace('/\s+/', ' ', (string) $value));
-};
-
-$bmResolveHeroImage = function ($image) use ($sliderImageBaseUrl) {
-    return bm_resolve_api_image($image, $sliderImageBaseUrl);
 };
 
 $categoriasInicio = bm_build_category_visuals($categorias ?? []);
@@ -1383,7 +1380,8 @@ if ($slider) {
                 $descripcionHero = $bmCleanHeroText($b['descripcion'] ?? '');
                 $tituloHero = $subtituloApi !== '' ? $subtituloApi : $tituloApi;
                 $kickerHero = $tituloApi !== $tituloHero ? $tituloApi : '';
-                $imagenUrl = $bmResolveHeroImage($b['imagen'] ?? '');
+                $imagenUrl = bm_resolve_api_image($b['imagen'] ?? '', $sliderImageBaseUrl);
+                $legacyImagenUrl = bm_resolve_api_image($b['imagen'] ?? '', $sliderLegacyImageBaseUrl);
                 $altHero = $tituloHero !== '' ? $tituloHero : ($kickerHero !== '' ? $kickerHero : 'Industrial Collectors, S.A.');
                 $cta = $bmHeroCtas[$i] ?? $bmHeroCtas[1];
                 $ctaTexto = $cta['label'];
@@ -1394,11 +1392,24 @@ if ($slider) {
                         <img
                             class="bm-hero-bg"
                             data-bm-api-image="true"
+                            <?php if ($legacyImagenUrl !== $imagenUrl): ?>
+                                data-bm-api-alternate-source="<?php echo htmlspecialchars($legacyImagenUrl, ENT_QUOTES); ?>"
+                            <?php endif; ?>
                             src="<?php echo htmlspecialchars($imagenUrl, ENT_QUOTES); ?>"
                             alt="<?php echo htmlspecialchars($altHero, ENT_QUOTES); ?>"
                             loading="<?php echo $slideIndex === 0 ? 'eager' : 'lazy'; ?>"
                             decoding="async"
-                            onerror="if(window.BM_applyProductImageFallback){window.BM_applyProductImageFallback(this);}else{this.onerror=null;this.src='<?php echo htmlspecialchars($bmHeroFallbackImage, ENT_QUOTES); ?>';}">
+                            onerror="
+                                if (window.BM_applyProductImageFallback) return;
+                                const alternate = this.getAttribute('data-bm-api-alternate-source');
+                                if (alternate) {
+                                    this.removeAttribute('data-bm-api-alternate-source');
+                                    this.src = alternate;
+                                } else {
+                                    this.onerror = null;
+                                    this.src = '<?php echo htmlspecialchars($bmHeroFallbackImage, ENT_QUOTES); ?>';
+                                }
+                            ">
                     </div>
                     <div class="container">
                         <div class="bm-hero-content">

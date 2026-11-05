@@ -1599,10 +1599,10 @@ HTML;
             </span>
             <span class="shipping-promo-mobile-delivery">Materiales met&aacute;licos</span>
             <div class="header-search-panel shipping-search-panel shipping-search-panel-desktop" id="header-search-panel">
-                <form class="header-search-form" onsubmit="event.preventDefault(); buscarProductos(this);" role="search" aria-label="Buscar productos">
+                <form class="header-search-form" action="tienda.php" method="get" role="search" aria-label="Buscar productos">
                     <div class="header-search-box">
-                        <input type="text" id="search" name="search" class="form-control bm-search-input" placeholder="Buscar materiales metálicos..." value="<?php echo htmlspecialchars($bm_header_search_value, ENT_QUOTES, 'UTF-8'); ?>" autocomplete="off">
-                        <button type="button" onclick="buscarProductos(this)" aria-label="Buscar">
+                        <input type="text" id="search" name="buscar" class="form-control bm-search-input" placeholder="Buscar materiales metálicos..." value="<?php echo htmlspecialchars($bm_header_search_value, ENT_QUOTES, 'UTF-8'); ?>" autocomplete="off">
+                        <button type="submit" aria-label="Buscar">
                             <i class='bx bx-search'></i>
                         </button>
                     </div>
@@ -1621,10 +1621,10 @@ HTML;
                         <i class='bx bx-menu'></i>
                     </button>
                     <div class="mobile-header-search-panel">
-                        <form class="header-search-form" onsubmit="event.preventDefault(); buscarProductos(this);" role="search" aria-label="Buscar productos">
+                        <form class="header-search-form" action="tienda.php" method="get" role="search" aria-label="Buscar productos">
                             <div class="header-search-box">
-                                <input type="text" id="search-mobile" name="search_mobile" class="form-control bm-search-input" placeholder="Buscar materiales metálicos..." value="<?php echo htmlspecialchars($bm_header_search_value, ENT_QUOTES, 'UTF-8'); ?>" autocomplete="off">
-                                <button type="button" onclick="buscarProductos(this)" aria-label="Buscar">
+                                <input type="text" id="search-mobile" name="buscar" class="form-control bm-search-input" placeholder="Buscar materiales metálicos..." value="<?php echo htmlspecialchars($bm_header_search_value, ENT_QUOTES, 'UTF-8'); ?>" autocomplete="off">
+                                <button type="submit" aria-label="Buscar">
                                     <i class='bx bx-search'></i>
                                 </button>
                             </div>
@@ -1731,19 +1731,6 @@ HTML;
             var body = document.body;
             var toggle = document.querySelector('.bm-menu-toggle');
             var closeTargets = document.querySelectorAll('[data-bm-menu-close]');
-            var headerSearchInitialValue = <?php echo json_encode($bm_header_search_value, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); ?>;
-
-            function syncHeaderSearchValue() {
-                if (headerSearchInitialValue === '') {
-                    return;
-                }
-
-                document.querySelectorAll('.bm-search-input, #search, #search-mobile').forEach(function (input) {
-                    input.value = headerSearchInitialValue;
-                    input.defaultValue = headerSearchInitialValue;
-                    input.setAttribute('value', headerSearchInitialValue);
-                });
-            }
 
             if (toggle) {
                 toggle.addEventListener('click', function () {
@@ -1761,17 +1748,5 @@ HTML;
                 });
             });
 
-            syncHeaderSearchValue();
-            window.setTimeout(syncHeaderSearchValue, 200);
-            window.setTimeout(syncHeaderSearchValue, 900);
-            window.addEventListener('load', syncHeaderSearchValue);
-            window.addEventListener('pageshow', syncHeaderSearchValue);
-
-            if (headerSearchInitialValue !== '') {
-                var headerSearchSyncTimer = window.setInterval(syncHeaderSearchValue, 250);
-                window.setTimeout(function () {
-                    window.clearInterval(headerSearchSyncTimer);
-                }, 2500);
-            }
         });
     </script>

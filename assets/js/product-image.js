@@ -167,6 +167,13 @@
             return;
         }
 
+        const alternate = image.getAttribute('data-bm-api-alternate-source');
+        if (alternate) {
+            image.removeAttribute('data-bm-api-alternate-source');
+            image.src = alternate;
+            return;
+        }
+
         const source = image.getAttribute('src') || '';
         if (!isInvalidProductImage(source) && !isProductImageFallbackUrl(source)) {
             image.setAttribute('data-bm-api-source', source);

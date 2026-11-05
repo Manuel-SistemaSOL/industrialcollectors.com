@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once dirname(__DIR__) . '/assets/php/category_visuals.php';
+
 if (!defined('BM_SHOP_LIBRARY_ONLY')) {
     header('Content-Type: application/json; charset=utf-8');
     header('X-Robots-Tag: noindex');
@@ -309,44 +311,124 @@ function bm_shop_collect_products_by_search_terms(string $idsucursal): array
 
 function bm_shop_normalize_search_key(string $value): string
 {
-    $value = strtolower(bm_shop_text($value));
-    $converted = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $value);
-
-    if ($converted !== false && $converted !== '') {
-        $value = $converted;
-    }
-
-    return trim((string) preg_replace('/[^a-z0-9]+/', ' ', $value));
+    $value = strtr($value, [
+        'á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ü' => 'u', 'ñ' => 'n',
+        'Á' => 'a', 'É' => 'e', 'Í' => 'i', 'Ó' => 'o', 'Ú' => 'u', 'Ü' => 'u', 'Ñ' => 'n',
+        '×' => 'x',
+    ]);
+    $value = strtr($value, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
+    $value = preg_replace('/\p{Mn}+/u', '', $value) ?? '';
+    $value = preg_replace('~(?<=\d)\s*([x/])\s*(?=\d)~u', '$1', $value);
+    $value = preg_replace('~(?<=\d)\s*[.,]\s*(?=\d)~u', '.', $value);
+    $value = preg_replace_callback('/\d+\.\d+/', function (array $match): string {
+        return rtrim(rtrim($match[0], '0'), '.');
+    }, $value);
+    $value = preg_replace('/(?<=\d)\s+(?=(?:mm|cm|m|mts?|pies?|lbs?)\b)/u', '', $value);
+    $value = preg_replace('~(?<!\d)[./]|[./](?!\d)~', ' ', $value);
+    return trim((string) preg_replace('~[^a-z0-9./]+~', ' ', $value));
 }
 
-function bm_shop_search_fallback_terms(string $search): array
+function bm_shop_match_products(array $products, string $key): array
 {
-    $key = bm_shop_normalize_search_key($search);
-    $terms = [];
-
-    if (strpos($key, 'herramienta') !== false || strpos($key, 'herramientas') !== false) {
-        $terms[] = 'herramienta';
+    if ($key === '') {
+        return [];
     }
 
-    if (strpos($key, 'construccion') !== false) {
-        $terms[] = 'construccion';
+    $patterns = array_map(function (string $term): string {
+        $pattern = preg_quote($term, '~');
+        // Keep measurements such as 1/8 and 3x6 from matching 1/80 or 13x60.
+        return preg_match('/^\d/', $term) ? '~(?<![\d./])' . $pattern . '(?![\d./])~' : '~' . $pattern . '~';
+    }, array_unique(explode(' ', $key)));
+    $containsTerms = function (string $text) use ($patterns): bool {
+        foreach ($patterns as $pattern) {
+            if (!preg_match($pattern, $text)) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    $codeQuery = strpbrk($key, './') === false ? str_replace(' ', '', $key) : '';
+    $allowPartialCode = $codeQuery !== '' && !preg_match('/^\d+(?:x\d+|(?:mm|cm|m|mts?|pies?|lbs?)\b)/', $key);
+    $matches = [];
+    foreach (bm_shop_dedupe_products($products) as $product) {
+        $name = bm_shop_normalize_search_key(bm_shop_text($product['nombre'] ?? ''));
+        $id = bm_shop_text($product['idarticulo'] ?? $product['id'] ?? '');
+        $category = bm_shop_text($product['categoria'] ?? '');
+        $codes = [];
+        foreach (['codigo', 'codigobarra', 'codigo_barras', 'sku'] as $field) {
+            if (isset($product[$field]) && is_scalar($product[$field])) {
+                $codes[] = (string) $product[$field];
+            }
+        }
+
+        $exactCode = $id !== '' && $key === $id;
+        $partialCode = false;
+        foreach ($codes as $code) {
+            $codeKey = bm_shop_normalize_search_key($code);
+            $compactCode = preg_replace('/[^a-z0-9]/', '', $codeKey);
+            $exactCode = $exactCode || $codeKey === $key || ($codeQuery !== '' && $compactCode === $codeQuery);
+            if ($allowPartialCode && strpos($compactCode, $codeQuery) !== false) {
+                $partialCode = true;
+            }
+        }
+
+        if ($exactCode) {
+            $rank = 0;
+        } elseif ($containsTerms($name) || $partialCode) {
+            $rank = 1;
+        } else {
+            $details = bm_shop_normalize_search_key(implode(' ', array_merge($codes, [
+                $name, $product['descripcion'] ?? '', $category, bm_category_display_name($category),
+            ])));
+            if (!$containsTerms($details)) {
+                continue;
+            }
+            $rank = 2;
+        }
+
+        $matches[] = ['order' => [$rank, $name, $id], 'product' => $product];
     }
 
-    if (strpos($key, 'plomeria') !== false || strpos($key, 'tuberia') !== false) {
-        $terms[] = 'plomeria';
+    usort($matches, function (array $left, array $right): int {
+        return $left['order'] <=> $right['order'];
+    });
+    return array_column($matches, 'product');
+}
+
+function bm_shop_collect_catalog_products(string $idsucursal, string $search = ''): array
+{
+    $requests = [];
+    foreach (bm_shop_collect_category_ids() as $idcategoria) {
+        $requests[] = [
+            'key' => $idcategoria,
+            'endpoint' => 'api_tienda_articulos_listarProductosxCategoria.php',
+            'payload' => ['idcategoria' => $idcategoria, 'idsucursal' => $idsucursal],
+        ];
+    }
+    if ($search !== '') {
+        $requests[] = [
+            'key' => 'search',
+            'endpoint' => 'api_tienda_articulos_listarProductosxSearch.php',
+            'payload' => ['search' => $search, 'idsucursal' => $idsucursal],
+        ];
     }
 
-    if (strpos($key, 'electricidad') !== false || strpos($key, 'electrico') !== false) {
-        $terms[] = 'electricidad';
+    $responses = bm_shop_post_external_multi($requests);
+    $products = [];
+    $hasResponse = false;
+    foreach ($requests as $request) {
+        $response = $responses[$request['key']] ?? [];
+        if (bm_shop_is_cacheable_response($response) && is_array($response['data'] ?? null)) {
+            $products = array_merge($products, $response['data']);
+            $hasResponse = true;
+        }
+    }
+    if ($search !== '' && !$hasResponse) {
+        throw new RuntimeException('No fue posible consultar el catalogo para la busqueda.');
     }
 
-    if (strpos($key, 'pintura') !== false || strpos($key, 'brocha') !== false) {
-        $terms[] = 'pintura';
-    }
-
-    return array_values(array_unique(array_filter($terms, function (string $term) use ($search): bool {
-        return bm_shop_normalize_search_key($term) !== bm_shop_normalize_search_key($search);
-    })));
+    return $products;
 }
 
 function bm_shop_collect_products(array $input): array
@@ -370,38 +452,13 @@ function bm_shop_collect_products(array $input): array
     }
 
     if ($mode === 'busqueda') {
-        $search = bm_shop_text($input['search'] ?? '');
-        if ($search === '') {
+        $search = is_scalar($input['search'] ?? null) ? bm_shop_text($input['search']) : '';
+        $key = bm_shop_normalize_search_key($search);
+        if ($key === '') {
             return [];
         }
 
-        $response = bm_shop_post_external('api_tienda_articulos_listarProductosxSearch.php', [
-            'search' => $search,
-            'idsucursal' => $idsucursal,
-        ]);
-
-        $products = is_array($response['data'] ?? null) ? $response['data'] : [];
-
-        if ($products !== []) {
-            return $products;
-        }
-
-        foreach (bm_shop_search_fallback_terms($search) as $fallbackTerm) {
-            try {
-                $fallbackResponse = bm_shop_post_external('api_tienda_articulos_listarProductosxSearch.php', [
-                    'search' => $fallbackTerm,
-                    'idsucursal' => $idsucursal,
-                ]);
-            } catch (Throwable $exception) {
-                continue;
-            }
-
-            if (is_array($fallbackResponse['data'] ?? null)) {
-                $products = array_merge($products, $fallbackResponse['data']);
-            }
-        }
-
-        return $products;
+        return bm_shop_match_products(bm_shop_collect_catalog_products($idsucursal, $search), $key);
     }
 
     if ($mode === 'ofertas') {
@@ -436,25 +493,7 @@ function bm_shop_collect_products(array $input): array
         return is_array($response['data'] ?? null) ? $response['data'] : [];
     }
 
-    $products = [];
-    $categoryRequests = [];
-    foreach (bm_shop_collect_category_ids() as $idcategoria) {
-        $categoryRequests[] = [
-            'key' => $idcategoria,
-            'endpoint' => 'api_tienda_articulos_listarProductosxCategoria.php',
-            'payload' => [
-                'idcategoria' => $idcategoria,
-                'idsucursal' => $idsucursal,
-            ],
-        ];
-    }
-
-    foreach (bm_shop_post_external_multi($categoryRequests) as $response) {
-        if (is_array($response['data'] ?? null)) {
-            $products = array_merge($products, $response['data']);
-        }
-    }
-
+    $products = bm_shop_collect_catalog_products($idsucursal);
     if ($products !== []) {
         return $products;
     }

@@ -403,96 +403,9 @@ function BM_buscarProductosEnVivo(termino) {
     return true;
 }
 
-function BM_getHeaderSearchInputs() {
-    const inputs = Array.prototype.slice.call(document.querySelectorAll('.bm-search-input, #search, #search-mobile'));
-
-    return inputs.filter(function(input, index) {
-        return input && inputs.indexOf(input) === index;
-    });
-}
-
-function BM_isVisibleHeaderSearchInput(input) {
-    if (!input) {
-        return false;
-    }
-
-    const styles = window.getComputedStyle(input);
-    const rect = input.getBoundingClientRect();
-
-    return styles.display !== 'none' &&
-        styles.visibility !== 'hidden' &&
-        rect.width > 0 &&
-        rect.height > 0;
-}
-
-function BM_getActiveHeaderSearchInput(source) {
-    const trigger = source && source.nodeType === 1 ? source : null;
-    const scopedInput = trigger && trigger.closest('form')
-        ? trigger.closest('form').querySelector('.bm-search-input, input[name="search"]')
-        : null;
-
-    if (scopedInput) {
-        return scopedInput;
-    }
-
-    if (
-        document.activeElement &&
-        document.activeElement.matches &&
-        document.activeElement.matches('.bm-search-input, #search, #search-mobile')
-    ) {
-        return document.activeElement;
-    }
-
-    const inputs = BM_getHeaderSearchInputs();
-    return inputs.find(BM_isVisibleHeaderSearchInput) || inputs[0] || null;
-}
-
-function BM_syncHeaderSearchInputs(value, source) {
-    BM_getHeaderSearchInputs().forEach(function(input) {
-        if (input !== source) {
-            input.value = value;
-        }
-
-        input.defaultValue = value;
-        input.setAttribute('value', value);
-    });
-}
-
-function BM_restoreHeaderSearchFromUrl() {
-    const urlParams = new URLSearchParams(window.location.search);
-
-    if (urlParams.has('buscar')) {
-        BM_syncHeaderSearchInputs(urlParams.get('buscar') || '');
-    }
-}
-
-function buscarProductos(source) {
-    const searchInput = BM_getActiveHeaderSearchInput(source);
-    const termino = searchInput ? searchInput.value.trim() : '';
-    BM_syncHeaderSearchInputs(termino, searchInput);
-
-    if (BM_buscarProductosEnVivo(termino)) {
-        return;
-    }
-    
-    if (!termino) {
-        if (searchInput) {
-            searchInput.focus();
-        }
-        return;
-    }
-    
-    // Redirigir a tienda.php con el parámetro de búsqueda
-    window.location.href = 'tienda.php?buscar=' + encodeURIComponent(termino);
-}
-
-window.buscarProductos = buscarProductos;
-window.BM_syncHeaderSearchInputs = BM_syncHeaderSearchInputs;
-window.BM_restoreHeaderSearchFromUrl = BM_restoreHeaderSearchFromUrl;
-
-// Restaurar, enviar y filtrar busqueda desde la barra fija.
+// Enviar y filtrar la búsqueda desde la barra fija.
 document.addEventListener('DOMContentLoaded', function() {
-    const searchInputs = BM_getHeaderSearchInputs();
+    const searchInputs = document.querySelectorAll('.header-search-form .bm-search-input');
     const searchPanel = document.getElementById('header-search-panel');
     let searchTimer = null;
 
@@ -500,40 +413,44 @@ document.addEventListener('DOMContentLoaded', function() {
         searchPanel.classList.add('is-open');
     }
 
-    if (!searchInputs.length) {
-        return;
+    function syncSearchInputs(source, value) {
+        searchInputs.forEach(function(input) {
+            if (input !== source) {
+                input.value = value;
+            }
+        });
     }
-
-    BM_restoreHeaderSearchFromUrl();
-    window.setTimeout(BM_restoreHeaderSearchFromUrl, 150);
-    window.setTimeout(BM_restoreHeaderSearchFromUrl, 650);
 
     searchInputs.forEach(function(searchInput) {
         searchInput.addEventListener('input', function() {
-            BM_syncHeaderSearchInputs(searchInput.value, searchInput);
+            syncSearchInputs(searchInput, searchInput.value);
+            window.clearTimeout(searchTimer);
 
             if (!BM_esPaginaTiendaConBusqueda()) {
                 return;
             }
 
-            const termino = searchInput.value.trim();
-            window.clearTimeout(searchTimer);
             searchTimer = window.setTimeout(function() {
-                BM_buscarProductosEnVivo(termino);
+                BM_buscarProductosEnVivo(searchInput.value);
             }, 260);
         });
 
-        searchInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                buscarProductos(searchInput);
+        searchInput.form.addEventListener('submit', function(event) {
+            window.clearTimeout(searchTimer);
+            const termino = searchInput.value.trim();
+            syncSearchInputs(searchInput, termino);
+
+            if (BM_buscarProductosEnVivo(termino)) {
+                event.preventDefault();
+            } else if (!termino) {
+                event.preventDefault();
+                searchInput.focus();
+            } else {
+                searchInput.value = termino;
             }
         });
     });
 });
-
-window.addEventListener('load', BM_restoreHeaderSearchFromUrl);
-window.addEventListener('pageshow', BM_restoreHeaderSearchFromUrl);
 
 document.addEventListener('click', function(event) {
     const menuLink = event.target.closest(
