@@ -2012,6 +2012,46 @@ body.bm-mobile-menu-open .bm-mobile-menu-overlay,
   color: var(--tjdc-white) !important;
 }
 
+.bm-footer-locations {
+  margin-bottom: 24px;
+  max-width: 520px;
+}
+
+.bm-footer-locations h3 {
+  color: var(--tjdc-white);
+  font-family: var(--tjdc-font-body) !important;
+  font-size: clamp(17px, 1.15vw, 24px);
+  line-height: 1.4;
+  margin: 0 0 14px;
+}
+
+.bm-footer-column .bm-footer-branches {
+  display: grid;
+  gap: 12px;
+}
+
+.bm-footer-branches .bm-footer-branch {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 3px solid var(--tjdc-gold-light);
+  border-radius: 8px;
+  margin: 0;
+  padding: 14px 16px;
+}
+
+.bm-footer-branch h4 {
+  color: var(--tjdc-white);
+  font-family: var(--tjdc-font-body) !important;
+  font-size: inherit;
+  line-height: 1.4;
+  margin: 0 0 6px;
+}
+
+.bm-footer-column .bm-footer-branch p {
+  line-height: 1.55;
+  margin: 0;
+}
+
 .bm-footer-column a:hover,
 .bm-footer-column a:focus,
 .bm-footer-copyright a:hover,

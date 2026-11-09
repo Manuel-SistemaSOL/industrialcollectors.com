@@ -3,7 +3,19 @@
         <div class="bm-footer-grid">
             <div class="bm-footer-column">
                 <h2>Cont&aacute;ctanos</h2>
-                <p><strong>Ubicaci&oacute;n:</strong> Sucursal 1: 6 calle 13-10, zona 10, Finca El Carmen, San Miguel Petapa, Guatemala. Sucursal 2: Calle Real a San Miguel Petapa, 21-20 zona 10, La Enriqueta, Guatemala.</p>
+                <div class="bm-footer-locations">
+                    <h3 id="bm-footer-locations-title">Nuestras 2 sucursales</h3>
+                    <ul class="bm-footer-branches" aria-labelledby="bm-footer-locations-title" role="list">
+                        <li class="bm-footer-branch">
+                            <h4>Sucursal 1 &middot; El Carmen</h4>
+                            <p>6 calle 13-10, zona 10, Finca El Carmen, San Miguel Petapa, Guatemala.</p>
+                        </li>
+                        <li class="bm-footer-branch">
+                            <h4>Sucursal 2 &middot; La Enriqueta</h4>
+                            <p>Calle Real a San Miguel Petapa, 21-20 zona 10, La Enriqueta, Guatemala.</p>
+                        </li>
+                    </ul>
+                </div>
                 <p><strong>Horario:</strong> Lunes a viernes: 7:00 a. m. a 6:00 p. m. Sábado: 7:00 a. m. a 4:00 p. m.</p>
                 <p><strong>Llamadas / WhatsApp:</strong> <a href="tel:+50232001888">+502 3200 1888</a> | <a href="https://wa.me/50230888818" target="_blank" rel="noopener">3088-8818</a></p>
                 <p><strong>Email:</strong> <a href="mailto:industrialcollectorsventas@gmail.com">industrialcollectorsventas@gmail.com</a></p>
